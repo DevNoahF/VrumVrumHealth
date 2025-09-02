@@ -2,6 +2,9 @@ CREATE TABLE paciente (
                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
                           nome VARCHAR(100) NOT NULL,
                           cpf VARCHAR(11) UNIQUE NOT NULL,
+                          data_nascimento DATE,
+                          email VARCHAR(100) UNIQUE NOT NULL,
+                          senha_hash VARCHAR(255) NOT NULL,
                           telefone VARCHAR(20),
                           email VARCHAR(100),
                           cep VARCHAR(9),
@@ -11,9 +14,20 @@ CREATE TABLE paciente (
                           tipo_atendimento ENUM('EXAME','CONSULTA','TRATAMENTO_CONTINUO') NOT NULL,
                           frequencia ENUM('SEMANAL','QUINZENAL','DIARIO','MENSAL') NULL, -- só preenche se for TRATAMENTO_CONTINUO
                           data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                          data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                          data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                          role ENUM('PACIENTE','ADMIN') DEFAULT 'PACIENTE'
 );
 
+CREATE TABLE admin (
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        nome VARCHAR(100) NOT NULL,
+                        matricula VARCHAR(20) UNIQUE NOT NULL,
+                        email VARCHAR(100) UNIQUE NOT NULL,
+                        senha_hash VARCHAR(255) NOT NULL,
+                        data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                        role ENUM('PACIENTE','ADMIN') DEFAULT 'ADMIN'
+);
 CREATE TABLE agendamento (
                              id BIGINT AUTO_INCREMENT PRIMARY KEY,
                              paciente_id BIGINT NOT NULL,
