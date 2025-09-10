@@ -1,6 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Enum;
 
-public enum estado {
+public enum Estado {
     PENDENTE,
     APROVADO,
     NEGADO
