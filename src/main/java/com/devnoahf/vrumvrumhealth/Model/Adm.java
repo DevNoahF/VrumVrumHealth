@@ -1,10 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,19 +18,28 @@ public class Adm {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false, unique = true)
     private String matricula;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
-    private String senha;
 
-    // utilização LocalDate para facilitar a manipulação de datas para testes
-    private LocalDate  data_criacao; //=localDate.now();
+    private String senha_hash;
 
-    private LocalDate data_atualizacao; //=localDate.now();
+    @Column(nullable = false, updatable = false)
+    private LocalDate  data_criacao;
+    private LocalDate data_atualizacao;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
+    public CharSequence getSenha_hash() {
+    }
+
+    public void setSenha_hash(String senhaCriptografada) {
+    }
 }
