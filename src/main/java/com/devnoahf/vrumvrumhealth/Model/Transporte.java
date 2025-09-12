@@ -1,26 +1,39 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-import java.util.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
-@Table(name = "transporte")
+@Table(name = "tb_transporte")
 @Data
 public class Transporte {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
 	private Long id;
 
-	private Long veiculoId;
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "HH:mm")
+	@DateTimeFormat(pattern = "HH:mm")
+	private LocalTime horarioSaida;
 
-	// NOTE: it will be needed to format
-	// 'cause in SQL a "TIME" is only "HH:MM:SS", and a date is "YYYY/MM/DD HH:MM:SS"
-	private Date horarioSaida;
+	@Column(nullable = false, updatable = false)
+	private LocalDate data_criacao;
 
-	private LocalDateTime dataCriacao;
+	private LocalDate data_atualizacao;
+
+	@ManyToOne
+	@JoinColumn(name = "veiculo_id",nullable = false)
+	private Veiculo veiculo;
+
+	@ManyToOne
+	@JoinColumn(name = "agendamento_id",nullable = false)
+	private Agendamento agendamento;
+
+
+
+
 }
