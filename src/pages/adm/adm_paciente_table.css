@@ -1,0 +1,32 @@
+body{
+    color: #ADA9A9;
+}
+
+h1{
+    color: #000
+}
+
+p{
+    color: #000
+}
+
+
+.rectangle{
+    width: 104px;
+    height: 1081px;
+    background-color: #1d4d71;
+}
+
+#titulo{
+    font-family: Arial ;
+    text-align: left;
+    padding-left: 175px;
+    padding-top: 50px;
+    font-size: 64
+}
+
+.side_bar{
+    width: 104px;
+    height: 1081px;
+    background-color: #1d4d71;
+}
