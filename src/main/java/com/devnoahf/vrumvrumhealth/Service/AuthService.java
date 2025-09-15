@@ -31,10 +31,10 @@ public class AuthService {
                 .orElse(false);
     }
 
-    // método para autenticar paciente
-    public boolean autenticarPaciente(String email, String senha){
-        return pacienteRepository.findByEmail(email)
-                .map(paciente -> passwordEncoder.matches(senha, paciente.getSenhaHash()))
-                .orElse(false);
-    }
+//    // método para autenticar paciente
+//    public boolean autenticarPaciente(String email, String senha){
+//        return pacienteRepository.findByEmail(email)
+//                .map(paciente -> passwordEncoder.matches(senha, paciente.getSenhaHash()))
+//                .orElse(false);
+//    }
 }

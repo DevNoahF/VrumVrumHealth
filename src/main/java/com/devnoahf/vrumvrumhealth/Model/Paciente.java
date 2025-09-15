@@ -2,7 +2,7 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.Frequencia;
 import com.devnoahf.vrumvrumhealth.Enum.Role;
-import com.devnoahf.vrumvrumhealth.Enum.Tipo_atendimento;
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimento;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -47,7 +47,7 @@ public class Paciente {
     private Integer numero;
 
     @Enumerated(EnumType.STRING)
-    private Tipo_atendimento tipo_atendimento;
+    private TipoAtendimento tipo_atendimento;
 
     @Enumerated(EnumType.STRING)
     private Frequencia frequencia;
@@ -61,6 +61,6 @@ public class Paciente {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "paciente_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
 }
