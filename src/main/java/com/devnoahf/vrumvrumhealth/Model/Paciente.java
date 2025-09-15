@@ -7,10 +7,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -36,7 +34,7 @@ public class Paciente {
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String senha_hash;
+    private String senhaHash;
 
     private String telefone;
 
