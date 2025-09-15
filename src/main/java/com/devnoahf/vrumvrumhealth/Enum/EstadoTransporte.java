@@ -1,5 +1,5 @@
-public enum Estado_transporte {
-	"REALIZADO",
-	"CANCELADO",
-	"NAO_COMPARECEU"
+public enum EstadoTransporte {
+	REALIZADO,
+	CANCELADO,
+	NAO_COMPARECEU
 }
