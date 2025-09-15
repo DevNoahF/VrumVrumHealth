@@ -58,15 +58,3 @@ CREATE TABLE transporte (
                             FOREIGN KEY (agendamento_id) REFERENCES agendamento(id),
                             FOREIGN KEY (veiculo_id) REFERENCES veiculo(id),
 );
-
-CREATE TABLE historico_transporte (
-                                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                                      paciente_id BIGINT NOT NULL,
-                                      agendamento_id BIGINT NOT NULL,
-                                      data_transporte DATE NOT NULL,
-                                      status ENUM('REALIZADO','CANCELADO','NAO_COMPARECEU') NOT NULL,
-                                      observacoes TEXT,
-                                      data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                      FOREIGN KEY (paciente_id) REFERENCES paciente(id),
-                                      FOREIGN KEY (agendamento_id) REFERENCES agendamento(id)
-);
