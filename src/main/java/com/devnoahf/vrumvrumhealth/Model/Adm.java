@@ -2,9 +2,7 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,7 +10,8 @@ import java.time.LocalDate;
 @Table(name = "tb_adm")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Adm {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -37,9 +36,4 @@ public class Adm {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public CharSequence getSenha_hash() {
-    }
-
-    public void setSenha_hash(String senhaCriptografada) {
-    }
 }

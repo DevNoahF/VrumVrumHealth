@@ -4,9 +4,7 @@ import com.devnoahf.vrumvrumhealth.Enum.Frequencia;
 import com.devnoahf.vrumvrumhealth.Enum.Role;
 import com.devnoahf.vrumvrumhealth.Enum.Tipo_atendimento;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.text.DateFormat;
@@ -19,14 +17,15 @@ import java.util.List;
 @Table(name = "paciente")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Paciente {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private  String nome;
+    private String nome;
 
     @Column(nullable = false, unique = true)
     private String cpf;
@@ -64,15 +63,6 @@ public class Paciente {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "paciente_id", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "paciente_id", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
-
-
-    public CharSequence getSenha_hash() {
-        return senha_hash;
-    }
-
-    public void setSenha_hash(String senha_hash) {
-        this.senha_hash = senha_hash;
-    }
 }
