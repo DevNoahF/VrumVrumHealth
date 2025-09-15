@@ -15,12 +15,15 @@ public class PacienteService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // método para cadastrar paciente com senha criptografada
     public Paciente cadastrarPaciente(Paciente paciente) {
         // Criptografa a senha
-        String senhaCriptografada = passwordEncoder.encode(paciente.getSenha_hash());
-        paciente.setSenha_hash(senhaCriptografada);
+        String senhaCriptografada = passwordEncoder.encode(paciente.getSenhaHash());
+        paciente.setSenhaHash(senhaCriptografada);
 
         // Salva no banco
         return pacienteRepository.save(paciente);
     }
+
+
 }

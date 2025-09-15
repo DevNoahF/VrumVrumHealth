@@ -27,7 +27,7 @@ public class Adm {
     private String email;
 
 
-    private String senha_hash;
+    private String senhaHash;
 
     @Column(nullable = false, updatable = false)
     private LocalDate  data_criacao;
