@@ -9,20 +9,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class PacienteService {
 
-    @Autowired
-    private PacienteRepository pacienteRepository;
+//    @Autowired
+//    private PacienteRepository pacienteRepository;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public Paciente cadastrarPaciente(Paciente paciente) {
-        // Criptografa a senha
-        String senhaCriptografada = passwordEncoder.encode(paciente.getSenha_hash());
-        paciente.setSenha_hash(senhaCriptografada);
-
-
-        // Salva no banco
-        return pacienteRepository.save(paciente);
-    }
+//    public Paciente cadastrarPaciente(Paciente paciente) {
+//        // Criptografa a senha
+//        String senhaCriptografada = passwordEncoder.encode(paciente.getSenhaHash());
+//        paciente.setSenhaHash(senhaCriptografada);
+//
+//
+//        // Salva no banco
+//        return pacienteRepository.save(paciente);
+//    }
 
 }

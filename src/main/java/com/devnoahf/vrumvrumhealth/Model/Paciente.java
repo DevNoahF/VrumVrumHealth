@@ -3,14 +3,13 @@ package com.devnoahf.vrumvrumhealth.Model;
 import com.devnoahf.vrumvrumhealth.Enum.Frequencia;
 import com.devnoahf.vrumvrumhealth.Enum.Role;
 
-import com.devnoahf.vrumvrumhealth.Enum.Tipo_atendimento;
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.text.DateFormat;
+import lombok.Getter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -56,7 +55,7 @@ public class Paciente {
 
     @Enumerated(EnumType.STRING)
 
-    private TipoAtendimento tipo_atendimento;
+    private TipoAtendimento tipoAtendimento;
 
 
     @Enumerated(EnumType.STRING)
@@ -77,8 +76,7 @@ public class Paciente {
 
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role roles;
 
-    @OneToMany(mappedBy = "paciente_id", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Agendamento> agendamentos;
+
 }
