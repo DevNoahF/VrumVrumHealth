@@ -2,7 +2,6 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.Role;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDate;
 
@@ -29,6 +28,7 @@ public class Adm {
 
     private String senhaHash;
 
+
     @Column(nullable = false, updatable = false)
     private LocalDate  data_criacao;
     private LocalDate data_atualizacao;
@@ -36,4 +36,9 @@ public class Adm {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public CharSequence getSenha_hash() {
+    }
+
+    public void setSenha_hash(String senhaCriptografada) {
+    }
 }
