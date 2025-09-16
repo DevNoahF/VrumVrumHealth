@@ -25,7 +25,7 @@ CREATE TABLE admin (
                         email VARCHAR(100) UNIQUE NOT NULL,
                         senha_hash VARCHAR(255) NOT NULL,
                         data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                        data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                         role ENUM('PACIENTE','ADMIN') DEFAULT 'ADMIN'
 );
 CREATE TABLE agendamento (

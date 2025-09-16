@@ -6,3 +6,5 @@ public enum Local_atendimento {
     HOSPITAL1,
     HOSPITAL2
 }
+
+
