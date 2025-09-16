@@ -20,7 +20,9 @@ public class PacienteService {
         String senhaCriptografada = passwordEncoder.encode(paciente.getSenha_hash());
         paciente.setSenha_hash(senhaCriptografada);
 
+
         // Salva no banco
         return pacienteRepository.save(paciente);
     }
+
 }

@@ -2,9 +2,6 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -12,7 +9,8 @@ import java.time.LocalDate;
 @Table(name = "tb_adm")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Adm {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -28,7 +26,8 @@ public class Adm {
     private String email;
 
 
-    private String senha_hash;
+    private String senhaHash;
+
 
     @Column(nullable = false, updatable = false)
     private LocalDate  data_criacao;
