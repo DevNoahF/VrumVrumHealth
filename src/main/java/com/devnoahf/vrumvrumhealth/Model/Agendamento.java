@@ -1,7 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.Estado;
-import com.devnoahf.vrumvrumhealth.Enum.Local_atendimento;
+import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,7 +29,7 @@ public class Agendamento {
     private String comprovante;
 
     @Enumerated(EnumType.STRING)
-    private Local_atendimento local_atendimento;
+    private LocalAtendimento local_atendimento;
 
     @Enumerated(EnumType.STRING)
     private Estado estado;
