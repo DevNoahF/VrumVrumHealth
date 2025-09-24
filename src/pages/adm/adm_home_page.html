@@ -22,9 +22,25 @@
                 </ul>
             </nav>
         </header>
-        <section>
-            <h2>Ações de Administrador</h2>
-        </section>
+        <article id="adm_actions_container">
+            <header class="generic_header">
+                <h2>Ações de Administrador</h2>
+            </header>
+            <section id="dispatch_vehicle">
+                <!-- NOTE: this is for later on, so we'll be changing stuff here -->
+                <header class="generic_header">
+                    <h3>Enviar Veiculo</h3>
+                </header>
+                <div class="dispatch_content">
+                    <div class="user_info">
+                        <input type="text" value="<nome do usuário aqui>" readonly>
+                        <input type="text" value="<local requisitado>" readonly>
+                    </div>
+                    <button type="button" id="dispatch">Enviar veículo</button>
+                </div>
+            </section>
+        </article>
     </main>
+    </script>
 </body>
 </html>
