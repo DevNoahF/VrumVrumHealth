@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status de Solicitação</title>
+  <link rel="stylesheet" href="css/user_table.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Status de Solicitação</h1>
+
+    <section class="card">
+      <h2>Dados do Paciente</h2>
+      <p><strong>Paciente:</strong><span id="paciente"></span> </p>
+      <p><strong>Endereço:</strong><span id="endereco"></span> </p>
+      <p><strong>Unidade médica:</strong><span id="unidade"></span></p>
+      <p><strong>Acompanhante?:</strong><span id="acompanhante"></span> </p>
+      <p><strong>Necessidade especial?:</strong><span id="necessidade"></span> </p>
+      <p><strong>Data marcada:</strong><span id="data"></span></p>
+      <p><strong>Motorista:</strong><span id="motorista"></span> </p>
+      <p>
+        <strong>Status:</strong>
+        <span class="status pendente">Pendente</span>
+      </p>
+    </section>
+
+    <button class="btn-anexo">
+      <span>Visualizar Anexo</span>
+      <div class="icone-olho">👁️</div>
+    </button>
+  </main>
+  <script type="module" src="javascript/user_info.js"></script>
+</body>
+</html>

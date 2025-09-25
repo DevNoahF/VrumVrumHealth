@@ -1,0 +1,79 @@
+/* Fundo da página */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #a8a3a3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container principal */
+.container {
+  text-align: center;
+  background: #a8a3a3; /* mesma cor de fundo da tela */
+  padding: 20px;
+}
+
+/* Título principal */
+h1 {
+  margin-bottom: 20px;
+  color: #000;
+}
+
+/* Card com os dados */
+.card {
+  background: #e5e5e5;
+  padding: 20px;
+  border-radius: 30px;
+  max-width: 320px;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+}
+
+.card p {
+  text-align: left;
+  margin: 8px 0;
+}
+
+/* Cores dos status */
+.status.aprovado {
+  color: green;
+  font-weight: bold;
+}
+.status.negado {
+  color: red;
+  font-weight: bold;
+}
+.status.pendente {
+  color: orange;
+  font-weight: bold;
+}
+
+/* Botão de anexo */
+.btn-anexo {
+  background: #e5e5e5;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: background 0.3s;
+}
+
+.btn-anexo:hover {
+  background: #dcdcdc;
+}
+
+.icone-olho {
+  font-size: 20px;
+}
