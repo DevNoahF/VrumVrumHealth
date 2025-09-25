@@ -1,0 +1,65 @@
+package com.devnoahf.vrumvrumhealth.Mapper;
+
+import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+
+@Component
+public class PacienteMapper {
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public PacienteMapper() {
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
+
+    // Converte DTO em entidade, criptografando a senha
+    public Paciente toEntity(PacienteDTO dto) {
+        if (dto.getSenhaHash() == null || dto.getSenhaHash().isEmpty()) {
+            throw new IllegalArgumentException("Senha não pode ser nula ou vazia");
+        }
+
+        Paciente paciente = new Paciente();
+        paciente.setNome(dto.getNome());
+        paciente.setCpf(dto.getCpf());
+        paciente.setDataNascimento(dto.getDataNascimento());
+        paciente.setEmail(dto.getEmail());
+        paciente.setTelefone(dto.getTelefone());
+        paciente.setCep(dto.getCep());
+        paciente.setRua(dto.getRua());
+        paciente.setBairro(dto.getBairro());
+        paciente.setNumero(dto.getNumero());
+        paciente.setTipoAtendimento(dto.getTipoAtendimento());
+        paciente.setFrequencia(dto.getFrequencia());
+        paciente.setRole(dto.getRole());
+
+        // Criptografa a senha
+        paciente.setSenhaHash(passwordEncoder.encode(dto.getSenhaHash()));
+
+        // Define datas
+        paciente.setData_criacao(LocalDateTime.now());
+        paciente.setData_atualizacao(LocalDateTime.now());
+
+        return paciente;
+    }
+
+    // Converte entidade em DTO (não expõe senha)
+    public PacienteDTO toDTO(Paciente paciente) {
+        PacienteDTO dto = new PacienteDTO();
+        dto.setNome(paciente.getNome());
+        dto.setCpf(paciente.getCpf());
+        dto.setDataNascimento(paciente.getDataNascimento());
+        dto.setEmail(paciente.getEmail());
+        dto.setTelefone(paciente.getTelefone());
+        dto.setCep(paciente.getCep());
+        dto.setRua(paciente.getRua());
+        dto.setBairro(paciente.getBairro());
+        dto.setNumero(paciente.getNumero());
+        dto.setTipoAtendimento(paciente.getTipoAtendimento());
+        dto.setFrequencia(paciente.getFrequencia());
+        dto.setRole(paciente.getRole());
+        return dto;
+    }
+}

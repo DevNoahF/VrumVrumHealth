@@ -34,7 +34,7 @@ public class Paciente {
     private String cpf;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -54,7 +54,6 @@ public class Paciente {
     private Integer numero;
 
     @Enumerated(EnumType.STRING)
-
     private TipoAtendimento tipoAtendimento;
 
 
