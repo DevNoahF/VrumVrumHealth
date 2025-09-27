@@ -1,6 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Enum;
 
-public enum Tipo_atendimento {
+public enum TipoAtendimento {
     EXAME,
     CONSULTA,
     TRATAMENTO_CONTINUO

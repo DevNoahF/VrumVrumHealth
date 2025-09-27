@@ -2,42 +2,46 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.Frequencia;
 import com.devnoahf.vrumvrumhealth.Enum.Role;
-import com.devnoahf.vrumvrumhealth.Enum.Tipo_atendimento;
+
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.text.DateFormat;
+import lombok.Getter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+
 import java.util.List;
 
 @Entity
 @Table(name = "paciente")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Paciente {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private  String nome;
+    private String nome;
+
 
     @Column(nullable = false, unique = true)
     private String cpf;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String senha_hash;
+
+    private String senhaHash;
+
 
     private String telefone;
 
@@ -50,7 +54,8 @@ public class Paciente {
     private Integer numero;
 
     @Enumerated(EnumType.STRING)
-    private Tipo_atendimento tipo_atendimento;
+    private TipoAtendimento tipoAtendimento;
+
 
     @Enumerated(EnumType.STRING)
     private Frequencia frequencia;
@@ -61,18 +66,16 @@ public class Paciente {
 
     private LocalDateTime data_atualizacao;
 
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "paciente_id", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
 
 
-    public CharSequence getSenha_hash() {
-        return senha_hash;
-    }
+    @Enumerated(EnumType.STRING)
+    private Role roles;
 
-    public void setSenha_hash(String senha_hash) {
-        this.senha_hash = senha_hash;
-    }
+
 }

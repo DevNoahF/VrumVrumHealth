@@ -3,17 +3,25 @@ package com.devnoahf.vrumvrumhealth.Model;
 import com.devnoahf.vrumvrumhealth.Enum.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_adm")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class Adm {
+@Getter
+@Setter
+// Não descomentar a implementação(necessario terminar as configurações de segurança antes)
+public class Adm /*implements UserDetails*/ {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +36,8 @@ public class Adm {
     private String email;
 
 
-    private String senha_hash;
+    private String senhaHash;
+
 
     @Column(nullable = false, updatable = false)
     private LocalDate  data_criacao;
@@ -37,9 +46,42 @@ public class Adm {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public CharSequence getSenha_hash() {
-    }
+    //TODOS OS METODOS ESTÃO COMENTADOS POIS AINDA NÃO FORAM FINALIZADAS AS CONFIGURAÇÕES DE SEGURANÇA
+    //método para definir as autoridades do usuário com base no papel
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        if (this.role == Role.ADMIN) return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority(("USER")));
+//        else return List.of(new SimpleGrantedAuthority("USER"));
+//
+//    }
 
-    public void setSenha_hash(String senhaCriptografada) {
-    }
+//    @Override
+//    public String getPassword() {
+//        return "";
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return email;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
 }
