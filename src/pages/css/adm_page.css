@@ -1,0 +1,26 @@
+#dispatch_vehicle {
+    display: flex;
+    flex-direction: column;
+}
+
+#dispatch {
+    border-radius: 0.5em;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.dispatch_content {
+    display: flex;
+    align-items: center;
+}
+
+.user_info {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.user_info input {
+    padding: 0.5em;
+    margin-top: 0.5em;
+}
