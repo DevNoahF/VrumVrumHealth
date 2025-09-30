@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/transportes")
+@RequestMapping("/transporte")
 public class TransporteController {
 
     private final Map<Long, TransporteDTO> transportes = new HashMap<>();

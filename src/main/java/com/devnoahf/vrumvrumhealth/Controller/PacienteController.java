@@ -46,7 +46,7 @@ public class PacienteController {
                 .ok(pacienteDTO);
     }
 
-    @PostMapping("{id}")
+    @PutMapping("{id}")
     public ResponseEntity<?> atualizar(@RequestBody PacienteDTO pacienteDTO, @PathVariable Long id){
         PacienteDTO pacienteAtualizado = pacienteService.atualizarPaciente(pacienteDTO, id);
         if (pacienteAtualizado != null){
@@ -80,7 +80,7 @@ public class PacienteController {
     }
 
     public ResponseEntity<PacienteDTO> mudarSenha(@RequestParam String email, @RequestParam String novaSenha){
-        pacienteService.mudarSenhaPaciente(email, novaSenha);
+        pacienteService.mudarSenhaPaciente( email, novaSenha);
         return ResponseEntity
                 .ok()
                 .build();

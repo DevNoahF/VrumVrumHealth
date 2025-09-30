@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/veiculos")
+@RequestMapping("/veiculo")
 public class VeiculoController {
 
     private final Map<Long, VeiculoDTO> veiculos = new HashMap<>();
