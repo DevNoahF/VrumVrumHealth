@@ -11,8 +11,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Getter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -62,9 +62,9 @@ public class Paciente {
 
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime data_criacao;
+    private LocalDateTime dataCriacao;
 
-    private LocalDateTime data_atualizacao;
+    private LocalDateTime dataAtualizacao;
 
 
     @Enumerated(EnumType.STRING)
@@ -76,6 +76,17 @@ public class Paciente {
 
     @Enumerated(EnumType.STRING)
     private Role roles;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataCriacao = LocalDateTime.now();
+        this.dataAtualizacao = LocalDateTime.now(); // opcional
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.dataAtualizacao = LocalDateTime.now();
+    }
 
 
 }

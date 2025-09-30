@@ -1,17 +1,19 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
 import com.devnoahf.vrumvrumhealth.Enum.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Bean;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Data
 @Component
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class AdmDTO {
     private Long id;
     private String nome;
@@ -19,5 +21,6 @@ public class AdmDTO {
     private String email;
     private String senhaHash;
     private Role role;
+
 
 }

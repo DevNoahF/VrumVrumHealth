@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,11 +41,22 @@ public class Adm /*implements UserDetails*/ {
 
 
     @Column(nullable = false, updatable = false)
-    private LocalDate  data_criacao;
-    private LocalDate data_atualizacao;
+    private LocalDateTime  dataCriacao;
+    private LocalDateTime dataAtualizacao;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataCriacao = LocalDateTime.now();
+        this.dataAtualizacao = LocalDateTime.now(); // opcional
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.dataAtualizacao = LocalDateTime.now();
+    }
 
     //TODOS OS METODOS ESTÃO COMENTADOS POIS AINDA NÃO FORAM FINALIZADAS AS CONFIGURAÇÕES DE SEGURANÇA
     //método para definir as autoridades do usuário com base no papel

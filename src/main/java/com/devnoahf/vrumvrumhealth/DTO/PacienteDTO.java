@@ -3,15 +3,13 @@ package com.devnoahf.vrumvrumhealth.DTO;
 import com.devnoahf.vrumvrumhealth.Enum.Frequencia;
 import com.devnoahf.vrumvrumhealth.Enum.Role;
 import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimento;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Component

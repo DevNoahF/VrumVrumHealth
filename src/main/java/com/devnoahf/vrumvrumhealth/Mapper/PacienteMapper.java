@@ -21,6 +21,7 @@ public class PacienteMapper {
             throw new IllegalArgumentException("Senha não pode ser nula ou vazia");
         }
 
+        // o id nao esta aqui pq é gerado automaticamente
         Paciente paciente = new Paciente();
         paciente.setNome(dto.getNome());
         paciente.setCpf(dto.getCpf());
@@ -38,18 +39,17 @@ public class PacienteMapper {
         // Criptografa a senha
         paciente.setSenhaHash(passwordEncoder.encode(dto.getSenhaHash()));
 
-        // Define datas
-        paciente.setData_criacao(LocalDateTime.now());
-        paciente.setData_atualizacao(LocalDateTime.now());
 
         return paciente;
     }
 
-    // Converte entidade em DTO (não expõe senha)
+    // Converte entidade em DTO (não expor senha)
     public PacienteDTO toDTO(Paciente paciente) {
         PacienteDTO dto = new PacienteDTO();
+
+        // adicionado tudo o que vai ser retornado da entidade(menos a senha e o cpf)
+        dto.setId(paciente.getId());
         dto.setNome(paciente.getNome());
-        dto.setCpf(paciente.getCpf());
         dto.setDataNascimento(paciente.getDataNascimento());
         dto.setEmail(paciente.getEmail());
         dto.setTelefone(paciente.getTelefone());
