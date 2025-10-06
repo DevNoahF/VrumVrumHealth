@@ -7,7 +7,7 @@ label { padding-bottom: 0.5em; }
 
 input:focus { outline: none; }
 
-#adm_register_form {
+#register_form {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
