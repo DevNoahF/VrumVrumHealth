@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +41,29 @@ public class PacienteService {
 
     //método para cadastrar admin com senha criptografada
     public PacienteDTO cadastrarPaciente(PacienteDTO pacienteDTO) {
-        Paciente paciente = pacienteMapper.toEntity(pacienteDTO);
+        Paciente paciente = new Paciente();
+        paciente.setNome(pacienteDTO.getNome());
+        paciente.setEmail(pacienteDTO.getEmail());
+        paciente.setCpf(pacienteDTO.getCpf());
+        paciente.setDataNascimento(pacienteDTO.getDataNascimento());
+        paciente.setTelefone(pacienteDTO.getTelefone());
+        paciente.setRua(pacienteDTO.getRua());
+        paciente.setNumero(pacienteDTO.getNumero());
+        paciente.setBairro(pacienteDTO.getBairro());
+        paciente.setCep(pacienteDTO.getCep());
+        paciente.setTipoAtendimento(pacienteDTO.getTipoAtendimento());
+        paciente.setFrequencia(pacienteDTO.getFrequencia());
+        paciente.setRole(pacienteDTO.getRole());
+
+        // Senha criptografada
+        String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenhaHash());
+        paciente.setSenhaHash(senhaCriptografada);
+
+
+
+        // Salvar no banco
         Paciente salvo = pacienteRepository.save(paciente);
+
         return pacienteMapper.toDTO(salvo);
     }
 

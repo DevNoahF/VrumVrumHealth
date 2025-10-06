@@ -48,7 +48,7 @@ public class AdmController {
                 .ok(admDTO);
     }
 
-    @PostMapping("{id}")
+    @PutMapping("{id}")
     public ResponseEntity<?> atualizar(@RequestBody AdmDTO admDTO, @PathVariable Long id){
         AdmDTO admAtualizado = admService.atualizarAdm(admDTO, id);
         if (admAtualizado != null){

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 @Component
 public class AdmMapper {
+
     private final BCryptPasswordEncoder passwordEncoder;
 
     public AdmMapper() {
@@ -21,22 +22,27 @@ public class AdmMapper {
             throw new IllegalArgumentException("Senha não pode ser nula ou vazia");
         }
         Adm adm = new Adm();
-        adm.setId(admDTO.getId());
+
+        // Não setar o ID aqui no cadastro
+        // adm.setId(admDTO.getId());
+
         adm.setNome(admDTO.getNome());
         adm.setEmail(admDTO.getEmail());
         adm.setRole(admDTO.getRole());
         adm.setMatricula(admDTO.getMatricula());
+
+        // Criptografa a senha -> refatorar depois para usar o service
         String senhaCriptografada = passwordEncoder.encode(admDTO.getSenhaHash());
         adm.setSenhaHash(senhaCriptografada);
 
-        adm.setData_criacao(LocalDate.now());
-        adm.setData_atualizacao(LocalDate.now());
 
         return adm;
     }
 
     // Converte entidade para DTO (não retorna senha)
     public AdmDTO toDTO(Adm adm) {
+
+        // Retorna apenas os campos necessários(sem senha e matricula)
         AdmDTO dto = new AdmDTO();
         dto.setId(adm.getId());
         dto.setNome(adm.getNome());
