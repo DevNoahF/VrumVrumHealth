@@ -77,10 +77,8 @@ CREATE TABLE diario_bordo (
                               id BIGINT AUTO_INCREMENT PRIMARY KEY,
                               transporte_id BIGINT NOT NULL,
                               motorista_id BIGINT NOT NULL,
-                              data_saida DATE NOT NULL,
                               quilometragem_inicial INT NOT NULL,
                               quilometragem_final INT,
-                              gasto_total DECIMAL(10,2) DEFAULT 0.00,
                               observacoes TEXT,
                               create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                               update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -91,7 +89,6 @@ CREATE TABLE diario_bordo (
 CREATE TABLE gasto_viagem (
                               id BIGINT AUTO_INCREMENT PRIMARY KEY,
                               diario_bordo_id BIGINT NOT NULL,
-                              tipo ENUM('COMBUSTIVEL','MANUTENCAO','PEDAGIO','OUTROS') NOT NULL,
                               valor DECIMAL(10,2) NOT NULL,
                               descricao TEXT,
                               FOREIGN KEY (diario_bordo_id) REFERENCES diario_bordo(id)
