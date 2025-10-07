@@ -1,6 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Enum;
 
-public enum Frequencia {
+public enum FrequenciaEnum {
     SEMANAL,
     QUINZENAL,
     MENSAL,

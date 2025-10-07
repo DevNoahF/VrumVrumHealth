@@ -1,6 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Enum;
 
-public enum LocalAtendimento {
+public enum LocalAtendimentoEnum {
     UPA1,
     UPA2,
     HOSPITAL1,

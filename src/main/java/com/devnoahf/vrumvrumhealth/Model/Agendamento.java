@@ -1,14 +1,14 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.Enum.Estado;
-import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimento;
+import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
+import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -29,20 +29,31 @@ public class Agendamento {
     private String comprovante;
 
     @Enumerated(EnumType.STRING)
-    private LocalAtendimento local_atendimento;
+    private LocalAtendimentoEnum local_atendimento;
 
     @Enumerated(EnumType.STRING)
-    private Estado estado;
+    private StatusEnum statusEnum;
 
     private Boolean retorno_casa;
 
     @Column(nullable = false, updatable = false)
-    private LocalDate data_criacao;
+    private LocalDateTime dataCriacao;
 
-    private LocalDate data_atualizacao;
+    private LocalDateTime dataAtualizacao;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataCriacao = LocalDateTime.now();
+        this.dataAtualizacao = LocalDateTime.now(); // opcional
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.dataAtualizacao = LocalDateTime.now();
+    }
 }

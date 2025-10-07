@@ -16,8 +16,6 @@ public class TransporteMapper {
         TransporteDTO dto = new TransporteDTO();
         dto.setId(transporte.getId());
         dto.setHorarioSaida(transporte.getHorarioSaida());
-        dto.setDataCriacao(transporte.getData_criacao());
-        dto.setDataAtualizacao(transporte.getData_atualizacao());
 
         if (transporte.getVeiculo() != null) {
             dto.setVeiculoId(transporte.getVeiculo().getId());
@@ -31,15 +29,13 @@ public class TransporteMapper {
     }
 
     // e esse converte de DTO para Entity
+    //TODO: NECESSARIO REFATORAR PARA RETORNAR APENAS O NECESSARIO
     public Transporte toEntity(TransporteDTO dto, Veiculo veiculo, Agendamento agendamento) {
         if (dto == null) return null;
 
         Transporte transporte = new Transporte();
         transporte.setId(dto.getId());
         transporte.setHorarioSaida(dto.getHorarioSaida());
-        transporte.setData_criacao(dto.getDataCriacao());
-        transporte.setData_atualizacao(dto.getDataAtualizacao());
-
         transporte.setVeiculo(veiculo);
         transporte.setAgendamento(agendamento);
 

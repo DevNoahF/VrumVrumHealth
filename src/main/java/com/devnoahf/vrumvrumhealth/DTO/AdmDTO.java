@@ -1,7 +1,6 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
-import com.devnoahf.vrumvrumhealth.Enum.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import lombok.AllArgsConstructor;
 
 import lombok.Getter;
@@ -20,7 +19,7 @@ public class AdmDTO {
     private String matricula;
     private String email;
     private String senhaHash;
-    private Role role;
+    private RoleEnum roleEnum;
 
 
 }

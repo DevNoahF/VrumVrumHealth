@@ -1,16 +1,13 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
 import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.PacienteMapper;
-import com.devnoahf.vrumvrumhealth.Model.Adm;
 import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,9 +48,9 @@ public class PacienteService {
         paciente.setNumero(pacienteDTO.getNumero());
         paciente.setBairro(pacienteDTO.getBairro());
         paciente.setCep(pacienteDTO.getCep());
-        paciente.setTipoAtendimento(pacienteDTO.getTipoAtendimento());
-        paciente.setFrequencia(pacienteDTO.getFrequencia());
-        paciente.setRole(pacienteDTO.getRole());
+        paciente.setTipoAtendimentoEnum(pacienteDTO.getTipoAtendimentoEnum());
+        paciente.setFrequenciaEnum(pacienteDTO.getFrequenciaEnum());
+        paciente.setRoleEnum(pacienteDTO.getRoleEnum());
 
         // Senha criptografada
         String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenhaHash());

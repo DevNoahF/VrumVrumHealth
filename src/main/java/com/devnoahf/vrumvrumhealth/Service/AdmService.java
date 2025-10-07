@@ -29,7 +29,7 @@ public class AdmService {
         adm.setNome(admDTO.getNome());
         adm.setEmail(admDTO.getEmail());
         adm.setMatricula(admDTO.getMatricula());
-        adm.setRole(admDTO.getRole());
+        adm.setRoleEnum(admDTO.getRoleEnum());
         String senhaCriptografada = passwordEncoder.encode(admDTO.getSenhaHash());
         adm.setSenhaHash(senhaCriptografada);
         Adm salvo = admRepository.save(adm);

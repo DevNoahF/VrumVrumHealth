@@ -30,8 +30,6 @@ public class TransporteController {
     @PostMapping
     public ResponseEntity<TransporteDTO> criar(@RequestBody TransporteDTO dto) {
         dto.setId(sequence++);
-        dto.setDataCriacao(dto.getDataCriacao() == null ? java.time.LocalDate.now() : dto.getDataCriacao());
-        dto.setDataAtualizacao(java.time.LocalDate.now());
         transportes.put(dto.getId(), dto);
         return ResponseEntity.ok(dto);
     }
@@ -43,8 +41,6 @@ public class TransporteController {
             return ResponseEntity.notFound().build();
         }
         dto.setId(id);
-        dto.setDataCriacao(existente.getDataCriacao());
-        dto.setDataAtualizacao(java.time.LocalDate.now());
         transportes.put(id, dto);
         return ResponseEntity.ok(dto);
     }

@@ -1,9 +1,9 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.Enum.Frequencia;
-import com.devnoahf.vrumvrumhealth.Enum.Role;
+import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 
-import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimento;
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimentoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -54,11 +54,11 @@ public class Paciente {
     private Integer numero;
 
     @Enumerated(EnumType.STRING)
-    private TipoAtendimento tipoAtendimento;
+    private TipoAtendimentoEnum tipoAtendimentoEnum;
 
 
     @Enumerated(EnumType.STRING)
-    private Frequencia frequencia;
+    private FrequenciaEnum frequenciaEnum;
 
 
     @Column(nullable = false, updatable = false)
@@ -68,14 +68,14 @@ public class Paciente {
 
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleEnum roleEnum;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
 
 
     @Enumerated(EnumType.STRING)
-    private Role roles;
+    private RoleEnum roles;
 
     @PrePersist
     protected void onCreate() {

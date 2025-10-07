@@ -5,8 +5,6 @@ import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-
 @Component
 public class PacienteMapper {
     private final BCryptPasswordEncoder passwordEncoder;
@@ -32,9 +30,9 @@ public class PacienteMapper {
         paciente.setRua(dto.getRua());
         paciente.setBairro(dto.getBairro());
         paciente.setNumero(dto.getNumero());
-        paciente.setTipoAtendimento(dto.getTipoAtendimento());
-        paciente.setFrequencia(dto.getFrequencia());
-        paciente.setRole(dto.getRole());
+        paciente.setTipoAtendimentoEnum(dto.getTipoAtendimentoEnum());
+        paciente.setFrequenciaEnum(dto.getFrequenciaEnum());
+        paciente.setRoleEnum(dto.getRoleEnum());
 
         // Criptografa a senha
         paciente.setSenhaHash(passwordEncoder.encode(dto.getSenhaHash()));
@@ -57,9 +55,9 @@ public class PacienteMapper {
         dto.setRua(paciente.getRua());
         dto.setBairro(paciente.getBairro());
         dto.setNumero(paciente.getNumero());
-        dto.setTipoAtendimento(paciente.getTipoAtendimento());
-        dto.setFrequencia(paciente.getFrequencia());
-        dto.setRole(paciente.getRole());
+        dto.setTipoAtendimentoEnum(paciente.getTipoAtendimentoEnum());
+        dto.setFrequenciaEnum(paciente.getFrequenciaEnum());
+        dto.setRoleEnum(paciente.getRoleEnum());
         return dto;
     }
 }

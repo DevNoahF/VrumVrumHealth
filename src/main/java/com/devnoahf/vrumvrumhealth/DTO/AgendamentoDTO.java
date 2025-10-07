@@ -1,7 +1,7 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
-import com.devnoahf.vrumvrumhealth.Enum.Estado;
-import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimento;
+import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
+import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,10 +19,8 @@ public class AgendamentoDTO {
     private LocalDate dataConsulta;
     private Time horaConsulta;
     private String comprovante;
-    private LocalAtendimento localAtendimento;
-    private Estado estado;
+    private LocalAtendimentoEnum localAtendimentoEnum;
+    private StatusEnum statusEnum;
     private Boolean retornoCasa;
-    private LocalDate dataCriacao;
-    private LocalDate dataAtualizacao;
     private Long pacienteId; // referenciando apenas o id do paciente
 }

@@ -1,7 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
-import com.devnoahf.vrumvrumhealth.Model.Adm;
 import com.devnoahf.vrumvrumhealth.Service.AdmService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

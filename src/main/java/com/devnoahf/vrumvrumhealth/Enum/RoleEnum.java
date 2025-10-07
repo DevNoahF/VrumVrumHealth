@@ -1,13 +1,13 @@
 package com.devnoahf.vrumvrumhealth.Enum;
 
 
-public enum Role {
+public enum RoleEnum {
     ADMIN("admin"),
     USER("user");
 
     private String role;
 
-    Role(String role) {
+    RoleEnum(String role) {
         this.role = role;
     }
 

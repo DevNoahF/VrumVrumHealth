@@ -5,8 +5,6 @@ import com.devnoahf.vrumvrumhealth.Model.Adm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
 public class AdmMapper {
 
@@ -28,7 +26,7 @@ public class AdmMapper {
 
         adm.setNome(admDTO.getNome());
         adm.setEmail(admDTO.getEmail());
-        adm.setRole(admDTO.getRole());
+        adm.setRoleEnum(admDTO.getRoleEnum());
         adm.setMatricula(admDTO.getMatricula());
 
         // Criptografa a senha -> refatorar depois para usar o service
@@ -47,6 +45,7 @@ public class AdmMapper {
         dto.setId(adm.getId());
         dto.setNome(adm.getNome());
         dto.setEmail(adm.getEmail());
+        dto.setRoleEnum(adm.getRoleEnum());
         return dto;
     }
 

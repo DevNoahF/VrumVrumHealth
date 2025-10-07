@@ -30,8 +30,6 @@ public class AgendamentoController {
     @PostMapping
     public ResponseEntity<AgendamentoDTO> criar(@RequestBody AgendamentoDTO dto) {
         dto.setId(sequence++);
-        dto.setDataCriacao(dto.getDataCriacao() == null ? java.time.LocalDate.now() : dto.getDataCriacao());
-        dto.setDataAtualizacao(java.time.LocalDate.now());
         agendamentos.put(dto.getId(), dto);
         return ResponseEntity.ok(dto);
     }
@@ -44,8 +42,6 @@ public class AgendamentoController {
         }
         // não altera o ID
         dto.setId(id);
-        dto.setDataCriacao(existente.getDataCriacao()); // mantém a data de criação
-        dto.setDataAtualizacao(java.time.LocalDate.now());
         agendamentos.put(id, dto);
         return ResponseEntity.ok(dto);
     }
