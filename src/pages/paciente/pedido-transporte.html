@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido de Transporte</title>
+</head>
+<body>
+    <form class="Perguntas-pedido">
+        <div class = motivo-conteiner>
+            <p class="pergunta">Selecione o motivo do transporte</p><!--Melhor usar label ou parágrafo serve?-->
+            <select id="motivos">
+                <option label="Exame">Exame</option>
+                <option label="Consulta">Consulta</option>
+                <option label="Tratamento Contínuo">Tratamento Contínuo</option>
+            </select>
+        </div>
+
+        <div class ="frequencia-conteiner">
+            <p class="pergunta">Selecione a frequência do tratamento</p><!--Campo só deve aparecer se motivo do transporte for "tratamento contínuo"-->
+            <select id="frequencia">
+                <option label="Diária">Diária</option>
+                <option label="Semanal">Semanal</option>
+                <option label="Quinzenal">Quinzenal</option>
+                <option label="Anual">Anual</option>
+            </select>
+        </div>
+
+        <div class="data-hora-conteiner">
+            <p class="pergunta">Selecione a Data e Hora da Consulta</p><!--Trocar consulta por outra palavra melhor-->
+            <input type="date" id="data-consulta" name="Data da Consulta"> 
+            <input type="time" id="hora-consulta" name="Hora da Consulta" ></input>
+        </div>
+
+        <div class ="unidade-conteiner">
+            <p class="pergunta">Selecione a unidade de saúde</p>
+            <select id="unidade-saude">
+                <option label="UPA1">UPA1</option>
+                <option label="UPA2">UPA2</option>
+                <option label="Hospital1">Hospital1</option>
+                <option label="Hospital2">Hospital2</option>
+            </select>
+        </div>
+
+        <div class="acompanhante-conteiner">
+            <p class="pergunta">Tem acompanhante?</p>
+
+            <button type="button" id="botao-sim"></button><!--Botão de sim-->
+            <label for="não">Sim</label>
+
+            <button type="button" id="botao-nao"></button><!--Botão de não-->
+            <label for="não">Não </label>
+        </div>
+
+        <div class="pedido-medico">
+            <p class="pergunta">Anexe a foto do pedido médico</p>
+        </div>
+        <div class="transporteVolta-conteiner">
+            <p class="pergunta">Necessita de transporte na volta?</p>
+
+            <button type="button" id="botao-sim"></button><!--Botão de sim-->
+            <label for="não">Sim</label>
+
+            <button type="button" id="botao-nao"></button><!--Botão de não-->
+            <label for="não">Não </label>
+        </div>
+        
+    </form>
+
+
+
+
+
+</body>
+</html>
