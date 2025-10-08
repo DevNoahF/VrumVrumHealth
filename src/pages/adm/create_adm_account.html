@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Adm register</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="../css/commons.css">
+		<link rel="stylesheet" type="text/css" href="../css/common_register_form.css" />
+		<link rel="stylesheet" type="text/css" href="../css/header.css">
+	</head>
+	<body>
+		<header id="main_header_container">
+            <div id="logo_container">
+                <img src="../assets/logo.jpg" alt="logo do projeto" id="project_logo">
+                <h1>VrumVrum Health</h1>
+            </div>
+            <nav id="main_nav">
+                <ul>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="#">Sobre o projeto</a></li>
+                </ul>
+            </nav>
+        </header>
+		</header>
+		<main id="main_content">
+			<form method="#" action="#" id="register_form">
+				<div>
+					<div class="form_content">
+						<label for="given_name">Nome</label>
+						<input type="text" id="given_name" for="given_name" maxlength="100" required />
+					</div>
+					<div class="form_content">
+						<label for="telephone_num">Telefone</label>
+						<!--NOTE: remove parenthesis, blanks and dash with or js or java-->
+						<input type="tel" id="telephone_num" name="telephone_num" maxlength="20" placeholder="(XX) XXXXX-XXXX" />
+					</div>
+				</div>
+				<div>
+					<div class="form_content">
+						<label for="email">Email</label>
+						<input type="email" id="email" name="email" maxlength="100" required />
+					</div>
+					<div class="form_content">
+						<label for="email">Senha</label>
+						<input type="password" id="password" name="password" maxlength="255" required />
+					</div>
+				</div>
+				<div class="final_form_content">
+					<div class="form_content">
+						<label for="registration">Matricula</label>
+						<input type="text" id="registration" name="registration" maxlength="100" required />
+					</div>
+					<div class="form_content">
+						<!--NOTE: to get this you'll need to use js-->
+						<input type="hidden" value="admin" name="role" readonly />
+						<button type="submit" id="submit_button">Registrar</button>
+					</div>
+				</div>
+			</form>
+		</main>
+		<script>
+			document.getElementById("given_name").focus();
+		</script>
+	</body>
+</html>

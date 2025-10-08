@@ -1,0 +1,33 @@
+input {
+	padding: 1rem;
+	border-radius: 12px;
+}
+
+label { padding-bottom: 0.5em; }
+
+input:focus { outline: none; }
+
+#register_form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: start;
+}
+
+#submit_button {
+	border-radius: 0.75rem;
+	border: none;
+	padding: 1em;
+}
+
+#submit_button:hover {
+	cursor: pointer;
+}
+
+.form_content {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	padding-top: 1rem;
+}

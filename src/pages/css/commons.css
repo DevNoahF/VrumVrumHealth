@@ -26,3 +26,7 @@ main {
     display: flex;
     flex-direction: column;
 }
+
+#project_logo {
+	width: 128px;
+}
