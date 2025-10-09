@@ -3,9 +3,13 @@ input {
 	border-radius: 12px;
 }
 
-label { padding-bottom: 0.5em; }
+label {
+	padding-bottom: 0.5em;
+}
 
-input:focus { outline: none; }
+input:focus {
+	outline: none;
+}
 
 #register_form {
 	display: flex;
@@ -28,6 +32,5 @@ input:focus { outline: none; }
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
-	align-items: center;
 	padding-top: 1rem;
 }
