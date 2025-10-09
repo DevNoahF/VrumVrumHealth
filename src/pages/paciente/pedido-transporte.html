@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/pedido_transporte.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <title>Pedido de Transporte</title>
 </head>
 <body>
+    <div class="barra-lateral"></div>
+
     <form class="Perguntas-pedido">
         <div class = motivo-conteiner>
             <p class="pergunta">Selecione o motivo do transporte</p><!--Melhor usar label ou parágrafo serve?-->
-            <select id="motivos">
+            <select class="menu-flutuante">
                 <option label="Exame">Exame</option>
                 <option label="Consulta">Consulta</option>
                 <option label="Tratamento Contínuo">Tratamento Contínuo</option>
@@ -18,7 +22,7 @@
 
         <div class ="frequencia-conteiner">
             <p class="pergunta">Selecione a frequência do tratamento</p><!--Campo só deve aparecer se motivo do transporte for "tratamento contínuo"-->
-            <select id="frequencia">
+            <select class="menu-flutuante">
                 <option label="Diária">Diária</option>
                 <option label="Semanal">Semanal</option>
                 <option label="Quinzenal">Quinzenal</option>
@@ -34,7 +38,7 @@
 
         <div class ="unidade-conteiner">
             <p class="pergunta">Selecione a unidade de saúde</p>
-            <select id="unidade-saude">
+            <select class="menu-flutuante">
                 <option label="UPA1">UPA1</option>
                 <option label="UPA2">UPA2</option>
                 <option label="Hospital1">Hospital1</option>
@@ -45,23 +49,24 @@
         <div class="acompanhante-conteiner">
             <p class="pergunta">Tem acompanhante?</p>
 
-            <button type="button" id="botao-sim"></button><!--Botão de sim-->
+            <button type="button" class="select-button"></button><!--Botão de sim-->
             <label for="não">Sim</label>
 
-            <button type="button" id="botao-nao"></button><!--Botão de não-->
+            <button type="button" class="select-button"></button><!--Botão de não-->
             <label for="não">Não </label>
         </div>
 
         <div class="pedido-medico">
             <p class="pergunta">Anexe a foto do pedido médico</p>
         </div>
+
         <div class="transporteVolta-conteiner">
             <p class="pergunta">Necessita de transporte na volta?</p>
 
-            <button type="button" id="botao-sim"></button><!--Botão de sim-->
+            <button type="button" class="select-button"></button><!--Botão de sim-->
             <label for="não">Sim</label>
 
-            <button type="button" id="botao-nao"></button><!--Botão de não-->
+            <button type="button" class="select-button"></button><!--Botão de não-->
             <label for="não">Não </label>
         </div>
         

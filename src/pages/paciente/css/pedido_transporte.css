@@ -1,0 +1,23 @@
+body{
+    background-color: #E9EBEC;
+}
+
+.pergunta{
+    font-family: 'Montserrat',sans-serif;
+    font-size: 1.67vw;
+    color: #0E0E0E;
+}
+
+.menu-flutuante{
+    display: flex;
+    width:23.49vw;
+    height: 5.83vh;
+}
+
+.select-button{
+    background-color: white;
+    width: 3.5vw;
+    height: 3.5vw;
+    border-radius: 50%; 
+    border-color: #E9EBEC;
+}
