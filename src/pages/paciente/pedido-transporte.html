@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/pedido_transporte.css">
+    <link rel="stylesheet" href="../css/pedido_transporte.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <title>Pedido de Transporte</title>
 </head>
 <body>
     <div id="barra-lateralE"></div>
-
+    <div id="barra-lateralD"></div>
 
     <form class="Perguntas-pedido">
-        <div id = motivo-conteiner>
+        <div id = "motivo-conteiner">
             <p class="pergunta">Selecione o motivo do transporte</p><!--Melhor usar label ou parágrafo serve?-->
             <select class="menu-flutuante">
                 <option label="Exame">Exame</option>
@@ -21,7 +21,7 @@
             </select>
         </div>
 
-        <div class ="frequencia-conteiner">
+        <div id ="frequencia-conteiner">
             <p class="pergunta">Selecione a frequência do tratamento</p><!--Campo só deve aparecer se motivo do transporte for "tratamento contínuo"-->
             <select class="menu-flutuante">
                 <option label="Diária">Diária</option>
@@ -31,13 +31,13 @@
             </select>
         </div>
 
-        <div class="data-hora-conteiner">
+        <div id="data-hora-conteiner">
             <p class="pergunta">Selecione a Data e Hora da Consulta</p><!--Trocar consulta por outra palavra melhor-->
             <input type="date" id="data-consulta" name="Data da Consulta"> 
-            <input type="time" id="hora-consulta" name="Hora da Consulta" ></input>
+            <input type="time" id="hora-consulta" name="Hora da Consulta" >
         </div>
 
-        <div class ="unidade-conteiner">
+        <div id ="unidade-conteiner">
             <p class="pergunta">Selecione a unidade de saúde</p>
             <select class="menu-flutuante">
                 <option label="UPA1">UPA1</option>
@@ -47,7 +47,7 @@
             </select>
         </div>
 
-        <div class="acompanhante-conteiner">
+        <div id="acompanhante-conteiner">
             <p class="pergunta">Tem acompanhante?</p>
 
             <button type="button" class="select-button"></button><!--Botão de sim-->
@@ -57,8 +57,9 @@
             <label for="não">Não </label>
         </div>
 
-        <div class="pedido-medico">
+        <div id="pedido-medico">
             <p class="pergunta">Anexe a foto do pedido médico</p>
+            <div id="upload-box"></div>
         </div>
 
         <div class="transporteVolta-conteiner">

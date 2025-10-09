@@ -1,0 +1,81 @@
+body {
+    background-color: #E9EBEC;
+    display: flex;
+
+}
+
+#motivo-conteiner {
+    position: absolute;
+    left: 18.8vw;
+    width: 30vw;
+
+}
+
+#frequencia-conteiner {
+    position: absolute;
+    left: 53.8vw;
+    width: 30vw;
+}
+
+#data-hora-conteiner{
+    position: absolute;
+    left:18vw;
+    top: 32vh;
+}
+
+#unidade-conteiner{
+    position: absolute;
+    left:53.8vw;
+    top: 32vh;
+}
+
+#acompanhante-conteiner{
+    position: absolute;
+    top: 63.25vh;
+    left: 18.8vw;
+}
+
+#barra-lateralE {
+  position: fixed;
+  top: 0;
+  left: 0;  
+  width: 11vw;
+  height: 100%;
+  background-color:#006FA7; 
+  padding: 20px;
+}
+
+#barra-lateralD{
+    position: fixed;
+    top:0;
+    right: 0;  
+    width: 11vw;
+    height: 100%;
+    background-color:#006FA7;
+    padding: 20px;
+}
+
+.pergunta{
+    font-family: 'Montserrat',sans-serif;
+    font-size: 1.67vw;
+    color: #0E0E0E;
+     white-space: nowrap;
+}
+
+.menu-flutuante{
+    display: flex;
+    width:23.49vw;
+    height: 5.83vh;
+}
+
+.select-button{
+    background-color: white;
+    width: 3.5vw;
+    height: 3.5vw;
+    border-radius: 50%; 
+    border-color: #E9EBEC;
+}
+
+
+    
+    
