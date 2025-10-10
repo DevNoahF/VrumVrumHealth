@@ -50,11 +50,11 @@
         <div id="acompanhante-conteiner">
             <p class="pergunta">Tem acompanhante?</p>
 
-            <button type="button" class="select-button"></button><!--Botão de sim-->
-            <label for="não">Sim</label>
+            <div class="question-box">
+                <label for="sim"><input type="radio" name="acompanhante?" value="Sim">Sim</label>
+                <label for="Não"><input type="radio" name="acompanhante?" value="Não">Não</label>
+            </div>
 
-            <button type="button" class="select-button"></button><!--Botão de não-->
-            <label for="não">Não </label>
         </div>
 
         <div id="pedido-medico">
@@ -62,14 +62,14 @@
             <div id="upload-box"></div>
         </div>
 
-        <div class="transporteVolta-conteiner">
+        <div id="transporteVolta-conteiner">
             <p class="pergunta">Necessita de transporte na volta?</p>
 
-            <button type="button" class="select-button"></button><!--Botão de sim-->
-            <label for="não">Sim</label>
+            <div class="question-box">
+                <label for="sim"><input type="radio" name="transporte?" value="Sim">Sim</label>
+                <label for="Não"><input type="radio" name="transporte?" value="Não">Não</label>
+            </div>
 
-            <button type="button" class="select-button"></button><!--Botão de não-->
-            <label for="não">Não </label>
         </div>
         <button type="Button" id="fazer-solicitacao">Fazer Solicitação</button>
 

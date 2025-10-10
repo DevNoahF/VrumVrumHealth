@@ -35,6 +35,20 @@ body {
     left: 18.8vw;
 }
 
+.question-box{
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+}
+
+input[type="radio"] {
+  width: 3.5vw;
+  height: 3.5vw;
+  accent-color: #007bff; /* muda a cor */
+  transform: scale(1); /* garante proporção */
+  cursor: pointer;
+}
+
 #barra-lateralE {
   position: fixed;
   top: 0;
@@ -59,7 +73,7 @@ body {
     font-family: 'Montserrat',sans-serif;
     font-size: 1.67vw;
     color: #0E0E0E;
-     white-space: nowrap;
+    white-space: nowrap;
 }
 
 .menu-flutuante{
@@ -68,13 +82,14 @@ body {
     height: 5.83vh;
 }
 
-.select-button{
-    background-color: white;
-    width: 3.5vw;
-    height: 3.5vw;
-    border-radius: 50%; 
-    border-color: #E9EBEC;
+#transporteVolta-conteiner{
+    position: absolute;
+    top: 63.25vh;
+    left:53.8vw;
 }
+
+
+
 
 
     
