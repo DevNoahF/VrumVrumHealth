@@ -1,57 +1,90 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
+import com.devnoahf.vrumvrumhealth.Service.AgendamentoService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/agendamento")
 public class AgendamentoController {
 
-    private final Map<Long, AgendamentoDTO> agendamentos = new HashMap<>();
-    private Long sequence = 1L;
+    private final AgendamentoService agendamentoService;
 
-    @GetMapping
-    public ResponseEntity<List<AgendamentoDTO>> listarTodos() {
-        return ResponseEntity.ok(new ArrayList<>(agendamentos.values()));
+    public AgendamentoController(AgendamentoService agendamentoService) {
+        this.agendamentoService = agendamentoService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AgendamentoDTO> buscarPorId(@PathVariable Long id) {
-        AgendamentoDTO agendamento = agendamentos.get(id);
-        if (agendamento == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(agendamento);
+    // Teste simples
+    @GetMapping("/teste")
+    public String teste() {
+        return "agendamento controller funcionando ✅";
     }
 
+    //  Criar
     @PostMapping
-    public ResponseEntity<AgendamentoDTO> criar(@RequestBody AgendamentoDTO dto) {
-        dto.setId(sequence++);
-        agendamentos.put(dto.getId(), dto);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<?> criar(@RequestBody AgendamentoDTO dto) {
+        try {
+            AgendamentoDTO novo = agendamentoService.criarAgendamento(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novo);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar agendamento: " + e.getMessage());
+        }
     }
 
+    //  Listar todos
+    @GetMapping
+    public ResponseEntity<List<AgendamentoDTO>> listar() {
+        List<AgendamentoDTO> lista = agendamentoService.listarAgendamentos();
+        return ResponseEntity.ok(lista);
+    }
+
+    //  Buscar por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+        try {
+            AgendamentoDTO agendamento = agendamentoService.buscarPorId(id);
+            return ResponseEntity.ok(agendamento);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao buscar agendamento: " + e.getMessage());
+        }
+    }
+
+    //  Atualizar
     @PutMapping("/{id}")
-    public ResponseEntity<AgendamentoDTO> atualizar(@PathVariable Long id, @RequestBody AgendamentoDTO dto) {
-        AgendamentoDTO existente = agendamentos.get(id);
-        if (existente == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody AgendamentoDTO dto) {
+        try {
+            AgendamentoDTO atualizado = agendamentoService.atualizarAgendamento(id, dto);
+            return ResponseEntity.ok(atualizado);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao atualizar agendamento: " + e.getMessage());
         }
-        // não altera o ID
-        dto.setId(id);
-        agendamentos.put(id, dto);
-        return ResponseEntity.ok(dto);
     }
 
+    //  Deletar
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (!agendamentos.containsKey(id)) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> deletar(@PathVariable Long id) {
+        try {
+            agendamentoService.deletarAgendamento(id);
+            return ResponseEntity.ok("Agendamento deletado com sucesso!");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao deletar agendamento: " + e.getMessage());
         }
-        agendamentos.remove(id);
-        return ResponseEntity.noContent().build();
     }
 }
