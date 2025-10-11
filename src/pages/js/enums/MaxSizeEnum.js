@@ -1,0 +1,11 @@
+export const MaxSizeEnum = Object.freeze({
+	NAME: 100,
+	EMAIL: 100,
+	PASSWORD: 255,
+	CELLPHONE: 20,
+	STREET: 100,
+	NEIGHBORHOOD: 100,
+	HOUSE_NUMBER: 10,
+	CPF: 11,
+	CEP: 9
+});
