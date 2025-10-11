@@ -37,53 +37,27 @@ public class VeiculoService {
     }
 
     public VeiculoDTO salvar(VeiculoDTO veiculoDTO) {
-        try {
-            // Validação simples: placa obrigatória
-            if (veiculoDTO.getPlaca() == null || veiculoDTO.getPlaca().isBlank()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A placa do veículo é obrigatória");
-            }
-
-            Veiculo veiculo = veiculoMapper.toEntity(veiculoDTO);
-            Veiculo salvo = veiculoRepository.save(veiculo);
-            return veiculoMapper.toDTO(salvo);
-
-        } catch (DataIntegrityViolationException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Placa já cadastrada");
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao salvar veículo");
-        }
+        Veiculo veiculo = veiculoMapper.toEntity(veiculoDTO);
+        Veiculo veiculoSaved = veiculoRepository.save(veiculo);
+        return veiculoMapper.toDTO(veiculoSaved);
     }
 
     public VeiculoDTO atualizar(Long id, VeiculoDTO veiculoDTO) {
-        Veiculo existente = veiculoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Veículo não encontrado"));
-
-        try {
-            existente.setPlaca(veiculoDTO.getPlaca());
-            existente.setModelo(veiculoDTO.getModelo());
-            existente.setCapacidade(veiculoDTO.getCapacidade());
-
-            Veiculo atualizado = veiculoRepository.save(existente);
-            return veiculoMapper.toDTO(atualizado);
-
-        } catch (DataIntegrityViolationException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Placa já cadastrada");
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao atualizar veículo");
+        Optional<Veiculo> veiculoOptional = veiculoRepository.findById(id);
+        if(veiculoOptional.isPresent()) {
+            Veiculo veiculoUpdated = veiculoMapper.toEntity(veiculoDTO);
+            veiculoUpdated.setPlaca(veiculoDTO.getPlaca());
+            veiculoUpdated.setModelo(veiculoDTO.getModelo());
+            veiculoUpdated.setCapacidade(veiculoDTO.getCapacidade());
+            return veiculoMapper.toDTO(veiculoRepository.save(veiculoUpdated));
         }
+        return  null;
+
     }
 
+
+
     public void deletar(Long id) {
-        Optional<Veiculo> veiculoOpt = veiculoRepository.findById(id);
-
-        if (veiculoOpt.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Veículo não encontrado");
-        }
-
-        try {
-            veiculoRepository.deleteById(id);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao deletar veículo");
-        }
+        veiculoRepository.deleteById(id);
     }
 }

@@ -2,7 +2,9 @@ package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.VeiculoDTO;
 import com.devnoahf.vrumvrumhealth.Service.VeiculoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/veiculos")
+@RequiredArgsConstructor
 public class VeiculoController {
 
-    @Autowired
-    private VeiculoService veiculoService;
+
+    private final VeiculoService veiculoService;
 
     @GetMapping
     public ResponseEntity<List<VeiculoDTO>> listarTodos() {
@@ -30,7 +33,7 @@ public class VeiculoController {
     @PostMapping
     public ResponseEntity<VeiculoDTO> criar(@RequestBody VeiculoDTO veiculoDTO) {
         VeiculoDTO novo = veiculoService.salvar(veiculoDTO);
-        return ResponseEntity.status(201).body(novo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novo);
     }
 
     @PutMapping("/{id}")
@@ -40,8 +43,8 @@ public class VeiculoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<?> deletar(@PathVariable Long id) {
         veiculoService.deletar(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Veiculo com ID: " + id + " foi deletado com sucesso!");
     }
 }
