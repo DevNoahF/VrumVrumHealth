@@ -1,100 +1,79 @@
-body {
+
+body{
     background-color: #E9EBEC;
-    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
 
 }
 
-#motivo-conteiner {
-    position: absolute;
-    left: 18.8vw;
-    width: 30vw;
-
-}
-
-#frequencia-conteiner {
-    position: absolute;
-    left: 53.8vw;
-    width: 30vw;
-}
-
-#data-hora-conteiner{
-    position: absolute;
-    left:18vw;
-    top: 32vh;
-}
-
-#unidade-conteiner{
-    position: absolute;
-    left:53.8vw;
-    top: 32vh;
-}
-
-#acompanhante-conteiner{
-    position: absolute;
-    top: 63.25vh;
-    left: 18.8vw;
-}
-
-.question-box{
-    display: flex;
-    gap: 1vw;
-    align-items: center;
-}
-
-input[type="radio"] {
-  width: 3.5vw;
-  height: 3.5vw;
-  accent-color: #007bff; /* muda a cor */
-  transform: scale(1); /* garante proporção */
-  cursor: pointer;
-}
-
-#barra-lateralE {
-  position: fixed;
-  top: 0;
-  left: 0;  
-  width: 11vw;
-  height: 100%;
-  background-color:#006FA7; 
-  padding: 20px;
-}
-
-#barra-lateralD{
+.barra{
     position: fixed;
-    top:0;
-    right: 0;  
-    width: 11vw;
+    background-color: #006FA7;
     height: 100%;
-    background-color:#006FA7;
-    padding: 20px;
+    width: 210px;
+    top:0;
 }
 
-.pergunta{
-    font-family: 'Montserrat',sans-serif;
-    font-size: 1.67vw;
-    color: #0E0E0E;
-    white-space: nowrap;
+.barra.dir{
+    right: 0;
 }
+
+.barra.esq{
+    left: 0;
+}
+
+.motivo{
+    padding-left: 336px;
+    padding-top: 90px;
+}
+
+form{ /* Muito problema para alinhar e deixar lado*/
+    position: absolute;
+    display: flex;
+    font-size: 2rem;
+
+}
+
+
 
 .menu-flutuante{
     display: flex;
-    width:23.49vw;
-    height: 5.83vh;
+    width: 451px;
+    height: 63px;
+    font-size: 1rem; 
+    margin-top:34px;
+    border-radius: 10px;
 }
 
-#transporteVolta-conteiner{
-    position: absolute;
-    top: 63.25vh;
-    left:53.8vw;
+.frequencia{
+    padding-top: 90px;
+    padding-left: 137px;
 }
 
-.invisivel{
-    display:none
+#inputs{
+    display: flex;
+    gap: 10px;
+}
+
+.data-hora{
+    display: block;
+    padding-left: 336px ;
+    position: absolute;/*Não entendo pq ele não herda o position de form*/
+    left: 0px; 
+    top: 351px;
+
+}
+
+
+.hora-data{
+    display: inline;
+    width: 193px;
+    height: 56px;
+    font-size: 1.5rem;
+    border-radius: 10px;
 }
 
 
 
-
-
-    
-    

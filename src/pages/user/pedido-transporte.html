@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="../css/pedido_transporte.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Fazer Solicitação de transporte</title>
+</head>
+<body>
+    <div class="barra esq"></div>
+    <div class="barra dir"></div>
+
+    <form method="get" autocomplete="on">
+
+        <div class="motivo">
+            <label>Selecione o motivo do transporte</label>
+            <select class="menu-flutuante">
+                <option value="Exame">Exame</option>
+                <option value="Consulta">Consulta</option>
+                <option value="Tratamento Contínuo">Tratamento Contínuo</option>
+            </select>
+        </div>
+
+        <div class="frequencia">
+            <label>Selecione a frequência do tratamento</label>
+            <select class="menu-flutuante">
+                <option value="Diário">Diário</option>
+                <option value="Semanal">Semanal</option>
+                <option value="Quizenal">Quizenal</option>
+                <option value="Mensal">Mensal</option>
+            </select>
+        </div>
+
+        <div class="data-hora">
+            <label>Selecione a data e hora da consulta</label>
+            <div id="inputs">
+                <input type="date" class="hora-data" id="data"></input>
+                <input type="time" class="hora-data" id="hora"></input>
+            </div>
+        </div>
+
+
+    </form>
+</body>
+</html>
