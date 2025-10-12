@@ -29,14 +29,14 @@ body{
     padding-top: 90px;
 }
 
+/*Preciso depois alinhar todas as caixas de input*/
+
 form{ /* Muito problema para alinhar e deixar lado*/
     position: absolute;
     display: flex;
     font-size: 2rem;
 
 }
-
-
 
 .menu-flutuante{
     display: flex;
@@ -52,10 +52,13 @@ form{ /* Muito problema para alinhar e deixar lado*/
     padding-left: 137px;
 }
 
-#inputs{
+#inputs{/* isso aqui foi só para botão de data e hora funcionar, talvez irei usar novamente nos botões de acompanhante*/
     display: flex;
-    gap: 10px;
 }
+
+/*A partir daqui ele começou a aparecer no canto, tive que manualmente direcionar para os lugares certos
+Amanha achar uma forma prática de resolver esse problema, está feio
+*/
 
 .data-hora{
     display: block;
@@ -66,14 +69,52 @@ form{ /* Muito problema para alinhar e deixar lado*/
 
 }
 
-
 .hora-data{
+    margin-top: 34px;
     display: inline;
     width: 193px;
     height: 56px;
     font-size: 1.5rem;
     border-radius: 10px;
+    margin-left: 44px;
 }
+
+.unidade{
+    position: absolute;
+    display: block;
+    padding-left: 1004px;/*De verdade, que código feio, mas é o jeito*/
+    top: 351px;
+}
+
+.anexo{
+    position: absolute;
+    top: 555px;
+    left: 45%;
+    text-align: center;
+}
+
+#foto{/*Para tirar o texto vai precisar de um código em javascript, deixar para depois*/
+    position: absolute;
+    background-color: #D3D9E0;
+    border-radius: 48px;
+    align-items: center;
+    margin-left: 100px;
+    width: 258px;
+    height: 232px;
+    cursor: pointer;
+}
+
+/*O css está com problemas que as positions não estão sendo herdadas de forms
+Precisa ser criado media query, não sei se precisa trocar a unidade de medida
+Precisa Rever todas as classes e ids e ver se realmente precisam estar lá
+Para tirar o texto do input file precisa de javascript para funcionar
+
+
+Desejo que meu maior inimigo tenha que usar HTML e CSS pro resto da vida e sempre dê problemas para ele :)-Peri
+
+*/
+
+
 
 
 
