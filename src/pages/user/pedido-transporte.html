@@ -16,7 +16,7 @@
 
 <!--Cada campo está divido por uma div com o nome do que ela representa-->
 
-    <form method="get" autocomplete="on">
+    <form id="pedido-transporte" autocomplete="on">
 
         <div class="motivo">
             <label>Selecione o motivo do transporte</label>
@@ -40,8 +40,8 @@
         <div class="data-hora">
             <label>Selecione a data e hora da consulta</label>
             <div id="input"><!--Tem alguma forma de fazer isso sem 2 divs?-->
-                <input type="date" class="hora-data" id="data"></input>
-                <input type="time" class="hora-data" id="hora"></input>
+                <input type="date" class="hora-data" id="data">
+                <input type="time" class="hora-data" id="hora">
             </div>
         </div>
 
@@ -63,12 +63,15 @@
             </div>
         </div>
 
-<!--       <div class="acompanhante">
+        <div class="acompanhante">
             <label> Tem acompanhante?</label>
-            <input type="radio" class="botao" name="acompanhante?" value="Não">
-            <input type="radio" class="botao" name="acompanhante?" value="Sim">
-        </div> CSS tá contra mim a todos os moemntos--> 
+            <input type="radio" class="botao" name="acompanhante?" value="Não">Não
+            <input type="radio" class="botao" name="acompanhante?" value="Sim">Sim
+        </div> 
+
+        <button type="submit" id="enviar">Enviar</button>
 
     </form>
 </body>
+    <script src="../javascript/pedido_transporte.js"></script>
 </html>
