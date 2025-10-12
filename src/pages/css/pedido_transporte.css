@@ -31,7 +31,7 @@ body{
 
 /*Preciso depois alinhar todas as caixas de input*/
 
-form{ /* Muito problema para alinhar e deixar lado*/
+form{ /* Muito problema para alinhar e deixar lado a lado*/
     position: absolute;
     display: flex;
     font-size: 2rem;
@@ -109,6 +109,7 @@ Amanha achar uma forma prática de resolver esse problema, está feio
     width: 68px;
     height: 68px;
     border-radius: 100px;
+    margin-left: 40px;
 }
 
 
@@ -133,6 +134,14 @@ Amanha achar uma forma prática de resolver esse problema, está feio
     margin-top: 930px;
     cursor: pointer;
     font-size: 1.5rem;
+}
+
+.transporte-volta{
+    position:absolute;
+    margin-top: 525px;
+    padding-left: 439px;
+    padding-top: 90px;
+    right: -42px;
 }
 
 /*O css está com problemas que as positions não estão sendo herdadas de forms
