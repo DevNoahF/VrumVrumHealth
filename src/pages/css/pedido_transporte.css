@@ -1,4 +1,3 @@
-
 body{
     background-color: #E9EBEC;
     font-family: 'Montserrat', sans-serif;
@@ -164,6 +163,78 @@ Desejo que meu maior inimigo tenha que usar HTML e CSS pro resto da vida e sempr
 
 */
 
+@media screen and (max-width: 1366px) {
+    body {
+        font-size: 12px;
+    }
+    form{
+        font-size: 1.5rem;
+    }
+    
+    .barra{
+        width: 105px;
+    }
+
+    .motivo{
+        padding-left: 168px;
+        padding-top: 45px;
+    }
+    .menu-flutuante{
+        width: 400px;
+        height: 63px;
+    }
+
+    .frequencia{
+        padding-top: 45px;
+        padding-left: 137px;
+    }
+
+    .data-hora{
+        padding-left: 168px ;
+        top: 280px;
+    }
+    .unidade{
+        padding-left: 700px;
+        top: 280px;
+    }
+    .anexo{
+        top: 444px;
+        left: 40%;
+    }
+    #anexo-text{
+        padding-left: 50px;
+    }
+
+    .acompanhante{
+        text-align: center;
+        margin-top: 480px;
+        padding-left: 168px;
+        padding-top: 45px;
+    }
+
+    .hora-data{
+        width: 193px;
+        height: 56px;
+        margin-left: 10px;
+    }
+
+    .transporte-volta{
+    margin-top: 480px;
+    padding-left: 168px;
+    padding-top: 45px;
+    right: -75px;
+    }
+
+    #enviar{
+        margin-top: 700px;
+        width: 170px;
+        height: 51px;
+    }
+    
+
+
+
+}
 
 
 
