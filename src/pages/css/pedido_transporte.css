@@ -8,6 +8,8 @@ body{
 
 }
 
+
+
 .barra{
     position: fixed;
     background-color: #006FA7;
@@ -48,6 +50,8 @@ form{ /* Muito problema para alinhar e deixar lado a lado*/
 }
 
 .frequencia{
+    opacity: 100%;
+    transition: 0.5s;
     padding-top: 90px;
     padding-left: 137px;
 }
@@ -143,6 +147,12 @@ Amanha achar uma forma prática de resolver esse problema, está feio
     padding-top: 90px;
     right: -42px;
 }
+
+#invi{/*Classe para que frequencia não apareça, só apareça quando user colocar tratamento contínuo*/
+    opacity: 0%;
+    transition:0.5s;
+}
+
 
 /*O css está com problemas que as positions não estão sendo herdadas de forms
 Precisa ser criado media query, não sei se precisa trocar a unidade de medida

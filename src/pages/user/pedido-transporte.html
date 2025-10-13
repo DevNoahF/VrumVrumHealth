@@ -20,16 +20,16 @@
 
         <div class="motivo">
             <label>Selecione o motivo do transporte</label>
-            <select class="menu-flutuante">
+            <select class="menu-flutuante" id="motivo-value">
                 <option value="Exame">Exame</option>
                 <option value="Consulta">Consulta</option>
                 <option value="Tratamento Contínuo">Tratamento Contínuo</option>
             </select>
         </div>
 
-        <div class="frequencia">
+        <div class="frequencia" id="invi">
             <label>Selecione a frequência do tratamento</label>
-            <select class="menu-flutuante">
+            <select class="menu-flutuante" id="frequencia-value">
                 <option value="Diário">Diário</option>
                 <option value="Semanal">Semanal</option>
                 <option value="Quizenal">Quizenal</option>
@@ -39,7 +39,7 @@
 
         <div class="data-hora">
             <label>Selecione a data e hora da consulta</label>
-            <div id="input"><!--Tem alguma forma de fazer isso sem 2 divs?-->
+            <div id="inputs"><!--Tem alguma forma de fazer isso sem 2 divs?-->
                 <input type="date" class="hora-data" id="data">
                 <input type="time" class="hora-data" id="hora">
             </div>
@@ -65,14 +65,15 @@
 
         <div class="acompanhante">
             <label> Tem acompanhante?</label>
-            <div ></div><!--Uma forma mais fácil de fazer essa poha ficar deitada, vai tomanocu-->
-            <input type="radio" class="botao" name="acompanhante?" value="Não">Não
-            <input type="radio" class="botao" name="acompanhante?" value="Sim">Sim
+            <div class="inputs"><!--Uma forma mais fácil de fazer essa poha ficar deitada, vai tomanocu-->
+                <input type="radio" class="botao" name="acompanhante?" value="Não">Não
+                <input type="radio" class="botao" name="acompanhante?" value="Sim">Sim
+            </div>
         </div> 
 
         <div class="transporte-volta">
             <label>Precisa de transporte na volta?</label>
-            <div>
+            <div class="inputs">
             <input type="radio" class="botao" name="transporte-volta?" value="Não">Não
             <input type="radio" class="botao" name="transporte-volta?" value="Sim">Sim
             </div>
