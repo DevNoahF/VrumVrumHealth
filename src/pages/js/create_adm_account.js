@@ -1,8 +1,6 @@
 document.getElementById("given_name").focus();
 document.getElementById("submit_button").addEventListener("click", prepareToSend);
 
-// import { MaxSizeEnum } from "../js/enums/MaxSizeEnum.js";
-
 const MaxSizeEnum = Object.freeze({
 	NAME: 100,
 	EMAIL: 100,
