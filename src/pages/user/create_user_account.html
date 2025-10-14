@@ -81,55 +81,6 @@
 				</div>
 			</form>
 		</main>
-		<script>
-
-			document.getElementById("given_name").focus();
-			document.getElementById("submit_button").addEventListener("click", prepareDataToSend);
-
-			function isInputOverLimit(inputLength, limit) {
-				return (inputLength > limit);
-			}
-
-			function getUserFields() {
-				const nameLength = document.getElementById("given_name").value.length;
-				const emailLength = document.getElementById("email").value.length;
-				const passwordLength = document.getElementById("password").value.length;
-				const birthdayLength = document.getElementById("birthday").value.length;
-				const telephoneLength = document.getElementById("telephone_num").value.length;
-				const streetLength = document.getElementById("street").value.length;
-				const complementLength = document.getElementById("complement").value.length;
-
-				return [
-					nameLength,
-					emailLength,
-					passwordLength,
-					birthdayLength,
-					telephoneLength,
-					streetLength,
-					complementLength
-				];
-			}
-
-			function prepareDataToSend() {
-				const fields = getFields();
-
-				if(isInputOverLimit(fields[0])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[1])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[2])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[3])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[4)) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[5])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[6])) { e.preventDefault(); }
-
-				e.preventDefault();
-			}
-
-		</script>
+		<script src="../js/create_user_account.js"></script>
 	</body>
 </html>
