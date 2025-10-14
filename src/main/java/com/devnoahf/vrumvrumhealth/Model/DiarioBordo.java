@@ -1,41 +1,36 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_motorista")
+@Table(name = "tb_diario_bordo")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
-public class Motorista {
+@Setter
+public class DiarioBordo {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String name;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
+    private BigDecimal quilometragemInicial;
 
-    @Column(unique = true)
-    private String cpf;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
+    private BigDecimal quilometragemFinal;
 
-    @Column(unique = true)
-    private String email;
-
-    @Column(unique = true)
-
-    private String senha;
-
-    @Column(length = 20)
-    private String telefone;
+    @Column(columnDefinition = "TEXT")
+    private String observacoes;
 
     @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
@@ -43,16 +38,16 @@ public class Motorista {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @Enumerated(EnumType.STRING)
-    private RoleEnum roleEnum;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = Timestamp.valueOf(LocalDateTime.now());
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now()); // opcional
+        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
+
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
+
 }
