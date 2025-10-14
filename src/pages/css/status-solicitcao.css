@@ -4,5 +4,23 @@
 }
 
 #info-status{
+    position: absolute;
+    width:775px ;
+    height: 775px;
+    border-radius: 100px;
+    background-color: #D3D9E0;
+
+}
+
+
+@media screen and (max-width:1366px) {
+    body{
+        font-size: 1.5rem;
+    }
+
+    #info-status{
+        width:620px ;
+        height: 620px;
+    }
     
 }
