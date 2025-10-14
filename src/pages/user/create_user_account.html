@@ -27,109 +27,60 @@
 				<div>
 					<div class="form_content">
 						<label for="given_name">Nome</label>
-						<input type="text" id="given_name" for="given_name" maxlength="100" required />
+						<input type="text" id="given_name" for="given_name" />
 					</div>
 					<div class="form_content">
 						<label for="telephone_num">Telefone</label>
 						<!--NOTE: remove parenthesis, blanks and dash with or js or java-->
-						<input type="tel" id="telephone_num" name="telephone_num" maxlength="20" placeholder="(XX) XXXXX-XXXX" />
+						<input type="tel" id="telephone_num" name="telephone_num" placeholder="(XX) XXXXX-XXXX" />
 					</div>
 				</div>
 				<div>
 					<div class="form_content">
 						<label for="email">Email</label>
-						<input type="email" id="email" name="email" maxlength="100" required />
+						<input type="email" id="email" name="email" />
 					</div>
 					<div class="form_content">
 						<label for="password">Senha</label>
-						<input type="password" id="password" name="password" maxlength="6" required />
+						<input type="password" id="password" name="password" />
 					</div>
 					<div class="form_content">
 						<label for="birthday">Data de nascimento</label>
-						<input type="date" id="birthday" name="birthday" maxlength="100" required />
+						<input type="date" id="birthday" name="birthday" />
 					</div>
 				</div>
 				<div>
 					<div class="form_content">
 						<label for="street">Rua</label>
-						<input type="text" id="street" name="street" maxlength="255" required />
+						<input type="text" id="street" name="street" />
 					</div>
 					<div class="form_content">
 						<label for="house_id">Numero da Casa</label>
-						<input type="text" id="house_id" name="house_id" maxlength="6" required />
+						<input type="text" id="house_id" name="house_id" />
 					</div>
 					<div class="form_content">
 						<label for="complement">Complemento</label>
-						<input type="text" id="complement" name="complement" maxlength="30" placeholder="casa" required />
+						<input type="text" id="complement" name="complement" placeholder="casa"/>
 					</div>
 					<div class="form_content">
 						<label for="cep">CEP</label>
-						<input type="digit" id="cep" name="cep" maxlength="30" placeholder="XXXXX-XXX" required />
+						<input type="digit" id="cep" name="cep" placeholder="XXXXX-XXX" />
 					</div>
 					<div class="form_content">
 						<label for="complement">Bairro</label>
-						<input type="digit" id="complement" name="complement" maxlength="255" placeholder="XXXXX-XXX" required />
+						<input type="digit" id="neighborhood" name="neighborhood" placeholder="XXXXX-XXX" />
 					</div>
-				</div>
-				<div>
-				<div class="final_form_content">
 					<div class="form_content">
 						<!--NOTE: to get this you'll need to use js-->
 						<input type="hidden" value="user" name="role" readonly />
 						<button type="submit" id="submit_button">Registrar</button>
 					</div>
 				</div>
+				<div>
+				<div class="final_form_content">
+				</div>
 			</form>
 		</main>
-		<script>
-
-			document.getElementById("given_name").focus();
-			document.getElementById("submit_button").addEventListener("click", prepareDataToSend);
-
-			function isInputOverLimit(inputLength, limit) {
-				return (inputLength > limit);
-			}
-
-			function getUserFields() {
-				const nameLength = document.getElementById("given_name").value.length;
-				const emailLength = document.getElementById("email").value.length;
-				const passwordLength = document.getElementById("password").value.length;
-				const birthdayLength = document.getElementById("birthday").value.length;
-				const telephoneLength = document.getElementById("telephone_num").value.length;
-				const streetLength = document.getElementById("street").value.length;
-				const complementLength = document.getElementById("complement").value.length;
-
-				return [
-					nameLength,
-					emailLength,
-					passwordLength,
-					birthdayLength,
-					telephoneLength,
-					streetLength,
-					complementLength
-				];
-			}
-
-			function prepareDataToSend() {
-				const fields = getFields();
-
-				if(isInputOverLimit(fields[0])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[1])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[2])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[3])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[4)) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[5])) { e.preventDefault(); }
-
-				if(isInputOverLimit(fields[6])) { e.preventDefault(); }
-
-				e.preventDefault();
-			}
-
-		</script>
+		<script src="../js/create_user_account.js"></script>
 	</body>
 </html>
