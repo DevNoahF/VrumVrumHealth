@@ -61,10 +61,11 @@ public class Paciente {
     private FrequenciaEnum frequenciaEnum;
 
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime dataCriacao;
+    @Column(nullable = false, updatable = false,name = "created_at")
+    private LocalDateTime createdAt;
 
-    private LocalDateTime dataAtualizacao;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
 
     @Enumerated(EnumType.STRING)
@@ -79,13 +80,13 @@ public class Paciente {
 
     @PrePersist
     protected void onCreate() {
-        this.dataCriacao = LocalDateTime.now();
-        this.dataAtualizacao = LocalDateTime.now(); // opcional
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now(); // opcional
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.dataAtualizacao = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
 
