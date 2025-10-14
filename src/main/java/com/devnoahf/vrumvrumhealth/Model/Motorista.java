@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_motorista")
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Setter
 @Getter
+
 public class Motorista {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -45,6 +47,9 @@ public class Motorista {
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
+
+    @OneToMany(mappedBy = "motoristas", cascade = CascadeType.ALL)
+    private List<DiarioBordo> diariosBordo;
 
     @PrePersist
     protected void onCreate() {

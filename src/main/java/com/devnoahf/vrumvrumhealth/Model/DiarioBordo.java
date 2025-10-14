@@ -1,6 +1,5 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,6 +37,15 @@ public class DiarioBordo {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
+
+    @ManyToOne
+    @JoinColumn(name = "motorista_id")
+    private Motorista motoristas;
+
+
+    @ManyToOne
+    @JoinColumn(name = "veiculo_id")
+    private Veiculo veiculos;
 
     @PrePersist
     protected void onCreate() {

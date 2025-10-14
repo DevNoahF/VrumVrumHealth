@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_transporte")
@@ -33,6 +34,9 @@ public class Transporte {
 	@ManyToOne
 	@JoinColumn(name = "agendamento_id",nullable = false)
 	private Agendamento agendamento;
+
+	@OneToMany(mappedBy = "transporte",cascade = CascadeType.ALL)
+	private List<DiarioBordo> diariosBordo;
 
 	@PrePersist
 	protected void onCreate() {
