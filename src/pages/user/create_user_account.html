@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Adm register</title>
+		<title>Client register</title>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" type="text/css" href="../css/commons.css">
@@ -27,57 +27,57 @@
 				<div>
 					<div class="form_content">
 						<label for="given_name">Nome</label>
-						<input type="text" id="given_name" for="given_name" maxlength="100" required />
+						<input type="text" id="given_name" for="given_name" />
 					</div>
 					<div class="form_content">
 						<label for="telephone_num">Telefone</label>
 						<!--NOTE: remove parenthesis, blanks and dash with or js or java-->
-						<input type="tel" id="telephone_num" name="telephone_num" maxlength="20" placeholder="(XX) XXXXX-XXXX" />
+						<input type="tel" id="telephone_num" name="telephone_num" placeholder="(XX) XXXXX-XXXX" />
 					</div>
 				</div>
 				<div>
 					<div class="form_content">
 						<label for="email">Email</label>
-						<input type="email" id="email" name="email" maxlength="100" required />
+						<input type="email" id="email" name="email" />
 					</div>
 					<div class="form_content">
 						<label for="password">Senha</label>
-						<input type="password" id="password" name="password" maxlength="6" required />
+						<input type="password" id="password" name="password" />
 					</div>
 					<div class="form_content">
 						<label for="birthday">Data de nascimento</label>
-						<input type="date" id="birthday" name="birthday" maxlength="100" required />
+						<input type="date" id="birthday" name="birthday" />
 					</div>
 				</div>
 				<div>
 					<div class="form_content">
 						<label for="street">Rua</label>
-						<input type="text" id="street" name="street" maxlength="255" required />
+						<input type="text" id="street" name="street" />
 					</div>
 					<div class="form_content">
 						<label for="house_id">Numero da Casa</label>
-						<input type="text" id="house_id" name="house_id" maxlength="6" required />
+						<input type="text" id="house_id" name="house_id" />
 					</div>
 					<div class="form_content">
 						<label for="complement">Complemento</label>
-						<input type="text" id="complement" name="complement" maxlength="30" placeholder="casa" required />
+						<input type="text" id="complement" name="complement" placeholder="casa"/>
 					</div>
 					<div class="form_content">
 						<label for="cep">CEP</label>
-						<input type="digit" id="cep" name="cep" maxlength="30" placeholder="XXXXX-XXX" required />
+						<input type="digit" id="cep" name="cep" placeholder="XXXXX-XXX" />
 					</div>
 					<div class="form_content">
 						<label for="complement">Bairro</label>
-						<input type="digit" id="complement" name="complement" maxlength="255" placeholder="XXXXX-XXX" required />
+						<input type="digit" id="neighborhood" name="neighborhood" placeholder="XXXXX-XXX" />
 					</div>
-				</div>
-				<div>
-				<div class="final_form_content">
 					<div class="form_content">
 						<!--NOTE: to get this you'll need to use js-->
 						<input type="hidden" value="user" name="role" readonly />
 						<button type="submit" id="submit_button">Registrar</button>
 					</div>
+				</div>
+				<div>
+				<div class="final_form_content">
 				</div>
 			</form>
 		</main>
