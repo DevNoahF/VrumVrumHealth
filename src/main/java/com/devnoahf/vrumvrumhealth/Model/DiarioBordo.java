@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "diario_bordo")
+@Table(name = " diario_bordo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -23,9 +23,11 @@ public class DiarioBordo {
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
+    @Column(precision = 10, scale = 2)
     private BigDecimal quilometragemInicial;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
+    @Column(precision = 10, scale = 2)
     private BigDecimal quilometragemFinal;
 
     @Column(columnDefinition = "TEXT")
