@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_diario_bordo")
+@Table(name = "diario_bordo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
