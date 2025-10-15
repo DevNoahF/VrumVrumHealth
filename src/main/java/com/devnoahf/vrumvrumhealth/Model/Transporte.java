@@ -20,10 +20,11 @@ public class Transporte {
 	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime horarioSaida;
 
-	@Column(nullable = false, updatable = false)
-	private LocalDateTime dataCriacao;
+	@Column(nullable = false, updatable = false,name = "created_at")
+	private LocalDateTime createdAt;
 
-	private LocalDateTime dataAtualizacao;
+	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
 
 	@ManyToOne
 	@JoinColumn(name = "veiculo_id",nullable = false)
@@ -35,13 +36,13 @@ public class Transporte {
 
 	@PrePersist
 	protected void onCreate() {
-		this.dataCriacao = LocalDateTime.now();
-		this.dataAtualizacao = LocalDateTime.now(); // opcional
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now(); // opcional
 	}
 
 	@PreUpdate
 	protected void onUpdate() {
-		this.dataAtualizacao = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 
 
