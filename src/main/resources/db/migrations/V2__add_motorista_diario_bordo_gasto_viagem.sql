@@ -5,8 +5,8 @@ CREATE TABLE motorista (
                            email VARCHAR(100) UNIQUE NOT NULL,
                            senha VARCHAR(255) NOT NULL,
                            telefone VARCHAR(20),
-                           create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                           update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                            role ENUM('MOTORISTA') DEFAULT 'MOTORISTA'
 );
 
@@ -17,8 +17,8 @@ CREATE TABLE diario_bordo (
                               quilometragem_inicial DECIMAL NOT NULL,
                               quilometragem_final DECIMAL NOT NULL,
                               observacoes TEXT,
-                              create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                              update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                              updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                               FOREIGN KEY (transporte_id) REFERENCES transporte(id),
                               FOREIGN KEY (motorista_id) REFERENCES motorista(id)
 );
