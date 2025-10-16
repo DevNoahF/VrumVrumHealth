@@ -1,3 +1,12 @@
+h2{
+    text-align: center;
+}
+p{
+    font-size: 1.5rem;
+    padding-left: 20px;
+    margin-top: 43px;
+}
+
 #titulo{
     text-align: center;
     font-size: 3rem;/*Tamanho vem de pedido-transporte.css*/
@@ -5,11 +14,22 @@
 
 #info-status{
     position: absolute;
+    left: 27%;/*???????????????????????*/
     width:775px ;
     height: 775px;
     border-radius: 100px;
     background-color: #D3D9E0;
 
+}
+
+#visualizar-anexo{
+    position: absolute;
+    bottom: 0;
+    height: 118px;
+    width: 673px;
+    border-radius: 100px;
+    background-color: #D3D9E0;
+    cursor: pointer;
 }
 
 
@@ -19,8 +39,18 @@
     }
 
     #info-status{
+        left: 27%;
         width:620px ;
         height: 620px;
+    }
+    p{
+        margin-top: 35px;
+    }
+
+    #visualizar-anexo{
+        left: 27%;
+        height: 94px;
+        width: 538px;
     }
     
 }
