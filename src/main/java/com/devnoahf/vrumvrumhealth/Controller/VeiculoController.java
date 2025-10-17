@@ -1,56 +1,47 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.VeiculoDTO;
+import com.devnoahf.vrumvrumhealth.Service.VeiculoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("/veiculo")
+@RequestMapping("/veiculos")
 public class VeiculoController {
 
-    private final Map<Long, VeiculoDTO> veiculos = new HashMap<>();
-    private Long sequence = 1L;
+    @Autowired
+    private VeiculoService veiculoService;
 
     @GetMapping
     public ResponseEntity<List<VeiculoDTO>> listarTodos() {
-        return ResponseEntity.ok(new ArrayList<>(veiculos.values()));
+        List<VeiculoDTO> lista = veiculoService.listarTodos();
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<VeiculoDTO> buscarPorId(@PathVariable Long id) {
-        VeiculoDTO veiculo = veiculos.get(id);
-        if (veiculo == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(veiculo);
+        VeiculoDTO dto = veiculoService.buscarPorId(id);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<VeiculoDTO> criar(@RequestBody VeiculoDTO dto) {
-        dto.setId(sequence++);
-        veiculos.put(dto.getId(), dto);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<VeiculoDTO> criar(@RequestBody VeiculoDTO veiculoDTO) {
+        VeiculoDTO novo = veiculoService.salvar(veiculoDTO);
+        return ResponseEntity.status(201).body(novo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VeiculoDTO> atualizar(@PathVariable Long id, @RequestBody VeiculoDTO dto) {
-        VeiculoDTO existente = veiculos.get(id);
-        if (existente == null) {
-            return ResponseEntity.notFound().build();
-        }
-        dto.setId(id);
-        veiculos.put(id, dto);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<VeiculoDTO> atualizar(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
+        VeiculoDTO atualizado = veiculoService.atualizar(id, veiculoDTO);
+        return ResponseEntity.ok(atualizado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (!veiculos.containsKey(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        veiculos.remove(id);
+        veiculoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

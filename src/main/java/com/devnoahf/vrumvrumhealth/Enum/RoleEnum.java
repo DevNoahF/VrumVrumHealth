@@ -3,7 +3,8 @@ package com.devnoahf.vrumvrumhealth.Enum;
 
 public enum RoleEnum {
     ADMIN("admin"),
-    USER("user");
+    USER("user"),
+    MOTORISTA("motorista");
 
     private String role;
 

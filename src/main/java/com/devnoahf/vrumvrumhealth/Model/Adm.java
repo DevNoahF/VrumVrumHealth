@@ -34,22 +34,23 @@ public class Adm /*implements UserDetails*/ {
     private String senhaHash;
 
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime  dataCriacao;
-    private LocalDateTime dataAtualizacao;
+    @Column(nullable = false, updatable = false, name = "created_at")
+    private LocalDateTime  createdAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
 
     @PrePersist
     protected void onCreate() {
-        this.dataCriacao = LocalDateTime.now();
-        this.dataAtualizacao = LocalDateTime.now(); // opcional
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now(); // opcional
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.dataAtualizacao = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     //TODOS OS METODOS ESTÃO COMENTADOS POIS AINDA NÃO FORAM FINALIZADAS AS CONFIGURAÇÕES DE SEGURANÇA
