@@ -2,15 +2,14 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
+@Builder
 @Entity
 @Table(name = "motorista")
 @NoArgsConstructor
@@ -24,19 +23,21 @@ public class Motorista {
     private Long id;
 
     @Column(length = 100, nullable = false)
-    private String name;
+    private String nome;
 
-    @Column(unique = true)
+    @Column(name = "data_nascimento", nullable = false)
+    private Date dataNascimento;
+
+    @Column(unique = true, nullable = false)
     private String cpf;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(unique = true)
-
+    @Column(nullable = false)
     private String senha;
 
-    @Column(length = 20)
+    @Column(length = 20, nullable = false)
     private String telefone;
 
     @Column(name = "created_at", updatable = false)
@@ -48,7 +49,7 @@ public class Motorista {
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
 
-    @OneToMany(mappedBy = "motoristas", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "motorista_id", cascade = CascadeType.ALL)
     private List<DiarioBordo> diariosBordo;
 
     @PrePersist

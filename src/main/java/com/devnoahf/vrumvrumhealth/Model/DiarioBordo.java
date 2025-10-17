@@ -2,15 +2,13 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+@Builder
 @Entity
 @Table(name = " diario_bordo")
 @NoArgsConstructor
