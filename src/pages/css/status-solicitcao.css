@@ -14,7 +14,7 @@ p{
 
 #info-status{
     position: absolute;
-    left: 27%;/*???????????????????????*/
+    left: 30%;/*???????????????????????*/
     width:775px ;
     height: 775px;
     border-radius: 100px;
@@ -22,14 +22,42 @@ p{
 
 }
 
+
 #visualizar-anexo{
     position: absolute;
-    bottom: 0;
+    bottom: -157px;
+    left: 33%;
     height: 118px;
     width: 673px;
     border-radius: 100px;
     background-color: #D3D9E0;
     cursor: pointer;
+
+}
+#anexo{
+    text-align: center;
+    margin-top: -50px;
+    cursor: auto;
+}
+
+#visualizar-anexo img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#cancelar{
+    position: absolute;
+    background-color: #BE3030;
+    border-radius: 100px;
+    border-color: #BE3030;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    left: 233px;
+    bottom: -157px;
+    width: 373px;
+    height: 72px;
 }
 
 
