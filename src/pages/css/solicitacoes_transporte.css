@@ -30,3 +30,29 @@ nav{
     width: 64px;
     height: 64px;
 }
+
+#solicitacoes{
+    position: absolute;
+    left: 20%;
+    padding-top: 200px;
+    width: 64px;
+    height: 64px;
+}
+
+#aprovadas{
+    position: absolute;
+    left: 20%;
+    padding-top: 300px;
+    width: 64px;
+    height: 64px;
+}
+
+.pedido-transporte{
+    position: relative;
+    margin-top: 30px;
+    left: 10%;
+    background-color: #D3D9E0;
+    border-radius: 100px;
+    width: 1729px;
+    height: 729px;
+}
