@@ -3,6 +3,7 @@ package com.devnoahf.vrumvrumhealth.DTO;
 import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,11 +21,16 @@ public class AgendamentoDTO {
     private Long id;
     @Future(message = "A data da consulta deve ser no futuro.")
     private LocalDate dataConsulta;
-    @Time
+    @Future(message = "A hora da consulta deve ser no futuro.")
     private LocalTime horaConsulta;
+    @NotBlank(message = "É obrigatorio o envio do comprovante")
     private String comprovante;
+    @NotBlank(message = "É obrigatorio selecionar o local de atendimento")
     private LocalAtendimentoEnum localAtendimentoEnum;
+
     private StatusEnum statusEnum;
+    @NotBlank(message = "É obrigatorio informar se haverá retorno para casa")
     private Boolean retornoCasa;
-    private Long pacienteId; // referenciando apenas o id do paciente
+
+    private Long pacienteId;
 }
