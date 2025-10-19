@@ -1,0 +1,32 @@
+body{
+    background-color: #E9EBEC;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+}
+
+nav{
+    position: fixed;
+    height: 100%;
+    width: 104px ;
+    background-color: #006FA7;
+    top:0;
+    left: 0;
+}
+
+#botao-menu{
+    position: absolute;
+    left: 20%;
+    background: none;
+    border: none;
+    font-size: 56px;
+    color: white;
+    cursor: pointer;
+}
+
+#home{
+    position: absolute;
+    left: 20%;
+    padding-top: 100px;
+    width: 64px;
+    height: 64px;
+}

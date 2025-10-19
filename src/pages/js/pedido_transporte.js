@@ -36,13 +36,13 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
     comprovante: null,
     localAtendimentoEnum: String(document.getElementById("unidade-value").value), 
     statusEnum: "PENDENTE",
-    retornoCasa: document.getElementById("retorno").checked, 
+    retornoCasa: true, 
     pacienteId: 1
   };
 
   const response = await fetch("http://localhost:8080/agendamento", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: data,
   });
 })
