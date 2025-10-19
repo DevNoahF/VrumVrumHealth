@@ -31,7 +31,7 @@ public class Adm /*implements UserDetails*/ {
     private String email;
 
 
-    private String senhaHash;
+    private String senha;
 
 
     @Column(nullable = false, updatable = false, name = "created_at")
@@ -41,6 +41,11 @@ public class Adm /*implements UserDetails*/ {
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
+
+
+    public Adm(RoleEnum roleEnum) {
+        this.setRoleEnum(roleEnum.ADMIN);
+    }
 
     @PrePersist
     protected void onCreate() {

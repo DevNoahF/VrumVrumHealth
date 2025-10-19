@@ -2,11 +2,11 @@ package com.devnoahf.vrumvrumhealth.Mapper;
 
 import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import lombok.Builder;
 import lombok.experimental.UtilityClass;
 import org.springframework.stereotype.Component;
-
+@Builder
 @UtilityClass
-@Component
 public class DiarioBordoMapper {
 
 
@@ -16,21 +16,25 @@ public class DiarioBordoMapper {
                 .quilometragemInicial(diarioBordo.getQuilometragemInicial())
                 .quilometragemFinal(diarioBordo.getQuilometragemFinal())
                 .observacoes(diarioBordo.getObservacoes())
-                .motoristas(diarioBordo.getMotoristas())
+                .motorista(diarioBordo.getMotorista())
                 .veiculos(diarioBordo.getVeiculos())
+                .transporte(diarioBordo.getTransporte())
                 .build();
     }
 
 
-    public DiarioBordoDTO toEntity(DiarioBordo diarioBordo) {
+    public DiarioBordoDTO toEntity(DiarioBordoDTO diarioBordo) {
         return DiarioBordoDTO.builder()
                 .id(diarioBordo.getId())
                 .quilometragemInicial(diarioBordo.getQuilometragemInicial())
                 .quilometragemFinal(diarioBordo.getQuilometragemFinal())
                 .observacoes(diarioBordo.getObservacoes())
-                .motorista(diarioBordo.getMotoristas())
-                .veiculo(diarioBordo.getVeiculos())
+                .motorista(diarioBordo.getMotorista())
+                .veiculo(diarioBordo.getVeiculo())
+                .transporte(diarioBordo.getTransporte())
                 .build();
+
+
     }
 
 

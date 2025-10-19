@@ -1,7 +1,7 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
-import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +15,20 @@ import java.util.List;
 @Getter
 @Setter
 public class MotoristaDTO {
+
+    // comentado NotBlank para facilitar testes iniciais
     private Long id;
+//    @NotBlank
     private String nome;
+//    @NotBlank
     private String cpf;
+//    @NotBlank
     private String email;
+//    @NotBlank
     private String senha;
+//    @NotBlank
     private String telefone;
-    private RoleEnum roleEnum;
+//    @NotBlank
     private List<Long> diarioBordo;
 
 }

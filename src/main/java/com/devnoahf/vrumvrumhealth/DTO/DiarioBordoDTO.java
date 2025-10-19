@@ -1,6 +1,7 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
 import com.devnoahf.vrumvrumhealth.Model.Motorista;
+import com.devnoahf.vrumvrumhealth.Model.Transporte;
 import com.devnoahf.vrumvrumhealth.Model.Veiculo;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -20,4 +21,7 @@ public class DiarioBordoDTO {
     private String observacoes;
     private Motorista motorista;
     private Veiculo veiculo;
+    private Transporte transporte;
+
+
 }

@@ -40,12 +40,16 @@ public class DiarioBordo {
 
     @ManyToOne
     @JoinColumn(name = "motorista_id")
-    private Motorista motoristas;
+    private Motorista motorista;
 
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculos;
+
+    @ManyToOne
+    @JoinColumn(name = "transporte_id")
+    private Transporte transporte;
 
     @PrePersist
     protected void onCreate() {

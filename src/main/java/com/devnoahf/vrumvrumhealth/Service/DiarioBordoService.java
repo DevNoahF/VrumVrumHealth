@@ -1,5 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
+import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Repository.DiarioBordoRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,23 +23,31 @@ public class DiarioBordoService {
         return diarioBordo.orElse(null);
     }
 
-    public DiarioBordo save(DiarioBordo diarioBordo){
-        return diarioBordoRepository.save(diarioBordo);
+    public DiarioBordo save(DiarioBordoDTO diarioBordo){
+        DiarioBordo novoDiarioBordo = new DiarioBordo();
+        novoDiarioBordo.setQuilometragemInicial(diarioBordo.getQuilometragemInicial());
+        novoDiarioBordo.setQuilometragemFinal(diarioBordo.getQuilometragemFinal());
+        novoDiarioBordo.setMotorista(diarioBordo.getMotorista());
+        novoDiarioBordo.setObservacoes(diarioBordo.getObservacoes());
+        return diarioBordoRepository.save(novoDiarioBordo);
     }
 
     public void delete(Long id){
         diarioBordoRepository.deleteById(id);
     }
 
-    public DiarioBordo update(Long id, DiarioBordo diarioBordo){
+    public DiarioBordo update(Long id, DiarioBordoDTO diarioBordo){
      Optional<DiarioBordo> optionalDiario = diarioBordoRepository.findById(id);
      if(optionalDiario.isPresent()){
          DiarioBordo diarioBordoUpdate = optionalDiario.get();
          diarioBordoUpdate.setQuilometragemInicial(diarioBordo.getQuilometragemInicial());
          diarioBordoUpdate.setQuilometragemFinal(diarioBordo.getQuilometragemFinal());
-         diarioBordoUpdate.setMotoristas(diarioBordo.getMotoristas());
+         diarioBordoUpdate.setMotorista(diarioBordo.getMotorista());
          diarioBordoUpdate.setObservacoes(diarioBordo.getObservacoes());
          return diarioBordoRepository.save(diarioBordoUpdate);
      }
+        return null;
     }
+
+
 }

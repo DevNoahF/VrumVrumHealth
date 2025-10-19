@@ -35,7 +35,7 @@ public class PacienteMapper {
         paciente.setRoleEnum(dto.getRoleEnum());
 
         // Criptografa a senha
-        paciente.setSenhaHash(passwordEncoder.encode(dto.getSenhaHash()));
+        paciente.setSenha(passwordEncoder.encode(dto.getSenhaHash()));
 
 
         return paciente;

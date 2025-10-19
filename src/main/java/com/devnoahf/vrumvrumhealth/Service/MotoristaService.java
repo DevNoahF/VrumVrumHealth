@@ -28,7 +28,8 @@ public class MotoristaService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        Optional<Motorista> optionalMotorista = repository.findById(id);
+        optionalMotorista.ifPresent(repository::delete);
     }
 
     public Motorista update(Long id, Motorista motorista){
@@ -40,7 +41,6 @@ public class MotoristaService {
             motoristaUpdate.setCpf(motorista.getCpf());
             motoristaUpdate.setEmail(motorista.getEmail());
             motoristaUpdate.setTelefone(motorista.getTelefone());
-            motoristaUpdate.setDiariosBordo(motorista.getDiariosBordo());
             return repository.save(motoristaUpdate);
         }
         return null;

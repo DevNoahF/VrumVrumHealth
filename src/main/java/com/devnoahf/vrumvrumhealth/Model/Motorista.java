@@ -49,8 +49,9 @@ public class Motorista {
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
 
-    @OneToMany(mappedBy = "motorista_id", cascade = CascadeType.ALL)
-    private List<DiarioBordo> diariosBordo;
+    public Motorista(RoleEnum roleEnum) {
+        this.setRoleEnum(RoleEnum.MOTORISTA);
+    }
 
     @PrePersist
     protected void onCreate() {

@@ -21,4 +21,6 @@ public class Veiculo {
     private String modelo;
 
     private int capacidade;
+
+
 }

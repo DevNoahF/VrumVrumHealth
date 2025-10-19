@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class PacienteDTO {
     private String senhaHash;
     private String cpf;
     private RoleEnum roleEnum;
-    private LocalDate dataNascimento;
+    private Date dataNascimento;
     private TipoAtendimentoEnum tipoAtendimentoEnum;
     private String telefone;
     private String cep;

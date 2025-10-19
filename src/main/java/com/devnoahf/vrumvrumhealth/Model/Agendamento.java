@@ -6,9 +6,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -22,9 +26,11 @@ public class Agendamento {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    private Date data_consulta;
+    @Column(name = "data_consulta")
+    private LocalDate dataConsulta;
 
-    private Time hora_consulta;
+    @Column(name = "hora_consulta")
+    private LocalTime horaConsulta;
 
     private String comprovante;
 
