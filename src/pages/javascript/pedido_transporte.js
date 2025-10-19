@@ -27,18 +27,22 @@ motivo.addEventListener("change",function(){
 })
 
 //Função de enviar informações para banco de dados
-document.getElementById("pedido-transporte").addEventListener("submit",async(e)=>{
-    e.preventDefault();
+document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    const FormDataOBJ=new FormData(e.target)
-    const response= await fetch("http://localhost:8080/agendamento",{
-        method:"POST",
-        body:FormDataOBJ,
-    });
-    const result = await response.json();
-    console.log(result)
+  const data = {
+    dataConsulta: String(document.getElementById("data").value),
+    horaConsulta: document.getElementById("hora").value + ":00", 
+    comprovante: null,
+    localAtendimentoEnum: String(document.getElementById("unidade-value").value), 
+    statusEnum: "PENDENTE",
+    retornoCasa: document.getElementById("retorno").checked, 
+    pacienteId: 1
+  };
 
-
-});
-
-
+  const response = await fetch("http://localhost:8080/agendamento", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+})
