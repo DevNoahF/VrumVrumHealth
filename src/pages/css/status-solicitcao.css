@@ -76,9 +76,16 @@ p{
     }
 
     #visualizar-anexo{
-        left: 27%;
-        height: 94px;
-        width: 538px;
+        bottom: -250px;
+        height: 78px;
+        width: 448px;
+    }
+
+    #cancelar{
+        left: 130px;
+        bottom: -250px;
+        width: 298px;
+        height:57px ;
     }
     
 }
