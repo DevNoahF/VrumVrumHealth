@@ -44,18 +44,18 @@
                 <input type="time" class="hora-data" id="hora">
             </div>
         </div>
-
+    
         <div class="unidade">
             <label>Selecione uma unidade de saúde</label>
-            <select class="menu-flutuante">
-                <option value="Hospital1">Hospital 1</option>
-                <option value="Hospital2">Hospital 2</option>
-                <option value="UPA1">UPA 1</option>
-                <option value="UPA2">UPA 2</option>
+            <select class="menu-flutuante" id="unidade-value">
+                <option value="Hospital1">Hospital1</option>
+                <option value="Hospital2">Hospital2</option>
+                <option value="UPA1">UPA1</option>
+                <option value="UPA2">UPA2</option>
             </select>
         </div>
 
-        <div class="anexo">
+       <div class="anexo">
             <label id="anexo-text">Anexe a foto do pedido médico</label>
             <div id="foto">
                 <input type="file" accept="image/*" id="invi"><img src="../assets/upload.png"><!--Aceita só arquivos do tipo imagem-->
@@ -73,7 +73,7 @@
 
         <div class="transporte-volta">
             <label>Precisa de transporte na volta?</label>
-            <div class="inputs">
+            <div class="inputs" id="retorno-value">
             <input type="radio" class="botao" name="transporte-volta?" value="Não">Não
             <input type="radio" class="botao" name="transporte-volta?" value="Sim">Sim
             </div>
