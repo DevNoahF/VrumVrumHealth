@@ -10,8 +10,24 @@ frequencia_value.value=null
 const motivo=document.getElementById("motivo-value")
 motivo.value=null
 
+const acompanhanteValue=document.getElementById("acompanhante-value")
+
+
 
 const frequencia=document.getElementsByClassName("frequencia")[0];//Serve para deixar invisível 
+
+const submit = document.getElementById("enviar")
+
+function getRadioValue(name){//Função para pegar o valor dos botões de Sim e Não
+  const radios=document.getElementsByName(name)
+  let valor=null;
+  for(let i =0; i<radios.length; i++)
+    if(radios[i].checked){
+      return valor=radios[i].value;
+    }
+
+}
+
 
 //Função para detectar mudança em motivo e aparecer frequencia se necessário
 motivo.addEventListener("change",function(){
@@ -33,9 +49,14 @@ motivo.addEventListener("change",function(){
     }
 })
 
+
+
 //Função de enviar informações para banco de dados
 document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  console.log(getRadioValue("transporte-volta?"))
+  console.log(getRadioValue("acompanhante?"))
 
   const data = {
     dataConsulta: String(document.getElementById("data").value),
@@ -52,4 +73,6 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
     headers: { "Content-Type": "application/json" },
     body: data,
   });
+
+
 })
