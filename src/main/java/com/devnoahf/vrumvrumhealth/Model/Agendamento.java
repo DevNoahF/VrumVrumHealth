@@ -1,5 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
+import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
 import jakarta.persistence.*;
@@ -41,6 +42,10 @@ public class Agendamento {
     private StatusEnum statusEnum;
 
     private Boolean retorno_casa;
+
+    private Boolean tratamentoContinuo;
+
+    private FrequenciaEnum frequencia;
 
     @Column(nullable = false, updatable = false, name = "created_at")
     private LocalDateTime createdAt;

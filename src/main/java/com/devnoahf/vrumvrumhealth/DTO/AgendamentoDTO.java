@@ -1,9 +1,11 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
+import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +33,11 @@ public class AgendamentoDTO {
     private StatusEnum statusEnum;
     @NotBlank(message = "É obrigatorio informar se haverá retorno para casa")
     private Boolean retornoCasa;
+
+    @NotNull(message = "É obrigatorio informar se é tratamento contionuo ou não")
+    private Boolean tratamentoContinuo;
+
+    private FrequenciaEnum frequencia;
 
     private Long pacienteId;
 }

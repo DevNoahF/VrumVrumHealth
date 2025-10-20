@@ -22,11 +22,9 @@ public class PacienteDTO {
     private String cpf;
     private RoleEnum roleEnum;
     private Date dataNascimento;
-    private TipoAtendimentoEnum tipoAtendimentoEnum;
     private String telefone;
     private String cep;
     private String rua;
     private String bairro;
     private Integer numero;
-    private FrequenciaEnum frequenciaEnum;
 }

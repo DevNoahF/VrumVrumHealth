@@ -48,8 +48,6 @@ public class PacienteService {
         paciente.setNumero(pacienteDTO.getNumero());
         paciente.setBairro(pacienteDTO.getBairro());
         paciente.setCep(pacienteDTO.getCep());
-        paciente.setTipoAtendimentoEnum(pacienteDTO.getTipoAtendimentoEnum());
-        paciente.setFrequenciaEnum(pacienteDTO.getFrequenciaEnum());
         paciente.setRoleEnum(pacienteDTO.getRoleEnum());
 
         // Senha criptografada

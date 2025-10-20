@@ -29,9 +29,8 @@ public class AdmService {
         adm.setNome(admDTO.getNome());
         adm.setEmail(admDTO.getEmail());
         adm.setMatricula(admDTO.getMatricula());
-        adm.setRoleEnum(admDTO.getRoleEnum());
-        String senhaCriptografada = passwordEncoder.encode(admDTO.getSenhaHash());
-        adm.setSenhaHash(senhaCriptografada);
+        String senhaCriptografada = passwordEncoder.encode(admDTO.getSenha());
+        adm.setSenha(senhaCriptografada);
         Adm salvo = admRepository.save(adm);
         return admMapper.toDTO(salvo);
 
@@ -58,9 +57,9 @@ public class AdmService {
             admExistente.setNome(admDTO.getNome());
             admExistente.setEmail(admDTO.getEmail());
 
-            if (admDTO.getSenhaHash() != null && !admDTO.getSenhaHash().isEmpty()){
-                String senhaCriptografada = passwordEncoder.encode(admDTO.getSenhaHash());
-                admExistente.setSenhaHash(senhaCriptografada);
+            if (admDTO.getSenha() != null && !admDTO.getSenha().isEmpty()){
+                String senhaCriptografada = passwordEncoder.encode(admDTO.getSenha());
+                admExistente.setSenha(senhaCriptografada);
             }
             Adm atualizado = admRepository.save(admExistente);
             return new AdmMapper().toDTO(atualizado);
@@ -79,7 +78,7 @@ public class AdmService {
         if (admOptional.isPresent()){
             Adm adm = admOptional.get();
             String senhaCriptografada = passwordEncoder.encode(novaSenha);
-            adm.setSenhaHash(senhaCriptografada);
+            adm.setSenha(senhaCriptografada);
             admRepository.save(adm);
         }
     }

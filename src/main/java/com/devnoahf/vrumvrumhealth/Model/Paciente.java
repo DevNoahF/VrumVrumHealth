@@ -61,13 +61,6 @@ public class Paciente {
     @Column(nullable = false)
     private Integer numero;
 
-    @Enumerated(EnumType.STRING)
-    private TipoAtendimentoEnum tipoAtendimentoEnum;
-
-
-    @Enumerated(EnumType.STRING)
-    private FrequenciaEnum frequenciaEnum;
-
 
     @Column(nullable = false, updatable = false,name = "created_at")
     private LocalDateTime createdAt;
