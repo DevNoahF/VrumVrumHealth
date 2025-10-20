@@ -21,7 +21,7 @@ const submit = document.getElementById("enviar")
 //Função para pegar o valor dos botões de Sim e Não
 function getRadioValue(name){
   const radios=document.getElementsByName(name)
-  var valor=null;
+  let valor=null;
   for(let i =0; i<radios.length; i++)
     if(radios[i].checked){
       return valor=radios[i].value;
@@ -65,7 +65,6 @@ motivo.addEventListener("change",function(){
 //Função de enviar informações para banco de dados
 document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
   e.preventDefault();
-
 
 
 
