@@ -2,7 +2,7 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -10,8 +10,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "tb_GastoViagem")
-@Data
+@Table(name = "gasto_viagem")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 public class GastoViagem {
     @Id
@@ -25,8 +29,9 @@ public class GastoViagem {
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "0.00")
     private BigDecimal valor;
 
-    @ManyToOne
-    @JoinColumn(name = "diario_bordo_id", nullable = true)
+
+    @OneToMany
+    @JoinColumn()
     private DiarioBordo diarioBordo;
 
 }

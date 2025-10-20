@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_diario_bordo")
@@ -42,6 +43,9 @@ public class DiarioBordo {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private Instant updatedAt;
+
+    @ManyToOne
+    private List<GastoViagem> gastoViagem;
 
 
     @PrePersist
