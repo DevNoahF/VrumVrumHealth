@@ -18,15 +18,26 @@ const frequencia=document.getElementsByClassName("frequencia")[0];//Serve para d
 
 const submit = document.getElementById("enviar")
 
-function getRadioValue(name){//Função para pegar o valor dos botões de Sim e Não
+//Função para pegar o valor dos botões de Sim e Não
+function getRadioValue(name){
   const radios=document.getElementsByName(name)
-  let valor=null;
+  var valor=null;
   for(let i =0; i<radios.length; i++)
     if(radios[i].checked){
       return valor=radios[i].value;
     }
 
 }
+
+//Função para tratamento de dados, tranformar sim e não em True e False
+function changeRadioValue(valor){
+  if(valor=="Não")
+    return false;
+
+  if(valor=="Sim")
+    return true;
+}
+//console.log(changeRadioValue(getRadioValue("acompanhante?")))-->Exemplo de Comando
 
 
 //Função para detectar mudança em motivo e aparecer frequencia se necessário
@@ -55,8 +66,8 @@ motivo.addEventListener("change",function(){
 document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  console.log(getRadioValue("transporte-volta?"))
-  console.log(getRadioValue("acompanhante?"))
+
+
 
   const data = {
     dataConsulta: String(document.getElementById("data").value),
