@@ -44,7 +44,7 @@ public class GastoViagemController {
         }
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody GastoViagemDTO gastoDTO) {
         GastoViagemDTO gastoAtualizado = gastoViagemService.atualizarGasto(id, gastoDTO);
         if (gastoAtualizado != null) {
