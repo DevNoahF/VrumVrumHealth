@@ -6,8 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -37,22 +40,27 @@ public class Motorista {
     @Column(length = 20)
     private String telefone;
 
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
-
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
 
+    @Column(nullable = false, updatable = false, name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Instant updatedAt;
+
+
     @PrePersist
     protected void onCreate() {
-        this.createdAt = Timestamp.valueOf(LocalDateTime.now());
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now()); // opcional
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now(); // opcional
     }
+
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+        this.updatedAt = Instant.now();
     }
 }
