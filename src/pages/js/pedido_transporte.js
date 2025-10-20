@@ -1,12 +1,19 @@
 //Inicialização de atributos e variáveis
+const unidadeValue=document.getElementById("unidade-value")
+unidadeValue.value=null;
+
 const frequencia_value=document.getElementById("frequencia-value")
 frequencia_value.disabled=true
 frequencia_value.value=null
-const frequencia=document.getElementsByClassName("frequencia")[0];
+
 
 const motivo=document.getElementById("motivo-value")
+motivo.value=null
 
 
+const frequencia=document.getElementsByClassName("frequencia")[0];//Serve para deixar invisível 
+
+//Função para detectar mudança em motivo e aparecer frequencia se necessário
 motivo.addEventListener("change",function(){
     if(this.value!="Tratamento Contínuo"){
         frequencia.setAttribute("id","invi")
