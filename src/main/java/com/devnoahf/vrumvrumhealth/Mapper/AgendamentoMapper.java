@@ -5,18 +5,23 @@ import com.devnoahf.vrumvrumhealth.Model.Agendamento;
 import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
+
 @Component
 public class AgendamentoMapper {
 
-    // esse aqui converte de Entity para DTO
+    // Converte Entity → DTO
     public AgendamentoDTO toDTO(Agendamento agendamento) {
         if (agendamento == null) return null;
 
         AgendamentoDTO dto = new AgendamentoDTO();
         dto.setId(agendamento.getId());
-        dto.setDataConsulta(agendamento.getData_consulta().toInstant()
-                .atZone(java.time.ZoneId.systemDefault())
-                .toLocalDate()); // converte Date para LocalDate
+        dto.setDataConsulta(
+                agendamento.getData_consulta()
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate()
+        );
         dto.setHoraConsulta(agendamento.getHora_consulta());
         dto.setComprovante(agendamento.getComprovante());
         dto.setLocalAtendimentoEnum(agendamento.getLocal_atendimento());
@@ -25,12 +30,13 @@ public class AgendamentoMapper {
 
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
+            dto.setImagemPaciente(agendamento.getPaciente().getImagem());
         }
 
         return dto;
     }
 
-    // Esse aqui para converter de DTO para Entity
+    // Converte DTO → Entity
     public Agendamento toEntity(AgendamentoDTO dto, Paciente paciente) {
         if (dto == null) return null;
 
@@ -48,4 +54,5 @@ public class AgendamentoMapper {
 
         return agendamento;
     }
+
 }

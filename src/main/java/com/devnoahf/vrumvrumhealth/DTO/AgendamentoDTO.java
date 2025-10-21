@@ -23,4 +23,5 @@ public class AgendamentoDTO {
     private StatusEnum statusEnum;
     private Boolean retornoCasa;
     private Long pacienteId; // referenciando apenas o id do paciente
+    private String imagemPaciente; //aqui para retornar imagem
 }
