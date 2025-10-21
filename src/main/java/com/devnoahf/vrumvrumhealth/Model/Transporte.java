@@ -2,6 +2,7 @@ package com.devnoahf.vrumvrumhealth.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,13 +11,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
+@Builder
 @Entity
-@Table(name = "tb_transporte")
-@Data
+@Table(name = "transporte")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transporte {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "HH:mm")
@@ -31,6 +37,8 @@ public class Transporte {
 	@JoinColumn(name = "agendamento_id",nullable = false)
 	private Agendamento agendamento;
 
+	@OneToMany(mappedBy = "transporte",cascade = CascadeType.ALL)
+	private List<DiarioBordo> diariosBordo;
 	@Column(nullable = false, updatable = false, name = "created_at")
 	@CreationTimestamp
 	private Instant createdAt;

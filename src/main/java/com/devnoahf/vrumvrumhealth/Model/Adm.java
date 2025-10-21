@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_adm")
+@Table(name = "adm")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -34,7 +34,7 @@ public class Adm /*implements UserDetails*/ {
     private String email;
 
 
-    private String senhaHash;
+    private String senha;
 
 
     @Column(nullable = false, updatable = false, name = "created_at")
@@ -45,6 +45,11 @@ public class Adm /*implements UserDetails*/ {
     @UpdateTimestamp
     private Instant updatedAt;
 
+
+
+    public Adm(RoleEnum roleEnum) {
+        this.setRoleEnum(roleEnum.ADMIN);
+    }
 
     @PrePersist
     protected void onCreate() {

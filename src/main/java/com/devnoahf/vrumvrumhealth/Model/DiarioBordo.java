@@ -1,8 +1,8 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +16,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
 @Entity
-@Table(name = "tb_diario_bordo")
+@Table(name = " diario_bordo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -28,9 +29,11 @@ public class DiarioBordo {
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
+    @Column(precision = 10, scale = 2)
     private BigDecimal quilometragemInicial;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
+    @Column(precision = 10, scale = 2)
     private BigDecimal quilometragemFinal;
 
     @Column(columnDefinition = "TEXT")
@@ -47,6 +50,19 @@ public class DiarioBordo {
     @ManyToOne
     private List<GastoViagem> gastoViagem;
 
+
+    @ManyToOne
+    @JoinColumn(name = "motorista_id")
+    private Motorista motorista;
+
+
+    @ManyToOne
+    @JoinColumn(name = "veiculo_id")
+    private Veiculo veiculos;
+
+    @ManyToOne
+    @JoinColumn(name = "transporte_id")
+    private Transporte transporte;
 
     @PrePersist
     protected void onCreate() {

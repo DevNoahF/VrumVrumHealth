@@ -1,8 +1,11 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChangePasswordDTO {
     private String currentPassword;
     private String newPassword;

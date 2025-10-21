@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tb_veiculo")
+@Table(name = "veiculo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,4 +21,6 @@ public class Veiculo {
     private String modelo;
 
     private int capacidade;
+
+
 }

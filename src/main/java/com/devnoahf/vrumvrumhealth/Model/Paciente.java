@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +18,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,31 +40,30 @@ public class Paciente {
     private String cpf;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataNascimento;
+    private Date dataNascimento;
 
     @Column(nullable = false, unique = true)
     private String email;
 
 
-    private String senhaHash;
+    @Column(nullable = false)
+    private String senha;
 
 
+    @Column(nullable = false)
     private String telefone;
 
+    @Column(nullable = false)
     private String cep;
 
+    @Column(nullable = false)
     private String rua;
 
+    @Column(nullable = false)
     private String bairro;
 
+    @Column(nullable = false)
     private Integer numero;
-
-    @Enumerated(EnumType.STRING)
-    private TipoAtendimentoEnum tipoAtendimentoEnum;
-
-
-    @Enumerated(EnumType.STRING)
-    private FrequenciaEnum frequenciaEnum;
 
 
     @Enumerated(EnumType.STRING)
