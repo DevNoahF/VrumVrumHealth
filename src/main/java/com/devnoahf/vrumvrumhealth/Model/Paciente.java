@@ -9,8 +9,12 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Getter;
+
+import java.time.Instant;
 import java.time.LocalDate;
 
 import java.time.LocalDateTime;
@@ -62,13 +66,6 @@ public class Paciente {
     private Integer numero;
 
 
-    @Column(nullable = false, updatable = false,name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
 
@@ -79,15 +76,24 @@ public class Paciente {
     @Enumerated(EnumType.STRING)
     private RoleEnum roles;
 
+    @Column(nullable = false, updatable = false, name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Instant updatedAt;
+
+
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now(); // opcional
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now(); // opcional
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = Instant.now();
     }
 
 

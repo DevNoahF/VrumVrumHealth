@@ -3,10 +3,18 @@ package com.devnoahf.vrumvrumhealth.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Entity
@@ -31,11 +39,16 @@ public class DiarioBordo {
     @Column(columnDefinition = "TEXT")
     private String observacoes;
 
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
+    @Column(nullable = false, updatable = false, name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
 
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    @UpdateTimestamp
+    private Instant updatedAt;
+
+    @ManyToOne
+    private List<GastoViagem> gastoViagem;
 
 
     @ManyToOne
@@ -53,13 +66,14 @@ public class DiarioBordo {
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = Timestamp.valueOf(LocalDateTime.now());
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now(); // opcional
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+        this.updatedAt = Instant.now();
     }
+
 
 }

@@ -3,8 +3,15 @@ package com.devnoahf.vrumvrumhealth.Model;
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -40,11 +47,6 @@ public class Motorista {
     @Column(length = 20, nullable = false)
     private String telefone;
 
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
-
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
@@ -52,14 +54,23 @@ public class Motorista {
     public Motorista(RoleEnum roleEnum) {
         this.setRoleEnum(RoleEnum.MOTORISTA);
     }
+    @Column(nullable = false, updatable = false, name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Instant updatedAt;
+
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = Timestamp.valueOf(LocalDateTime.now());
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now()); // opcional
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now(); // opcional
     }
+
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+        this.updatedAt = Instant.now();
     }
 }

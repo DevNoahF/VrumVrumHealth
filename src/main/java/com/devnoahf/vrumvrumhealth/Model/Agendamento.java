@@ -11,6 +11,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Time;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -48,24 +53,27 @@ public class Agendamento {
     private FrequenciaEnum frequencia;
 
     @Column(nullable = false, updatable = false, name = "created_at")
-    private LocalDateTime createdAt;
+    @CreationTimestamp
+    private Instant createdAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @UpdateTimestamp
+    private Instant updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
 
+
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now(); // opcional
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now(); // opcional
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = Instant.now();
     }
 }
