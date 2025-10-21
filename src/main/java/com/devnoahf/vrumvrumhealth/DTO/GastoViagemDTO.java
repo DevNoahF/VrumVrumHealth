@@ -10,6 +10,6 @@ public class GastoViagemDTO {
     private Long id;
     private String descricao;
     private BigDecimal valor;
-    private Long diarioBordoId;
+    private DiarioBordo diarioBordoId;
 
 }

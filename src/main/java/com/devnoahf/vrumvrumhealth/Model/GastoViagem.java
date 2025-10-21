@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "gasto_viagem")
@@ -29,9 +30,7 @@ public class GastoViagem {
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "0.00")
     private BigDecimal valor;
 
-
-    @OneToMany
-    @JoinColumn()
-    private DiarioBordo diarioBordo;
+    @OneToMany(mappedBy = "diarioBordo", cascade = CascadeType.ALL,  orphanRemoval = true)
+    private List<DiarioBordo> diarioBordo;
 
 }

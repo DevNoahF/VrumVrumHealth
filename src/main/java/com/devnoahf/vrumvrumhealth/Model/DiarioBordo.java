@@ -47,9 +47,10 @@ public class DiarioBordo {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    @ManyToOne
-    private List<GastoViagem> gastoViagem;
 
+    @ManyToOne
+    @JoinColumn(name = "gastoViagem_id")
+    private GastoViagem gastoViagem;
 
     @ManyToOne
     @JoinColumn(name = "motorista_id")
