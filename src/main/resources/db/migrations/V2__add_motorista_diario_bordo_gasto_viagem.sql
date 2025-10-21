@@ -25,10 +25,3 @@ CREATE TABLE diario_bordo (
                               FOREIGN KEY (veiculo_id) REFERENCES veiculo(id)
 );
 
-CREATE TABLE gasto_viagem (
-                              id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                              diario_bordo_id BIGINT NOT NULL,
-                              valor DECIMAL(10,2) NOT NULL,
-                              descricao TEXT,
-                              FOREIGN KEY (diario_bordo_id) REFERENCES diario_bordo(id)
-);

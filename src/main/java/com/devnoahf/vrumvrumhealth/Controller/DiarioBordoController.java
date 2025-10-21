@@ -1,6 +1,5 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.DiarioBordoMapper;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Service.DiarioBordoService;

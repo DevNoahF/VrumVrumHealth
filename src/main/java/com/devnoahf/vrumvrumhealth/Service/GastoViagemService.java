@@ -3,11 +3,9 @@ package com.devnoahf.vrumvrumhealth.Service;
 import com.devnoahf.vrumvrumhealth.DTO.GastoViagemDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.GastoViagemMapper;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
-import com.devnoahf.vrumvrumhealth.Model.GastoViagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.devnoahf.vrumvrumhealth.Repository.DiarioBordoRepository;
-import com.devnoahf.vrumvrumhealth.Repository.GastoViagemRepository;
 
 import java.util.List;
 import java.util.Optional;

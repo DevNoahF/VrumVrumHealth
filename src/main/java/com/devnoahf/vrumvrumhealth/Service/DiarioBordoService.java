@@ -1,6 +1,5 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Repository.DiarioBordoRepository;
 import lombok.RequiredArgsConstructor;

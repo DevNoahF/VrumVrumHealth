@@ -1,10 +1,9 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
-import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import lombok.Builder;
 import lombok.experimental.UtilityClass;
-import org.springframework.stereotype.Component;
+
 @Builder
 @UtilityClass
 public class DiarioBordoMapper {

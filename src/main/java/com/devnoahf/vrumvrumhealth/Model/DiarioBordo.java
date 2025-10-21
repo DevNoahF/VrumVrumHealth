@@ -48,22 +48,29 @@ public class DiarioBordo {
     private Instant updatedAt;
 
 
-    @ManyToOne
-    @JoinColumn(name = "gastoViagem_id")
-    private GastoViagem gastoViagem;
+    @OneToMany(mappedBy = "diarioBordo")
+    private List<GastoViagem> gastoViagem;
 
     @ManyToOne
     @JoinColumn(name = "motorista_id")
+    @Column(nullable = false)
     private Motorista motorista;
 
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
+    @Column(nullable = false)
     private Veiculo veiculos;
 
     @ManyToOne
     @JoinColumn(name = "transporte_id")
+    @Column(nullable = false)
     private Transporte transporte;
+
+    public void adicionarGasto(GastoViagem gasto) {
+        gasto.setDiarioBordo(this);
+        this.gastoViagem.add(gasto);
+    }
 
     @PrePersist
     protected void onCreate() {
