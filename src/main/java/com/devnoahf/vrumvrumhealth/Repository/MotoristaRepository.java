@@ -1,9 +1,9 @@
 package com.devnoahf.vrumvrumhealth.Repository;
 
-import com.devnoahf.vrumvrumhealth.Model.GastoViagem;
+import com.devnoahf.vrumvrumhealth.Model.Motorista;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GastoViagemRepository extends JpaRepository<GastoViagem, Long> {
+public interface MotoristaRepository extends JpaRepository<Motorista, Long> {
 }

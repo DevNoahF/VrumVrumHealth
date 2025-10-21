@@ -13,8 +13,8 @@ CREATE TABLE paciente (
                           numero VARCHAR(10),
                           tipo_atendimento ENUM('EXAME','CONSULTA','TRATAMENTO_CONTINUO') NOT NULL,
                           frequencia ENUM('SEMANAL','QUINZENAL','DIARIO','MENSAL') NULL, -- só preenche se for TRATAMENTO_CONTINUO
-                          create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                          update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                           role ENUM('PACIENTE','ADMIN') DEFAULT 'PACIENTE'
 );
 
@@ -24,8 +24,8 @@ CREATE TABLE admin (
                         matricula VARCHAR(20) UNIQUE NOT NULL,
                         email VARCHAR(100) UNIQUE NOT NULL,
                         senha VARCHAR(255) NOT NULL,
-                        create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                         role ENUM('PACIENTE','ADMIN') DEFAULT 'ADMIN'
 );
 CREATE TABLE agendamento (
@@ -37,8 +37,8 @@ CREATE TABLE agendamento (
                              local_atendimento ENUM('UPA1','UPA2','HOSPITAL1','HOSPITAL2') NOT NULL,
                              status ENUM('PENDENTE','APROVADO','NEGADO') DEFAULT 'PENDENTE',
                              retorno_para_casa BOOLEAN DEFAULT TRUE,
-                             create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                             update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                              FOREIGN KEY (paciente_id) REFERENCES paciente(id)
 );
 
@@ -54,8 +54,8 @@ CREATE TABLE transporte (
                             agendamento_id BIGINT NOT NULL,
                             veiculo_id BIGINT,
                             horario_saida TIME NOT NULL,
-                            create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                            update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                             FOREIGN KEY (agendamento_id) REFERENCES agendamento(id),
                             FOREIGN KEY (veiculo_id) REFERENCES veiculo(id),
 );
