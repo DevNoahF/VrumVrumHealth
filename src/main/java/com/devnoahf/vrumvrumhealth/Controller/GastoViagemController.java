@@ -34,7 +34,7 @@ public class GastoViagemController {
     }
 
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<GastoViagemDTO> buscarPorId(@PathVariable Long id) {
         GastoViagemDTO gastoDTO = gastoViagemService.buscarPorId(id);
         if (gastoDTO != null) {
@@ -54,7 +54,7 @@ public class GastoViagemController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         GastoViagemDTO gastoDTO = gastoViagemService.buscarPorId(id);
         if (gastoDTO != null) {
