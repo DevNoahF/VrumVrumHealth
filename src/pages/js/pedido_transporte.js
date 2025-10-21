@@ -1,22 +1,42 @@
 //Inicialização de atributos e variáveis
 const unidadeValue=document.getElementById("unidade-value")
-unidadeValue.value=null;
 
 const frequencia_value=document.getElementById("frequencia-value")
 frequencia_value.disabled=true
-frequencia_value.value=null
-
 
 const motivo=document.getElementById("motivo-value")
-motivo.value=null
+
 
 const acompanhanteValue=document.getElementById("acompanhante-value")
 
-
+const horaValue=document.getElementById("hora")
+const dataValue=document.getElementById("data")
 
 const frequencia=document.getElementsByClassName("frequencia")[0];//Serve para deixar invisível 
 
 const submit = document.getElementById("enviar")
+
+//Função que deixa todos os campos em null automaticamente
+function setNull(){
+  const inputs=document.querySelectorAll("#unidade-value, #frequencia-value,#motivo-value,#acompanhante-value,#data,#hora")
+  inputs.forEach(input=>{
+    input.value=null;
+  })
+
+}
+
+//Verifica se não há nenhum campo vazio e retorna true or false
+function verify_data(){
+  const inputs = document.querySelectorAll("#unidade-value,#motivo-value,#acompanhante-value,#data,#hora")
+
+  for(let i=0; i<inputs.length; i++){
+    if(inputs[i].value==null||inputs[i].value==""||inputs[i].value==undefined){
+      return true;
+  }else{
+    return false;
+  }
+}}
+
 
 //Função para pegar o valor dos botões de Sim e Não
 function getRadioValue(name){
@@ -36,8 +56,28 @@ function changeRadioValue(valor){
 
   if(valor=="Sim")
     return true;
+
+  if(valor!="Sim" && valor!="Não")
+    return null
 }
 //console.log(changeRadioValue(getRadioValue("acompanhante?")))-->Exemplo de Comando
+
+//Função que impossibilite enviar dados se algum campo obrigatório estiver vazio
+
+function dataNull(){
+  console.log(unidadeValue.value)
+  console.log(frequencia_value.value)
+  console.log(motivo.value)
+  console.log(horaValue.value)
+  console.log(dataValue.value)
+  console.log(frequencia_value.value)
+  console.log(changeRadioValue(getRadioValue("transporte-volta?")))
+
+}
+
+
+
+setNull()
 
 
 //Função para detectar mudança em motivo e aparecer frequencia se necessário
@@ -66,23 +106,33 @@ motivo.addEventListener("change",function(){
 document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  console.log(verify_data())
+  
+  if(verify_data()==true){
+    alert("Campo não preenchido")
+  }
+  if(verify_data()==false){
+    console.log("campo preenchido pó mandar")
 
 
-  const data = {
-    dataConsulta: String(document.getElementById("data").value),
-    horaConsulta: document.getElementById("hora").value + ":00", 
-    comprovante: null,
-    localAtendimentoEnum: String(document.getElementById("unidade-value").value), 
-    statusEnum: "PENDENTE",
-    retornoCasa: true, 
-    pacienteId: 1
-  };
+//variável que organiza o json
+    const data = {
+      "dataConsulta":dataValue.value,
+      "horaConsulta":horaValue.value+":00",
+      "comprovante":true,//funcao para pegar link comprovante,
+      "localAtendimento":unidadeValue.value,
+      "frequencia":frequencia_value.value,
+      "retornoCasa":changeRadioValue(getRadioValue("transporte-volta?")),
+      "acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
 
-  const response = await fetch("http://localhost:8080/agendamento", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: data,
-  });
+    };
+    console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON
 
-
+    /*const response = await fetch("http://localhost:8080/agendamento", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: data,
+    });
+  */
+  }
 })
