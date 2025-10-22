@@ -16,22 +16,21 @@ public class AdmMapper {
 
     // Converte DTO para entidade, criptografando a senha
     public Adm toEntity(AdmDTO admDTO) {
-        if (admDTO.getSenhaHash() == null || admDTO.getSenhaHash().isEmpty()) {
+        if (admDTO.getSenha() == null || admDTO.getSenha().isEmpty()) {
             throw new IllegalArgumentException("Senha não pode ser nula ou vazia");
         }
         Adm adm = new Adm();
 
-        // Não setar o ID aqui no cadastro
-        // adm.setId(admDTO.getId());
+        // Não setar o ID aqui no cadastro (gerado automaticamente pelo banco)
+
 
         adm.setNome(admDTO.getNome());
         adm.setEmail(admDTO.getEmail());
-        adm.setRoleEnum(admDTO.getRoleEnum());
         adm.setMatricula(admDTO.getMatricula());
 
         // Criptografa a senha -> refatorar depois para usar o service
-        String senhaCriptografada = passwordEncoder.encode(admDTO.getSenhaHash());
-        adm.setSenhaHash(senhaCriptografada);
+        String senhaCriptografada = passwordEncoder.encode(admDTO.getSenha());
+        adm.setSenha(senhaCriptografada);
 
 
         return adm;
@@ -45,7 +44,6 @@ public class AdmMapper {
         dto.setId(adm.getId());
         dto.setNome(adm.getNome());
         dto.setEmail(adm.getEmail());
-        dto.setRoleEnum(adm.getRoleEnum());
         return dto;
     }
 

@@ -9,38 +9,59 @@
     <title>HomePage</title>
 </head>
 <body>
+	<header id="main_header_container">
+   		<div id="logo_container">
+			<img src="../assets/logo.jpg" alt="logo do projeto" id="project_logo">
+			<h1>VrumVrum Health</h1>
+		</div>
+		<nav id="main_nav">
+			<ul>
+				<li><a href="#">Início</a></li>
+				<li><a href="#">Sobre o projeto</a></li>
+			</ul>
+		</nav>
+	</header>
     <main>
-        <header id="main_header_container">
-            <div id="logo_container">
-                <img src="../assets/logo.jpg" alt="logo do projeto" id="project_logo">
-                <h1>VrumVrum Health</h1>
-            </div>
-            <nav id="main_nav">
-                <ul>
-                    <li><a href="#">Início</a></li>
-                    <li><a href="#">Sobre o projeto</a></li>
-                </ul>
-            </nav>
-        </header>
-        <article id="adm_actions_container">
-            <header class="generic_header">
-                <h2>Ações de Administrador</h2>
-            </header>
-            <section id="dispatch_vehicle">
-                <!-- NOTE: this is for later on, so we'll be changing stuff here -->
-                <header class="generic_header">
-                    <h3>Enviar Veiculo</h3>
-                </header>
-                <div class="dispatch_content">
-                    <div class="user_info">
-                        <input type="name" name="name"  placeholder="insira o nome do usuário" >
-                        <input type="text" placeholder="insira o local aqui" >
-                    </div>
-                    <button type="button" id="dispatch">Enviar veículo</button>
-                </div>
-            </section>
-        </article>
+		<section id="greetings_container">
+			<div class="data">
+				<h2>Olá, bem vindo <span class="dynamic_information"></span>
+			</div>
+			<div>
+				<h4><span class="dynamic_information"></span></h4>
+			</div>
+		</section>
     </main>
+	<script>
+		function formatTime(date) {
+			// 2025-10-20T19:17:36.115Z
+			return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+		}
+
+		function formatDate(date) {
+			return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+		}
+
+		function setOperatorName() {
+			const namePlace = document.getElementsByClassName("dynamic_information")[0];
+			namePlace.innerText = "john doe";
+		}
+
+		function setCurrentDate() {
+			const date = new Date();
+			const datePlace = document.getElementsByClassName("dynamic_information")[1];
+			const formatedTime = formatTime(date);
+			const formatedDate = formatDate(date);
+			
+			datePlace.innerText = `Horas atuais: ${formatedTime}, ${formatedDate}`;
+		}
+
+		function setContent() {
+			console.log("hello!");
+			setOperatorName();
+			setCurrentDate();
+		}
+
+		setContent();
     </script>
 </body>
 </html>
