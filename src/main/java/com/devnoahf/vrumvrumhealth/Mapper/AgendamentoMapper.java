@@ -27,7 +27,7 @@ public class AgendamentoMapper {
 
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
-            //dto.setImagemPaciente(agendamento.getPaciente().getImagem()); implementar imagem paciente
+            dto.setImagemPaciente(agendamento.getPaciente().getImagem());
         }
 
         return dto;
