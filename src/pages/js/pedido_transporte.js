@@ -88,7 +88,6 @@ motivo.addEventListener("change",function(){
 document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  verifyDataHora()
   console.log(verify_data())
   
   if(verify_data()==true){
@@ -111,13 +110,14 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
     };
     console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON
 
-    /*const response = await fetch("http://localhost:8080/agendamento", {
+    const response = await fetch("http://localhost:8080/agendamento", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: data,
+      body: JSON.stringify(data),
     });
-  */
+        
   }
+
 })
 
 
