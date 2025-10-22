@@ -9,14 +9,14 @@
 body {
   display: flex;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: #ADA9A9;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #E9EBEC;
 }
 
 /* Sidebar */
 .sidebar {
   width: 80px; /* estado colapsado */
-  background-color: #1d3a5f;
+  background-color: #006FA7;
   color: white;
   display: flex;
   flex-direction: column;
@@ -129,7 +129,7 @@ body {
 
 .table-wrapper {
   overflow-x: auto;
-  background-color: #D9D9D9;
+  background-color: #D3D9E0;
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);

@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página com Sidebar e Formulário</title>
-  <link rel="stylesheet" href="css/adm_paciente_table.css" />
+  <link rel="stylesheet" href="../css/adm_paciente_table.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"><!--Fonte padrão do projeto-->
 </head>
 <body>
   <!-- Sidebar -->
@@ -68,6 +69,7 @@
               <th>Retorno</th>
               <th>Necessidade Especial</th>
             </tr>
+       
           </thead>
           <tbody id="tbodySolicitacoes">
           </tbody>
@@ -76,42 +78,14 @@
 
       <!-- Exportação -->
       <div class="export-section">
-        <button class="export-btn">Exportar para ↓</button>
+        <button class="export-btn" id ="exportar">Exportar para ↓</button>
       </div>
 
-      <!-- Formulário é temporário, por enquanto não deve ser apagado-->
-      <section class="forms">
-        <form id="form_adiciona">
-          <label for="id">Nome:</label>
-          <input id="id" name="id" type="text" placeholder="id" />
-
-          <label for="nome">Nome:</label>
-          <input id="nome" name="nome" type="text" placeholder="Nome" />
-
-          <label for="endereco">Endereço:</label>
-          <input id="endereco" name="endereco" type="text" placeholder="Endereço" />
-
-          <label for="bairro">Bairro:</label>
-          <input id="bairro" name="bairro" type="text" placeholder="Bairro" />
-
-          <label for="cidade">Cidade:</label>
-          <input id="cidade" name="cidade" type="text" placeholder="Cidade" />
-
-          <label for="complemento">Complemento:</label>
-          <input id="complemento" name="complemento" type="text" placeholder="Complemento" />
-
-          <label for="unidade">Unidade:</label>
-          <input id="unidade" name="unidade" type="text" placeholder="Unidade" />
-
-          <label for="data">Data:</label>
-          <input id="data" name="data" type="date" placeholder="Data" />
-
-          <button id="btnAdicionar" type="submit">Adicionar</button>
-        </form>
       </section>
     </div>
   </div>
-
-  <script src="javascript/table.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><!--BIBLIOTECA-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script><!--BIBLIOTECA-->
+  <script src="../js/adm_paciente_table.js"></script>
 </body>
 </html>
