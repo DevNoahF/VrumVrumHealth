@@ -6,7 +6,6 @@ frequencia_value.disabled=true
 
 const motivo=document.getElementById("motivo-value")
 
-
 const acompanhanteValue=document.getElementById("acompanhante-value")
 
 const horaValue=document.getElementById("hora")
@@ -15,6 +14,7 @@ const dataValue=document.getElementById("data")
 const frequencia=document.getElementsByClassName("frequencia")[0];//Serve para deixar invisível 
 
 const submit = document.getElementById("enviar")
+setNull()
 
 //Função que deixa todos os campos em null automaticamente
 function setNull(){
@@ -62,23 +62,6 @@ function changeRadioValue(valor){
 }
 //console.log(changeRadioValue(getRadioValue("acompanhante?")))-->Exemplo de Comando
 
-//Função que impossibilite enviar dados se algum campo obrigatório estiver vazio
-
-function dataNull(){
-  console.log(unidadeValue.value)
-  console.log(frequencia_value.value)
-  console.log(motivo.value)
-  console.log(horaValue.value)
-  console.log(dataValue.value)
-  console.log(frequencia_value.value)
-  console.log(changeRadioValue(getRadioValue("transporte-volta?")))
-
-}
-
-
-
-setNull()
-
 
 //Função para detectar mudança em motivo e aparecer frequencia se necessário
 motivo.addEventListener("change",function(){
@@ -101,11 +84,11 @@ motivo.addEventListener("change",function(){
 })
 
 
-
 //Função de enviar informações para banco de dados
 document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  verifyDataHora()
   console.log(verify_data())
   
   if(verify_data()==true){
@@ -136,3 +119,5 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
   */
   }
 })
+
+
