@@ -16,21 +16,17 @@ public class AgendamentoMapper {
 
         AgendamentoDTO dto = new AgendamentoDTO();
         dto.setId(agendamento.getId());
-        dto.setDataConsulta(
-                agendamento.getData_consulta()
-                        .toInstant()
-                        .atZone(ZoneId.systemDefault())
-                        .toLocalDate()
-        );
+        dto.setDataConsulta(agendamento.getData_consulta());
         dto.setHoraConsulta(agendamento.getHora_consulta());
-        dto.setComprovante(agendamento.getComprovante());
         dto.setLocalAtendimentoEnum(agendamento.getLocal_atendimento());
         dto.setStatusEnum(agendamento.getStatusEnum());
         dto.setRetornoCasa(agendamento.getRetorno_casa());
+        dto.setAcompanhante(agendamento.getAcompanhante());
+        dto.setImagemComprovante(agendamento.getImagemComprovante());
 
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
-            dto.setImagemPaciente(agendamento.getPaciente().getImagem());
+            //dto.setImagemPaciente(agendamento.getPaciente().getImagem()); implementar imagem paciente
         }
 
         return dto;
@@ -42,12 +38,13 @@ public class AgendamentoMapper {
 
         Agendamento agendamento = new Agendamento();
         agendamento.setId(dto.getId());
-        agendamento.setData_consulta(java.sql.Date.valueOf(dto.getDataConsulta()));
+        agendamento.setData_consulta(dto.getDataConsulta());
         agendamento.setHora_consulta(dto.getHoraConsulta());
-        agendamento.setComprovante(dto.getComprovante());
         agendamento.setLocal_atendimento(dto.getLocalAtendimentoEnum());
         agendamento.setStatusEnum(dto.getStatusEnum());
         agendamento.setRetorno_casa(dto.getRetornoCasa());
+        agendamento.setAcompanhante(dto.getAcompanhante());
+        agendamento.setImagemComprovante(dto.getImagemComprovante());
 
         // Associa paciente se passado
         agendamento.setPaciente(paciente);

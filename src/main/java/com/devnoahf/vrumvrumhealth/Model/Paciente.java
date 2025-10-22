@@ -28,7 +28,7 @@ public class Paciente {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    private String imagem;
+    //private String imagem;
 
     @Column(nullable = false)
     private String nome;

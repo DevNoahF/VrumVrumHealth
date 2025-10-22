@@ -66,12 +66,13 @@ public class AgendamentoService {
         if (agendamentoOptional.isPresent()) {
             Agendamento agendamentoExistente = agendamentoOptional.get();
 
-            agendamentoExistente.setData_consulta(java.sql.Date.valueOf(dto.getDataConsulta()));
+            agendamentoExistente.setData_consulta(dto.getDataConsulta());
             agendamentoExistente.setHora_consulta(dto.getHoraConsulta());
-            agendamentoExistente.setComprovante(dto.getComprovante());
             agendamentoExistente.setLocal_atendimento(dto.getLocalAtendimentoEnum());
             agendamentoExistente.setStatusEnum(dto.getStatusEnum());
             agendamentoExistente.setRetorno_casa(dto.getRetornoCasa());
+            agendamentoExistente.setAcompanhante(dto.getAcompanhante());
+            agendamentoExistente.setImagemComprovante(dto.getImagemComprovante());
 
             if (dto.getPacienteId() != null) {
                 Optional<Paciente> pacienteOptional = pacienteRepository.findById(dto.getPacienteId());
