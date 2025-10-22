@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--Acho interessante se a gente voltar mais tarde e fazer esse código na mão ao invés de deixar feito pelo GPT-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página com Sidebar e Formulário</title>
+  <link rel="stylesheet" href="css/adm_paciente_table.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <button class="toggle-btn" id="toggleBtn">☰</button>
+      <div class="logo-icon">
+        <img src="logo-usuario.png" alt="Usuário" />
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="#">
+            <img src="icon-home.svg" alt="Home" />
+            <span class="link-text">Início</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="icon-clock.svg" alt="Histórico" />
+            <span class="link-text">Histórico</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="icon-check.svg" alt="Solicitações" />
+            <span class="link-text">Solicitações</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="icon-settings.svg" alt="Configurações" />
+            <span class="link-text">Configurações</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo principal -->
+  <div class="main-content">
+    <div class="container">
+      <h1>Solicitações aprovadas</h1>
+      
+      <!-- Tabela -->
+      <div class="table-wrapper">
+        <table class="solicitacoes-table">
+          <thead>
+            <tr><!--Títulos da nossa tabela-->
+              <th>#</th>
+              <th>Nome</th>
+              <th>Endereço</th>
+              <th>Bairro</th>
+              <th>Cidade</th>
+              <th>Complemento</th>
+              <th>Unidade Médica</th>
+              <th>Data</th>
+              <th>Acompanhante</th>
+              <th>Retorno</th>
+              <th>Necessidade Especial</th>
+            </tr>
+          </thead>
+          <tbody id="tbodySolicitacoes">
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Exportação -->
+      <div class="export-section">
+        <button class="export-btn">Exportar para ↓</button>
+      </div>
+
+      <!-- Formulário é temporário, por enquanto não deve ser apagado-->
+      <section class="forms">
+        <form id="form_adiciona">
+          <label for="id">Nome:</label>
+          <input id="id" name="id" type="text" placeholder="id" />
+
+          <label for="nome">Nome:</label>
+          <input id="nome" name="nome" type="text" placeholder="Nome" />
+
+          <label for="endereco">Endereço:</label>
+          <input id="endereco" name="endereco" type="text" placeholder="Endereço" />
+
+          <label for="bairro">Bairro:</label>
+          <input id="bairro" name="bairro" type="text" placeholder="Bairro" />
+
+          <label for="cidade">Cidade:</label>
+          <input id="cidade" name="cidade" type="text" placeholder="Cidade" />
+
+          <label for="complemento">Complemento:</label>
+          <input id="complemento" name="complemento" type="text" placeholder="Complemento" />
+
+          <label for="unidade">Unidade:</label>
+          <input id="unidade" name="unidade" type="text" placeholder="Unidade" />
+
+          <label for="data">Data:</label>
+          <input id="data" name="data" type="date" placeholder="Data" />
+
+          <button id="btnAdicionar" type="submit">Adicionar</button>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <script src="javascript/table.js"></script>
+</body>
+</html>
