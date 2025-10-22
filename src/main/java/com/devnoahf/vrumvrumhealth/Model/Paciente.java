@@ -23,18 +23,16 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data //minha modificação Gustavo junto com o lombok data
 @Table(name = "tb_paciente")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Paciente {
+public class Paciente { // TODO: possivel implementação de imagens de perfil
+ 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-
-    private String imagem;
 
     @Column(nullable = false)
     private String nome;
