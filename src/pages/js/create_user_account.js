@@ -1,6 +1,9 @@
+/** @typedef {Object} Enum */
+
 document.getElementById("given_name").focus();
 document.getElementById("submit_button").addEventListener("click", prepareData);
 
+/** @type {Enum} */
 const MaxSizeEnum = Object.freeze({
 	NAME: 100,
 	EMAIL: 100,
@@ -16,10 +19,21 @@ const MaxSizeEnum = Object.freeze({
 	CEP: 9
 });
 
+/**
+ * Returns an boolean representing if given length of an input and its
+ * max size is valid
+ * @param {Number} length - The length of an input field
+ * @param {Number} maxSize - The max size of an input
+ */
 function isInputOverMaxSize(length, maxSize) {
 	return (length <= maxSize);
 }
 
+/**
+ * 
+ * @param {Number} length - The input length
+ * @returns {boolean} 
+ */
 function isInputEmpty(length) {
 	return (length == 0);
 }
@@ -28,7 +42,7 @@ function isInputEmpty(length) {
  * Returns an boolean representing if given length of an input and its
  * max size is valid
  * @param {Number} inputLength - The length of an input field
- * @param {Number} fieldMaxSize - The max size of an input
+ * @param {Number} maxSize - The max size of an input
  */
 function isInputValid(inputLength, maxSize) {
 	return (!isInputOverMaxSize(inputLength, maxSize) && isInputEmpty(length));
@@ -39,7 +53,6 @@ function isInputValid(inputLength, maxSize) {
  */
 function getData() {
 	const name = document.getElementById("given_name");
-<<<<<<< HEAD
 	const email = document.getElementById("email");
 	const password = document.getElementById("password");
 	const birthday = document.getElementById("birthday");
@@ -95,65 +108,4 @@ function prepareData(e) {
 	}
 
 	e.preventDefault();
-}
-=======
-    const telephoneNum = document.getElementById("telephone_num");
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const birthday = document.getElementById("birthday");
-    const street = document.getElementById("street");
-    const houseNumber = document.getElementById("house_id");
-    const complement = document.getElementById("complement");
-    const neighborhood = document.getElementById("neighborhood");
-
-	return [name, telephoneNum, email, password, birthday, street, houseNumber,  complement, neighborhood];
-}
-
-function prepareToSend(e) {
-    const data = getData();
-
-    if(!isInputValid(data[0].length, MaxSizeEnum.NAME)) {
-        window.alert("name invalid");
-        e.preventDefault();
-    }
-
-    if(isInputValid(data[1].length, MaxSizeEnum.CELLPHONE)) {
-        window.alert("cellphone invalid");
-        e.preventDefault();
-    }
-
-    if(isInputValid(data[2].length, MaxSizeEnum.EMAIL)) {
-        window.alert("email invalid");
-        e.preventDefault();
-    }
-	
-    if(isInputValid(data[3].length, MaxSizeEnum.PASSWORD)) {
-        window.alert("password invalid");
-        e.preventDefault();
-    }
-    
-    if(isInputValid(data[4].length, MaxSizeEnum.BIRTHDAY)) {
-        window.alert("birthday invalid");
-        e.preventDefault();
-    }
-    
-    if(!isInputValid(data[5].length, MaxSizeEnum.STREET)) {
-        window.alert("street identification invalid");
-        e.preventDefault();
-    }
-
-    if(isInputValid(data[6].length, MaxSizeEnum.HOUSE_NUMBER)) {
-        window.alert("house identification invalid");
-        e.preventDefault();
-    }
-
-    if(isInputValid(data[7].length, MaxSizeEnum.COMPLEMENT)) {
-        window.alert("complement invalid");
-        e.preventDefault();
-    }
-
-    if(isInputValid(data[8].length, MaxSizeEnum.NEIGHBORHOOD)) {
-        window.alert("neighborhood name is invalid")
-        e.preventDefault();
-    }
 }
