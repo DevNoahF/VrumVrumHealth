@@ -1,15 +1,14 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Table(name = "tb_veiculo")
+@Table(name = "veiculo")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
 public class Veiculo {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -21,4 +20,6 @@ public class Veiculo {
     private String modelo;
 
     private int capacidade;
+
+
 }

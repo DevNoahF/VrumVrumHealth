@@ -30,23 +30,22 @@
 			<div>
 				<div class="form_content">
 					<label for="given_name">Nome</label>
-					<input type="text" id="given_name" for="given_name" maxlength="100" required />
+					<input type="text" id="given_name" for="given_name" />
 				</div>
 				<div class="form_content">
 					<label for="telephone_num">Telefone</label>
 					<!--NOTE: remove parenthesis, blanks and dash with or js or java-->
-					<input type="tel" id="telephone_num" name="telephone_num" maxlength="20"
-						placeholder="(XX) XXXXX-XXXX" />
+					<input type="tel" id="telephone_num" name="telephone_num" placeholder="(XX) XXXXX-XXXX" />
 				</div>
 			</div>
 			<div>
 				<div class="form_content">
 					<label for="email">Email</label>
-					<input type="email" id="email" name="email" maxlength="100" required />
+					<input type="email" id="email" name="email" />
 				</div>
 				<div class="form_content">
 					<label for="email">Senha</label>
-					<input type="password" id="password" name="password" maxlength="255" required />
+					<input type="password" id="password" name="password" />
 				</div>
 			</div>
 			<div class="form_content">
@@ -54,7 +53,7 @@
 			<div class="final_form_content">
 				<div class="form_content">
 					<label for="registration">Matricula</label>
-					<input type="text" id="registration" name="registration" maxlength="100" required />
+					<input type="text" id="registration" name="registration" />
 				</div>
 				<div id="type">
 					<div>
@@ -71,9 +70,7 @@
 			</div>
 		</form>
 	</main>
-	<script>
-		document.getElementById("given_name").focus();
-	</script>
+	<script src="../js/create_adm_account.js"> </script>
 </body>
 
 </html>

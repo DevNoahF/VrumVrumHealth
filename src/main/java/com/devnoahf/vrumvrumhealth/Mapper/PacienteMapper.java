@@ -30,12 +30,10 @@ public class PacienteMapper {
         paciente.setRua(dto.getRua());
         paciente.setBairro(dto.getBairro());
         paciente.setNumero(dto.getNumero());
-        paciente.setTipoAtendimentoEnum(dto.getTipoAtendimentoEnum());
-        paciente.setFrequenciaEnum(dto.getFrequenciaEnum());
         paciente.setRoleEnum(dto.getRoleEnum());
 
         // Criptografa a senha
-        paciente.setSenhaHash(passwordEncoder.encode(dto.getSenhaHash()));
+        paciente.setSenha(passwordEncoder.encode(dto.getSenhaHash()));
 
 
         return paciente;
@@ -55,8 +53,6 @@ public class PacienteMapper {
         dto.setRua(paciente.getRua());
         dto.setBairro(paciente.getBairro());
         dto.setNumero(paciente.getNumero());
-        dto.setTipoAtendimentoEnum(paciente.getTipoAtendimentoEnum());
-        dto.setFrequenciaEnum(paciente.getFrequenciaEnum());
         dto.setRoleEnum(paciente.getRoleEnum());
         return dto;
     }

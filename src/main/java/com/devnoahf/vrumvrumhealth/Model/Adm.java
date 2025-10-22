@@ -6,11 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_adm")
+@Table(name = "adm")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -31,27 +34,38 @@ public class Adm /*implements UserDetails*/ {
     private String email;
 
 
-    private String senhaHash;
+    private String senha;
 
 
     @Column(nullable = false, updatable = false, name = "created_at")
-    private LocalDateTime  createdAt;
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @CreationTimestamp
+    private Instant createdAt;
 
-    @Enumerated(EnumType.STRING)
-    private RoleEnum roleEnum;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Instant updatedAt;
+
+
+
+    public Adm(RoleEnum roleEnum) {
+        this.setRoleEnum(roleEnum.ADMIN);
+    }
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now(); // opcional
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now(); // opcional
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = Instant.now();
     }
+
+    @Enumerated(EnumType.STRING)
+    private RoleEnum roleEnum;
+
+
 
     //TODOS OS METODOS ESTÃO COMENTADOS POIS AINDA NÃO FORAM FINALIZADAS AS CONFIGURAÇÕES DE SEGURANÇA
     //método para definir as autoridades do usuário com base no papel
