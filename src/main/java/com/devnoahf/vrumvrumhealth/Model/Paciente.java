@@ -11,14 +11,12 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Getter;
 import java.time.LocalDate;
-import lombok.Data; // foi necessário para criar o getter e setter automático
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data //minha modificação Gustavo junto com o lombok data
-@Table(name = "tb_paciente")
+@Table(name = "paciente")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -27,8 +25,6 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-
-    //private String imagem;
 
     @Column(nullable = false)
     private String nome;

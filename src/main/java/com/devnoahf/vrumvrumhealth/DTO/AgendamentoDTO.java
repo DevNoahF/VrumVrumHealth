@@ -18,11 +18,9 @@ public class AgendamentoDTO {
     private Long id;
     private LocalDate dataConsulta;
     private Time horaConsulta;
-    private String imagemComprovante;
-    private Boolean acompanhante;
+    private String comprovante;
     private LocalAtendimentoEnum localAtendimentoEnum;
     private StatusEnum statusEnum;
     private Boolean retornoCasa;
     private Long pacienteId; // referenciando apenas o id do paciente
-    //private String imagemPaciente; aqui para retornar imagem
 }

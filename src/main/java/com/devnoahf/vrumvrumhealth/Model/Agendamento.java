@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -23,15 +22,11 @@ public class Agendamento {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate data_consulta;
+    private Date data_consulta;
 
     private Time hora_consulta;
 
-    @Column(length = 1000)
-    private String imagemComprovante;
-
-    //@Column(length = 1000)
-    //private String imagem; com isso aqui vai fazer o paciente ter imagem
+    private String comprovante;
 
     @Enumerated(EnumType.STRING)
     private LocalAtendimentoEnum local_atendimento;
@@ -40,8 +35,6 @@ public class Agendamento {
     private StatusEnum statusEnum;
 
     private Boolean retorno_casa;
-
-    private Boolean acompanhante;
 
     @Column(nullable = false, updatable = false, name = "created_at")
     private LocalDateTime createdAt;

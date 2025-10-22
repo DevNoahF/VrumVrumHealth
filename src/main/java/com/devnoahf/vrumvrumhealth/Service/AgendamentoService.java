@@ -1,12 +1,12 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
-import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 import com.devnoahf.vrumvrumhealth.Mapper.AgendamentoMapper;
 import com.devnoahf.vrumvrumhealth.Model.Agendamento;
 import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import com.devnoahf.vrumvrumhealth.Repository.AgendamentoRepository;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,94 +18,78 @@ public class AgendamentoService {
 
     private final AgendamentoRepository agendamentoRepository;
     private final PacienteRepository pacienteRepository;
+    private final AgendamentoMapper agendamentoMapper;
 
     @Autowired
-    private AgendamentoMapper agendamentoMapper;
-
-    public AgendamentoService(AgendamentoRepository agendamentoRepository,
-                              PacienteRepository pacienteRepository) {
+    public AgendamentoService(
+            AgendamentoRepository agendamentoRepository,
+            PacienteRepository pacienteRepository,
+            AgendamentoMapper agendamentoMapper
+    ) {
         this.agendamentoRepository = agendamentoRepository;
         this.pacienteRepository = pacienteRepository;
+        this.agendamentoMapper = agendamentoMapper;
     }
 
-    // Criar novo agendamento
+    //  Criar novo agendamento
     public AgendamentoDTO criarAgendamento(AgendamentoDTO dto) {
-        Optional<Paciente> pacienteOptional = pacienteRepository.findById(dto.getPacienteId());
-        if (pacienteOptional.isEmpty()) {
-            return null;
-        }
+        Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
+                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
 
-        Paciente paciente = pacienteOptional.get();
         Agendamento agendamento = agendamentoMapper.toEntity(dto, paciente);
-
-        // Define como PENDENTE
-        agendamento.setStatusEnum(StatusEnum.PENDENTE);
-
         Agendamento salvo = agendamentoRepository.save(agendamento);
         return agendamentoMapper.toDTO(salvo);
     }
 
-    // Listar todos
+    //  Listar todos
     public List<AgendamentoDTO> listarAgendamentos() {
-        List<Agendamento> agendamentos = agendamentoRepository.findAll();
-        return agendamentos.stream()
+        return agendamentoRepository.findAll()
+                .stream()
                 .map(agendamentoMapper::toDTO)
                 .toList();
     }
 
     // Buscar por ID
     public AgendamentoDTO buscarPorId(Long id) {
-        Optional<Agendamento> agendamentoOptional = agendamentoRepository.findById(id);
-        return agendamentoOptional.map(agendamentoMapper::toDTO).orElse(null);
+        Agendamento agendamento = agendamentoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Agendamento não encontrado"));
+        return agendamentoMapper.toDTO(agendamento);
     }
 
     // Atualizar agendamento
-    public AgendamentoDTO atualizarAgendamento(AgendamentoDTO dto, Long id) {
-        Optional<Agendamento> agendamentoOptional = agendamentoRepository.findById(id);
+    public AgendamentoDTO atualizarAgendamento(Long id, AgendamentoDTO dto) {
+        Optional<Agendamento> agendamentoOpt = agendamentoRepository.findById(id);
 
-        if (agendamentoOptional.isPresent()) {
-            Agendamento agendamentoExistente = agendamentoOptional.get();
+        if (agendamentoOpt.isPresent()) {
+            Agendamento agendamento = agendamentoOpt.get();
 
-            agendamentoExistente.setData_consulta(dto.getDataConsulta());
-            agendamentoExistente.setHora_consulta(dto.getHoraConsulta());
-            agendamentoExistente.setLocal_atendimento(dto.getLocalAtendimentoEnum());
-            agendamentoExistente.setStatusEnum(dto.getStatusEnum());
-            agendamentoExistente.setRetorno_casa(dto.getRetornoCasa());
-            agendamentoExistente.setAcompanhante(dto.getAcompanhante());
-            agendamentoExistente.setImagemComprovante(dto.getImagemComprovante());
+            // Atualiza campos básicos
+            agendamento.setData_consulta(java.sql.Date.valueOf(dto.getDataConsulta()));
+            agendamento.setHora_consulta(dto.getHoraConsulta());
+            agendamento.setComprovante(dto.getComprovante());
+            agendamento.setLocal_atendimento(dto.getLocalAtendimentoEnum());
+            agendamento.setStatusEnum(dto.getStatusEnum());
+            agendamento.setRetorno_casa(dto.getRetornoCasa());
 
+            // Atualiza paciente se vier novo ID
             if (dto.getPacienteId() != null) {
-                Optional<Paciente> pacienteOptional = pacienteRepository.findById(dto.getPacienteId());
-                pacienteOptional.ifPresent(agendamentoExistente::setPaciente);
+                Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
+                        .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
+                agendamento.setPaciente(paciente);
             }
 
-            Agendamento atualizado = agendamentoRepository.save(agendamentoExistente);
+            Agendamento atualizado = agendamentoRepository.save(agendamento);
             return agendamentoMapper.toDTO(atualizado);
         } else {
-            return null;
+            throw new EntityNotFoundException("Agendamento não encontrado");
         }
     }
 
-    // Deletar agendamento
+    // Deletar Agendamento
     public void deletarAgendamento(Long id) {
-        if (agendamentoRepository.existsById(id)) {
-            agendamentoRepository.deleteById(id);
+        if (!agendamentoRepository.existsById(id)) {
+            throw new EntityNotFoundException("Agendamento não encontrado");
         }
+        agendamentoRepository.deleteById(id);
     }
-
-    // Atualiza apenas o status de um agendamento
-    public AgendamentoDTO atualizarStatus(Long id, StatusEnum novoStatus) {
-        Optional<Agendamento> optionalAgendamento = agendamentoRepository.findById(id);
-
-        if (optionalAgendamento.isEmpty()) {
-            return null;
-        }
-
-        Agendamento agendamento = optionalAgendamento.get();
-        agendamento.setStatusEnum(novoStatus); // altera só o status
-        Agendamento atualizado = agendamentoRepository.save(agendamento);
-
-        return agendamentoMapper.toDTO(atualizado);
-    }
-
 }

@@ -26,7 +26,7 @@ public class GastoViagem {
     private BigDecimal valor;
 
     @ManyToOne
-    @JoinColumn(name = "diario_bordo_id", nullable = true)
+    @JoinColumn(name = "diario_bordo_id", nullable = false)
     private DiarioBordo diarioBordo;
 
 }
