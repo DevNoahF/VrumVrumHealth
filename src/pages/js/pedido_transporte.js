@@ -83,6 +83,17 @@ motivo.addEventListener("change",function(){
     }
 })
 
+//Pega informações de paciente?
+async function getPacienteID(id) {
+  const response = await fetch(`http://localhost:8080/Paciente/${id}`);
+  
+  const pacienteID = await response.json();
+  console.log('ID da pacienteID:', pacienteID.id);
+
+  return pacienteID.id;
+}
+
+
 
 //Função de enviar informações para banco de dados
 document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
@@ -97,15 +108,17 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
     console.log("campo preenchido pó mandar")
 
 
+
 //variável que organiza o json
     const data = {
       "dataConsulta":dataValue.value,
       "horaConsulta":horaValue.value+":00",
-      "comprovante":true,//funcao para pegar link comprovante,
+      "comprovante":"anexo",//funcao para pegar link comprovante,
       "localAtendimento":unidadeValue.value,
       "frequencia":frequencia_value.value,
       "retornoCasa":changeRadioValue(getRadioValue("transporte-volta?")),
       "acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
+      "paciente_id": getPacienteID(1)
 
     };
     console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON
