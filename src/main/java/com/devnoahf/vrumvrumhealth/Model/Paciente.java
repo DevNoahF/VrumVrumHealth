@@ -16,18 +16,20 @@ import lombok.Getter;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import lombok.Data; // foi necessário para criar o getter e setter automático
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "paciente")
+@Table(name = "tb_paciente")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Paciente {
+public class Paciente { // TODO: possivel implementação de imagens de perfil
+ 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;

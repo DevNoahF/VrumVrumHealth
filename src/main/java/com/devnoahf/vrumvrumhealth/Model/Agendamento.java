@@ -40,6 +40,9 @@ public class Agendamento {
 
     private String comprovante;
 
+    @Column(length = 1000)
+    private String imagem;
+
     @Enumerated(EnumType.STRING)
     private LocalAtendimentoEnum local_atendimento;
 
