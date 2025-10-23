@@ -1,6 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
-import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
+import com.devnoahf.vrumvrumhealth.Entity.DiarioBordo;
 import lombok.Builder;
 import lombok.experimental.UtilityClass;
 

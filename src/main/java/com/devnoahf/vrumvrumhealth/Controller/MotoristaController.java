@@ -2,7 +2,7 @@ package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.MotoristaDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.MotoristaMapper;
-import com.devnoahf.vrumvrumhealth.Model.Motorista;
+import com.devnoahf.vrumvrumhealth.Entity.Motorista;
 import com.devnoahf.vrumvrumhealth.Service.MotoristaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +47,7 @@ public class MotoristaController {
     }
 
     @PostMapping
-    public ResponseEntity<MotoristaDTO> save(@RequestBody MotoristaDTO dto){
+    public ResponseEntity<MotoristaDTO> save(@Valid @RequestBody MotoristaDTO dto){
         Motorista motorista = MotoristaMapper.toEntity(dto);
         Motorista motoristaSalvo = service.save(motorista);
         MotoristaDTO motoristaDTO = MotoristaMapper.toDTO(motoristaSalvo);

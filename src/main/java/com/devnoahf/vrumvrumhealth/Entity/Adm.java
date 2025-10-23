@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.Model;
+package com.devnoahf.vrumvrumhealth.Entity;
 
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.persistence.*;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "adm")
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 // Não descomentar a implementação(necessario terminar as configurações de segurança antes)
-public class Adm /*implements UserDetails*/ {
+public class Adm  /*implements UserDetails*/ {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +35,9 @@ public class Adm /*implements UserDetails*/ {
 
     private String senha;
 
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Users usuario;
 
     @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp

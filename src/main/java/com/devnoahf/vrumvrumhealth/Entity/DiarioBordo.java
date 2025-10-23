@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.Model;
+package com.devnoahf.vrumvrumhealth.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -11,10 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Builder
 @Entity
@@ -47,10 +44,6 @@ public class DiarioBordo {
     @UpdateTimestamp
     private Instant updatedAt;
 
-
-    @OneToMany(mappedBy = "diarioBordo")
-    private List<GastoViagem> gastoViagem;
-
     @ManyToOne
     @JoinColumn(name = "motorista_id")
     @Column(nullable = false)
@@ -67,10 +60,6 @@ public class DiarioBordo {
     @Column(nullable = false)
     private Transporte transporte;
 
-    public void adicionarGasto(GastoViagem gasto) {
-        gasto.setDiarioBordo(this);
-        this.gastoViagem.add(gasto);
-    }
 
     @PrePersist
     protected void onCreate() {

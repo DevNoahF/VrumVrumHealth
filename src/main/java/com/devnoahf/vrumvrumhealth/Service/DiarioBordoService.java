@@ -1,6 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
+import com.devnoahf.vrumvrumhealth.Entity.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Repository.DiarioBordoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,13 +23,17 @@ public class DiarioBordoService {
         return diarioBordo.orElse(null);
     }
 
-    public DiarioBordo save(DiarioBordoDTO diarioBordo){
-        DiarioBordo novoDiarioBordo = new DiarioBordo();
-        novoDiarioBordo.setQuilometragemInicial(diarioBordo.getQuilometragemInicial());
-        novoDiarioBordo.setQuilometragemFinal(diarioBordo.getQuilometragemFinal());
-        novoDiarioBordo.setMotorista(diarioBordo.getMotorista());
-        novoDiarioBordo.setObservacoes(diarioBordo.getObservacoes());
-        return diarioBordoRepository.save(novoDiarioBordo);
+    public DiarioBordo salvar(DiarioBordoDTO diarioBordo){
+        DiarioBordo novoDiario = DiarioBordo.builder()
+                .quilometragemInicial(diarioBordo.getQuilometragemInicial())
+                .quilometragemFinal(diarioBordo.getQuilometragemFinal())
+                .motorista(diarioBordo.getMotorista())
+                .observacoes(diarioBordo.getObservacoes())
+                .veiculos(diarioBordo.getVeiculo())
+                .transporte(diarioBordo.getTransporte())
+                .build();
+        return diarioBordoRepository.save(novoDiario);
+
     }
 
     public void delete(Long id){
@@ -47,6 +52,7 @@ public class DiarioBordoService {
      }
         return null;
     }
+
 
 
 }

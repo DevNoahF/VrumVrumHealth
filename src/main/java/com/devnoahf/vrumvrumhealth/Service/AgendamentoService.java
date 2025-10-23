@@ -2,8 +2,8 @@ package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.AgendamentoMapper;
-import com.devnoahf.vrumvrumhealth.Model.Agendamento;
-import com.devnoahf.vrumvrumhealth.Model.Paciente;
+import com.devnoahf.vrumvrumhealth.Entity.Agendamento;
+import com.devnoahf.vrumvrumhealth.Entity.Paciente;
 import com.devnoahf.vrumvrumhealth.Repository.AgendamentoRepository;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
 import jakarta.persistence.EntityNotFoundException;

@@ -1,6 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.Model.Motorista;
+import com.devnoahf.vrumvrumhealth.Entity.Motorista;
 import com.devnoahf.vrumvrumhealth.Repository.MotoristaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

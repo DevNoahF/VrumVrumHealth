@@ -1,13 +1,10 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
 import com.devnoahf.vrumvrumhealth.DTO.MotoristaDTO;
-import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
-import com.devnoahf.vrumvrumhealth.Model.Motorista;
+import com.devnoahf.vrumvrumhealth.Entity.Motorista;
 import lombok.Builder;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 
 
 @Builder

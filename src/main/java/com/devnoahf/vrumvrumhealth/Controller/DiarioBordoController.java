@@ -1,7 +1,8 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
+import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.DiarioBordoMapper;
-import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.Entity.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Service.DiarioBordoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,9 @@ public class DiarioBordoController {
     private final DiarioBordoService service;
 
     @PostMapping
-    public ResponseEntity<DiarioBordo> save(@RequestBody DiarioBordoDTO dto){
+    public ResponseEntity<?> criar(@RequestBody DiarioBordoDTO dto){
         DiarioBordoDTO diarioBordo = DiarioBordoMapper.toEntity(dto);
-        DiarioBordo diarioBordoSalvo = service.save(diarioBordo);
+        DiarioBordo diarioBordoSalvo = service.salvar(diarioBordo);
         DiarioBordo diarioBordoDTO = DiarioBordoMapper.toDTO(diarioBordoSalvo);
         return ResponseEntity.status(201).body(diarioBordoDTO);
     }

@@ -2,7 +2,7 @@ package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.AdmMapper;
-import com.devnoahf.vrumvrumhealth.Model.Adm;
+import com.devnoahf.vrumvrumhealth.Entity.Adm;
 import com.devnoahf.vrumvrumhealth.Repository.AdmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -73,11 +73,11 @@ public class AdmService {
         return admOptional.map(new AdmMapper()::toDTO).orElse(null);
     }
 
-    public void mudarSenha(String email, String novaSenha){
-        Optional<Adm> admOptional = Optional.ofNullable(admRepository.findByEmail(email));
+    public void mudarSenha(String email, Adm novaSenha){
+        Optional<Adm> admOptional = Optional.ofNullable(novaSenha);
         if (admOptional.isPresent()){
             Adm adm = admOptional.get();
-            String senhaCriptografada = passwordEncoder.encode(novaSenha);
+            String senhaCriptografada = passwordEncoder.encode((CharSequence) novaSenha);
             adm.setSenha(senhaCriptografada);
             admRepository.save(adm);
         }

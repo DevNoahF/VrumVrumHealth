@@ -1,15 +1,13 @@
-package com.devnoahf.vrumvrumhealth.Model;
+package com.devnoahf.vrumvrumhealth.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 

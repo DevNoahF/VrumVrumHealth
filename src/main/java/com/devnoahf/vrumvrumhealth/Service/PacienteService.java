@@ -2,7 +2,7 @@ package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.PacienteMapper;
-import com.devnoahf.vrumvrumhealth.Model.Paciente;
+import com.devnoahf.vrumvrumhealth.Entity.Paciente;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,10 +48,9 @@ public class PacienteService {
         paciente.setNumero(pacienteDTO.getNumero());
         paciente.setBairro(pacienteDTO.getBairro());
         paciente.setCep(pacienteDTO.getCep());
-        paciente.setRoleEnum(pacienteDTO.getRoleEnum());
 
         // Senha criptografada
-        String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenhaHash());
+        String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenha());
         paciente.setSenha(senhaCriptografada);
 
 
@@ -81,8 +80,8 @@ public class PacienteService {
             Paciente pacienteExistente = pacienteOptional.get();
             pacienteExistente.setNome(pacienteDTO.getNome());
             pacienteExistente.setEmail(pacienteDTO.getEmail());
-            if (pacienteDTO.getSenhaHash() != null && !pacienteDTO.getSenhaHash().isEmpty()){
-                String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenhaHash());
+            if (pacienteDTO.getSenha() != null && !pacienteDTO.getSenha().isEmpty()){
+                String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenha());
                 pacienteExistente.setSenha(senhaCriptografada);
             }
             Paciente atualizado = pacienteRepository.save(pacienteExistente);

@@ -1,59 +1,82 @@
-package com.devnoahf.vrumvrumhealth.Model;
+package com.devnoahf.vrumvrumhealth.Entity;
 
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
+
 import jakarta.persistence.*;
-import lombok.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Getter;
 
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
+
 import java.util.Date;
 import java.util.List;
 
-@Builder
 @Entity
-@Table(name = "motorista")
-@NoArgsConstructor
+@Table(name = "paciente")
 @AllArgsConstructor
-@Setter
+@NoArgsConstructor
 @Getter
-
-public class Motorista {
+@Setter
+public class Paciente {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private String nome;
 
-    @Column(name = "data_nascimento", nullable = false)
-    private Date dataNascimento;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private String cpf;
 
-    @Column(unique = true, nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dataNascimento;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
 
     @Column(nullable = false)
     private String senha;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
+    private int ddd;
+
+    @Column(nullable = false)
     private String telefone;
+
+    @Column(nullable = false)
+    private String cep;
+
+    @Column(nullable = false)
+    private String rua;
+
+    @Column(nullable = false)
+    private String bairro;
+
+    @Column(nullable = false)
+    private Integer numero;
+
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Users usuario;
 
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
 
-    public Motorista(RoleEnum roleEnum) {
-        this.setRoleEnum(RoleEnum.MOTORISTA);
-    }
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Agendamento> agendamentos;
+
+
+    @Enumerated(EnumType.STRING)
+    private RoleEnum roles;
+
     @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp
     private Instant createdAt;
@@ -73,4 +96,6 @@ public class Motorista {
     protected void onUpdate() {
         this.updatedAt = Instant.now();
     }
+
+
 }

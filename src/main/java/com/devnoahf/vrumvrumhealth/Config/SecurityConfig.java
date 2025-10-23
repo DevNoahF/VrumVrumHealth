@@ -1,5 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration //avisa o spring que essa classe é de configuração
 @EnableWebSecurity //habilita a segurança web do spring que esta configuradadentro dessa classe
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+
 
 //    private final ConfigurableWebServerFactory configurableWebServerFactory;
 //

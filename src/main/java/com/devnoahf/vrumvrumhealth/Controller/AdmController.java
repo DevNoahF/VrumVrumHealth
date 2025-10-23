@@ -2,6 +2,7 @@ package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
 import com.devnoahf.vrumvrumhealth.Service.AdmService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,14 +21,10 @@ public class AdmController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/teste")
-    public String teste(){
-        return "teste";
-    }
 
 
-    @DeleteMapping("{id}")
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id){
         AdmDTO admDTO = admService.buscarPorId(id);
         if (id!= null){
@@ -43,14 +40,14 @@ public class AdmController {
     }
 
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody AdmDTO admDTO){
+    public ResponseEntity<?> criar(@Valid @RequestBody AdmDTO admDTO){
         AdmDTO novoAdm = admService.cadastrarAdm(admDTO);
         return ResponseEntity
                 .ok(admDTO);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> atualizar(@RequestBody AdmDTO admDTO, @PathVariable Long id){
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizar(@Valid @RequestBody AdmDTO admDTO, @PathVariable Long id){
         AdmDTO admAtualizado = admService.atualizarAdm(admDTO, id);
         if (admAtualizado != null){
             return ResponseEntity
@@ -69,7 +66,7 @@ public class AdmController {
                 .ok(admins);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<AdmDTO> buscarPorId(@PathVariable Long id){
         AdmDTO adm = admService.buscarPorId(id);
         if (adm != null){

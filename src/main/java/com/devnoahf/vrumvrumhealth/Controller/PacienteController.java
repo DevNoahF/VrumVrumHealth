@@ -1,10 +1,8 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
 import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
-import com.devnoahf.vrumvrumhealth.Model.Adm;
-import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import com.devnoahf.vrumvrumhealth.Service.PacienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +17,8 @@ public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
 
-    @GetMapping("/teste")
-    public String teste(){
-        return "teste paciente";
-    }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id){
         PacienteDTO pacienteDTO = pacienteService.buscarPorIdPaciente(id);
         if (id!= null){
@@ -40,13 +34,13 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody PacienteDTO pacienteDTO){
+    public ResponseEntity<?> criar(@Valid @RequestBody PacienteDTO pacienteDTO){
         PacienteDTO paciente = pacienteService.cadastrarPaciente(pacienteDTO);
         return ResponseEntity
                 .ok(pacienteDTO);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@RequestBody PacienteDTO pacienteDTO, @PathVariable Long id){
         PacienteDTO pacienteAtualizado = pacienteService.atualizarPaciente(pacienteDTO, id);
         if (pacienteAtualizado != null){
@@ -66,7 +60,7 @@ public class PacienteController {
                 .ok(paciente);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PacienteDTO> buscarPorId(@PathVariable Long id){
         PacienteDTO pacienteDTO = pacienteService.buscarPorIdPaciente(id);
         if (pacienteDTO != null){
