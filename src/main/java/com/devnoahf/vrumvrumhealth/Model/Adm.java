@@ -31,7 +31,7 @@ public class Adm /*implements UserDetails*/ {
     private String email;
 
 
-    private String senhaHash;
+    private String senha;
 
 
     @Column(nullable = false, updatable = false, name = "created_at")
@@ -52,43 +52,5 @@ public class Adm /*implements UserDetails*/ {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
-    //TODOS OS METODOS ESTÃO COMENTADOS POIS AINDA NÃO FORAM FINALIZADAS AS CONFIGURAÇÕES DE SEGURANÇA
-    //método para definir as autoridades do usuário com base no papel
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        if (this.role == Role.ADMIN) return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority(("USER")));
-//        else return List.of(new SimpleGrantedAuthority("USER"));
-//
-//    }
-
-//    @Override
-//    public String getPassword() {
-//        return "";
-//    }
-//
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
 }
+

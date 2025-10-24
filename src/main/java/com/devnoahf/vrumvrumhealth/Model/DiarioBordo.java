@@ -1,6 +1,5 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,21 +31,21 @@ public class DiarioBordo {
     private String observacoes;
 
     @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = Timestamp.valueOf(LocalDateTime.now());
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
+        this.updatedAt = LocalDateTime.now();
     }
 
 }

@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -22,19 +24,22 @@ public class Agendamento {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    private Date data_consulta;
+    @Column(nullable = false, name = "data_consulta")
+    private LocalDate dataConsulta;
 
-    private Time hora_consulta;
+    @Column(nullable = false, name = "hora_consulta")
+    private LocalTime horaConsulta;
 
     private String comprovante;
 
     @Enumerated(EnumType.STRING)
-    private LocalAtendimentoEnum local_atendimento;
+    private LocalAtendimentoEnum localAtendimento;
 
     @Enumerated(EnumType.STRING)
     private StatusComprovanteEnum statusComprovanteEnum;
 
-    private Boolean retorno_casa;
+    @Column(nullable = false, name = "retorno_casa")
+    private Boolean retornoCasa;
 
     @Column(nullable = false, updatable = false, name = "created_at")
     private LocalDateTime createdAt;
