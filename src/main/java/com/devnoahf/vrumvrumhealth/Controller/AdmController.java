@@ -79,12 +79,7 @@ public class AdmController {
         }
     }
 
-    public ResponseEntity<AdmDTO> mudarSenha(@RequestParam String email, @RequestParam String novaSenha){
-        admService.mudarSenha(email, novaSenha);
-        return ResponseEntity
-                .ok()
-                .build();
-    }
+    // fazer endpoint para troca de senha
 
 
 }

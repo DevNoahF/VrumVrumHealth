@@ -32,19 +32,18 @@ public class SecurityConfig {
 //    }
 
     // Configuração de segurança HTTP para permitir todas as requisições sem autenticação
-    @Bean
+    @Bean // indica que precisa de gerenciamento de dependência do spring
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                // 1. Desativa a proteção CSRF (Cross-Site Request Forgery)
-                // Essencial para permitir requisições POST/PUT/DELETE de clientes como Postman ou um frontend separado.
+        return http
                 .csrf(csrf -> csrf.disable())
-
-                // 2. Autoriza todas as requisições
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Permite acesso a QUALQUER requisição sem autenticação
-                );
-
-        return http.build();
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST,"/auth/register/").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/auth/login/").permitAll()
+                        .anyRequest().authenticated()
+                )
+                //.addFilter()
+                .build();
     }
 
     // Configuração de segurança HTTP para diferentes endpoints baseada nas roles

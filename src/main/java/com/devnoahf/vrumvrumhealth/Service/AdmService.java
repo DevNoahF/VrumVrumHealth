@@ -4,24 +4,19 @@ import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.AdmMapper;
 import com.devnoahf.vrumvrumhealth.Entity.Adm;
 import com.devnoahf.vrumvrumhealth.Repository.AdmRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class AdmService {
     private final AdmRepository admRepository;
     private final PasswordEncoder passwordEncoder;
-    @Autowired
-    private AdmMapper admMapper;
 
-    public AdmService(AdmRepository admRepository, PasswordEncoder passwordEncoder) {
-        this.admRepository = admRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     //método para cadastrar admin com senha criptografada
     public AdmDTO cadastrarAdm(AdmDTO admDTO) {
@@ -32,7 +27,7 @@ public class AdmService {
         String senhaCriptografada = passwordEncoder.encode(admDTO.getSenha());
         adm.setSenha(senhaCriptografada);
         Adm salvo = admRepository.save(adm);
-        return admMapper.toDTO(salvo);
+        return new AdmMapper().toDTO(salvo);
 
 
     }
@@ -52,20 +47,15 @@ public class AdmService {
 
     public AdmDTO atualizarAdm(AdmDTO admDTO, Long id){
         Optional<Adm> admOptional = admRepository.findById(id);
-        if (admOptional.isPresent()){
+        if (admOptional.isPresent()) {
             Adm admExistente = admOptional.get();
             admExistente.setNome(admDTO.getNome());
             admExistente.setEmail(admDTO.getEmail());
 
-            if (admDTO.getSenha() != null && !admDTO.getSenha().isEmpty()){
-                String senhaCriptografada = passwordEncoder.encode(admDTO.getSenha());
-                admExistente.setSenha(senhaCriptografada);
-            }
-            Adm atualizado = admRepository.save(admExistente);
-            return new AdmMapper().toDTO(atualizado);
-        } else {
-            return null;
+            Adm admAtualizado = admRepository.save(admExistente);
+            return new AdmMapper().toDTO(admAtualizado);
         }
+        return null;
     }
 
     public AdmDTO buscarPorId(Long id){
@@ -73,15 +63,6 @@ public class AdmService {
         return admOptional.map(new AdmMapper()::toDTO).orElse(null);
     }
 
-    public void mudarSenha(String email, Adm novaSenha){
-        Optional<Adm> admOptional = Optional.ofNullable(novaSenha);
-        if (admOptional.isPresent()){
-            Adm adm = admOptional.get();
-            String senhaCriptografada = passwordEncoder.encode((CharSequence) novaSenha);
-            adm.setSenha(senhaCriptografada);
-            admRepository.save(adm);
-        }
-    }
 
 
 }

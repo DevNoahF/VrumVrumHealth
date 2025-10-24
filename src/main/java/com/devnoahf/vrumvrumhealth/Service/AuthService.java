@@ -1,12 +1,11 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.DTO.RegisterDTO;
+import com.devnoahf.vrumvrumhealth.DTO.UsersDTO;
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import com.devnoahf.vrumvrumhealth.Repository.AdmRepository;
 import com.devnoahf.vrumvrumhealth.Repository.MotoristaRepository;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,9 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.management.relation.Role;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -54,8 +51,8 @@ public class AuthService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario com o nome : " + username + " não encontrado"));
     }
 
-    public ResponseEntity<?> registerPaciente(@RequestBody RegisterDTO dto){
-        User usuario = new User(dto.getEmail(), passwordEncoder.encode(dto.getSenha()), RoleEnum.USER);
+    public ResponseEntity<?> registerPaciente(@RequestBody UsersDTO dto){
+        User usuario = new User(dto.getEmail(), passwordEncoder.encode(dto.getSenha()), RoleEnum.PACIENTE);
         userR
     }
 }

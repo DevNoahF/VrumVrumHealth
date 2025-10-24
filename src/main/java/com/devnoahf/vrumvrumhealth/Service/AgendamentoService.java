@@ -7,29 +7,19 @@ import com.devnoahf.vrumvrumhealth.Entity.Paciente;
 import com.devnoahf.vrumvrumhealth.Repository.AgendamentoRepository;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class AgendamentoService {
 
     private final AgendamentoRepository agendamentoRepository;
     private final PacienteRepository pacienteRepository;
     private final AgendamentoMapper agendamentoMapper;
-
-    @Autowired
-    public AgendamentoService(
-            AgendamentoRepository agendamentoRepository,
-            PacienteRepository pacienteRepository,
-            AgendamentoMapper agendamentoMapper
-    ) {
-        this.agendamentoRepository = agendamentoRepository;
-        this.pacienteRepository = pacienteRepository;
-        this.agendamentoMapper = agendamentoMapper;
-    }
 
     //  Criar novo agendamento
     public AgendamentoDTO criarAgendamento(AgendamentoDTO dto) {
@@ -64,8 +54,8 @@ public class AgendamentoService {
             Agendamento agendamento = agendamentoOpt.get();
 
             // Atualiza campos básicos
-            agendamento.setData_consulta(java.sql.Date.valueOf(dto.getDataConsulta()));
-            agendamento.setHora_consulta(dto.getHoraConsulta());
+            agendamento.setDataConsulta(dto.getDataConsulta());
+            agendamento.setHoraConsulta(dto.getHoraConsulta());
             agendamento.setComprovante(dto.getComprovante());
             agendamento.setLocal_atendimento(dto.getLocalAtendimentoEnum());
             agendamento.setStatusEnum(dto.getStatusEnum());
