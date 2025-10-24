@@ -96,14 +96,14 @@ public class PacienteService {
         return admOptional.map(pacienteMapper::toDTO).orElse(null);
     }
 
-    public void mudarSenhaPaciente(String email, String novaSenha){
-        Optional<Paciente> pacienteOptional =  Optional.ofNullable(pacienteRepository.findByEmail(email));
-        if (pacienteOptional.isPresent()){
-            Paciente paciente = pacienteOptional.get();
-            String senhaCriptografada = passwordEncoder.encode(novaSenha);
-            paciente.setSenha(senhaCriptografada);
-            pacienteRepository.save(paciente);
-        }
-    }
+//    public void mudarSenhaPaciente(String email, String novaSenha){
+//        Optional<Paciente> pacienteOptional =  Optional.ofNullableGIT(pacienteRepository.findByEmail(email));
+//        if (pacienteOptional.isPresent()){
+//            Paciente paciente = pacienteOptional.get();
+//            String senhaCriptografada = passwordEncoder.encode(novaSenha);
+//            paciente.setSenha(senhaCriptografada);
+//            pacienteRepository.save(paciente);
+//        }
+//    }
 
 }

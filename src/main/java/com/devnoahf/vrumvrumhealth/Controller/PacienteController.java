@@ -73,12 +73,12 @@ public class PacienteController {
         }
     }
 
-    public ResponseEntity<PacienteDTO> mudarSenha(@RequestParam String email, @RequestParam String novaSenha){
-        pacienteService.mudarSenhaPaciente( email, novaSenha);
-        return ResponseEntity
-                .ok()
-                .build();
-    }
+//    public ResponseEntity<PacienteDTO> mudarSenha(@RequestParam String email, @RequestParam String novaSenha){
+//        pacienteService.mudarSenhaPaciente( email, novaSenha);
+//        return ResponseEntity
+//                .ok()
+//                .build();
+//    }
 
 
 }

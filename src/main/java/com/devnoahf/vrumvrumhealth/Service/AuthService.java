@@ -18,44 +18,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Service
-public class AuthService implements UserDetailsService {
+//@RequiredArgsConstructor
+//@Service
+//public class AuthService implements UserDetailsService {
+//
+//    private final MotoristaRepository motoristaRepository;
+//    private final PacienteRepository pacienteRepository;
+//    private final AdmRepository admRepository;
+//    private final PasswordEncoder passwordEncoder;
 
-    private final MotoristaRepository motoristaRepository;
-    private final PacienteRepository pacienteRepository;
-    private final AdmRepository admRepository;
-    private final PasswordEncoder passwordEncoder;
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return admRepository.findByEmail(username)
+//                .map(adm -> new org.springframework.security.core.userdetails.User(
+//                        adm.getEmail(),
+//                        adm.getSenha(),
+//                        List.of(new SimpleGrantedAuthority("ADMIN"))
+//                ))
+//                .or(() -> motoristaRepository.findByEmail(username)
+//                        .map(motorista -> new org.springframework.security.core.userdetails.User(
+//                                motorista.getEmail(),
+//                                motorista.getSenha(),
+//                                List.of(new SimpleGrantedAuthority("MOTORISTA"))
+//                        )))
+//                .or(() -> pacienteRepository.findByEmail(username)
+//                        .map(paciente -> new org.springframework.security.core.userdetails.User(
+//                                paciente.getEmail(),
+//                                paciente.getSenha(),
+//                                List.of(new SimpleGrantedAuthority("PACIENTE"))
+//                        )))
+//                .orElseThrow(() -> new UsernameNotFoundException("Usuario com o nome : " + username + " não encontrado"));
+//    }
+//
+//    public ResponseEntity<?> registerPaciente(@RequestBody UsersDTO dto){
+//        User usuario = new User(dto.getEmail(), passwordEncoder.encode(dto.getSenha()), RoleEnum.PACIENTE);
+//        userR
+//    }
+//}
 
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return admRepository.findByEmail(username)
-                .map(adm -> new org.springframework.security.core.userdetails.User(
-                        adm.getEmail(),
-                        adm.getSenha(),
-                        List.of(new SimpleGrantedAuthority("ADMIN"))
-                ))
-                .or(() -> motoristaRepository.findByEmail(username)
-                        .map(motorista -> new org.springframework.security.core.userdetails.User(
-                                motorista.getEmail(),
-                                motorista.getSenha(),
-                                List.of(new SimpleGrantedAuthority("MOTORISTA"))
-                        )))
-                .or(() -> pacienteRepository.findByEmail(username)
-                        .map(paciente -> new org.springframework.security.core.userdetails.User(
-                                paciente.getEmail(),
-                                paciente.getSenha(),
-                                List.of(new SimpleGrantedAuthority("PACIENTE"))
-                        )))
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario com o nome : " + username + " não encontrado"));
-    }
-
-    public ResponseEntity<?> registerPaciente(@RequestBody UsersDTO dto){
-        User usuario = new User(dto.getEmail(), passwordEncoder.encode(dto.getSenha()), RoleEnum.PACIENTE);
-        userR
-    }
-}
 
 
 

@@ -21,36 +21,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class  AuthController {
-
-    private final UsersRepository usuarioRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    private final PacienteRepository pacienteRepository;
-
-    private final MotoristaRepository motoristaRepository;
-
-    private final AdmRepository admRepository;
-
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UsersDTO usersDTO){
-
-    }
-
-
-    @PostMapping("/register/paciente")
-    public ResponseEntity<?> registerPaciente(@RequestBody UsersDTO dto) {
-        Users usuario = new Users(dto.getEmail(), passwordEncoder.encode(dto.getSenha()));
-        usuario.setRole(RoleEnum.PACIENTE);
-        usuarioRepository.save(usuario);
-
-        Paciente paciente = new Paciente();
-        paciente.setUsuario(usuario);
-        pacienteRepository.save(paciente);
-
-        return ResponseEntity.ok("Conta Criada! Agora Complete seu Perfil!");
-    }
+//
+//    private final UsersRepository usuarioRepository;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+//
+//    private final PacienteRepository pacienteRepository;
+//
+//    private final MotoristaRepository motoristaRepository;
+//
+//    private final AdmRepository admRepository;
+//
+//
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody UsersDTO usersDTO){
+//
+//    }
+//
+//
+//    @PostMapping("/register/paciente")
+//    public ResponseEntity<?> registerPaciente(@RequestBody UsersDTO dto) {
+//        Users usuario = new Users(dto.getEmail(), passwordEncoder.encode(dto.getSenha()));
+//        usuario.setRole(RoleEnum.PACIENTE);
+//        usuarioRepository.save(usuario);
+//
+//        Paciente paciente = new Paciente();
+//        paciente.setUsuario(usuario);
+//        pacienteRepository.save(paciente);
+//
+//        return ResponseEntity.ok("Conta Criada! Agora Complete seu Perfil!");
+//    }
 
 }

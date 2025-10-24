@@ -31,20 +31,32 @@ public class SecurityConfig {
 //        this.configurableWebServerFactory = configurableWebServerFactory;
 //    }
 
-    // Configuração de segurança HTTP para permitir todas as requisições sem autenticação
+    //permitir todas as requisições sem autenticação
     @Bean // indica que precisa de gerenciamento de dependência do spring
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST,"/auth/register/").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/auth/login/").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
-                //.addFilter()
                 .build();
     }
+
+    // Configuração de segurança HTTP para permitir todas as requisições sem autenticação
+//    @Bean // indica que precisa de gerenciamento de dependência do spring
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http
+//                .csrf(csrf -> csrf.disable())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers(HttpMethod.POST,"/auth/register/").permitAll()
+//                        .requestMatchers(HttpMethod.POST,"/auth/login/").permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                //.addFilter()
+//                .build();
+//    }
 
     // Configuração de segurança HTTP para diferentes endpoints baseada nas roles
 //    @Bean
