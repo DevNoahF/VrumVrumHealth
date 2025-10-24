@@ -15,7 +15,7 @@ public class PacienteMapper {
 
     // Converte DTO em entidade, criptografando a senha
     public Paciente toEntity(PacienteDTO dto) {
-        if (dto.getSenhaHash() == null || dto.getSenhaHash().isEmpty()) {
+        if (dto.getSenha() == null || dto.getSenha().isEmpty()) {
             throw new IllegalArgumentException("Senha não pode ser nula ou vazia");
         }
 
@@ -31,11 +31,10 @@ public class PacienteMapper {
         paciente.setBairro(dto.getBairro());
         paciente.setNumero(dto.getNumero());
         paciente.setTipoAtendimentoEnum(dto.getTipoAtendimentoEnum());
-        paciente.setFrequenciaEnum(dto.getFrequenciaEnum());
-        paciente.setRoleEnum(dto.getRoleEnum());
+        paciente.setFrequenciaEnum(dto.getFrequencia());
 
         // Criptografa a senha
-        paciente.setSenhaHash(passwordEncoder.encode(dto.getSenhaHash()));
+        paciente.setSenhaHash(passwordEncoder.encode(dto.getSenha()));
 
 
         return paciente;
@@ -56,8 +55,7 @@ public class PacienteMapper {
         dto.setBairro(paciente.getBairro());
         dto.setNumero(paciente.getNumero());
         dto.setTipoAtendimentoEnum(paciente.getTipoAtendimentoEnum());
-        dto.setFrequenciaEnum(paciente.getFrequenciaEnum());
-        dto.setRoleEnum(paciente.getRoleEnum());
+        dto.setFrequencia(paciente.getFrequenciaEnum());
         return dto;
     }
 }

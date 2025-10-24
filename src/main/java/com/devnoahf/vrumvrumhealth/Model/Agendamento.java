@@ -1,6 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
+import com.devnoahf.vrumvrumhealth.Enum.StatusComprovanteEnum;
 import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class Agendamento {
     private LocalAtendimentoEnum local_atendimento;
 
     @Enumerated(EnumType.STRING)
-    private StatusEnum statusEnum;
+    private StatusComprovanteEnum statusComprovanteEnum;
 
     private Boolean retorno_casa;
 

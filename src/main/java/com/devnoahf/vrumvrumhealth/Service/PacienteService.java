@@ -49,11 +49,10 @@ public class PacienteService {
         paciente.setBairro(pacienteDTO.getBairro());
         paciente.setCep(pacienteDTO.getCep());
         paciente.setTipoAtendimentoEnum(pacienteDTO.getTipoAtendimentoEnum());
-        paciente.setFrequenciaEnum(pacienteDTO.getFrequenciaEnum());
-        paciente.setRoleEnum(pacienteDTO.getRoleEnum());
+        paciente.setFrequenciaEnum(pacienteDTO.getFrequencia());
 
         // Senha criptografada
-        String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenhaHash());
+        String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenha());
         paciente.setSenhaHash(senhaCriptografada);
 
 
@@ -83,8 +82,8 @@ public class PacienteService {
             Paciente pacienteExistente = pacienteOptional.get();
             pacienteExistente.setNome(pacienteDTO.getNome());
             pacienteExistente.setEmail(pacienteDTO.getEmail());
-            if (pacienteDTO.getSenhaHash() != null && !pacienteDTO.getSenhaHash().isEmpty()){
-                String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenhaHash());
+            if (pacienteDTO.getSenha() != null && !pacienteDTO.getSenha().isEmpty()){
+                String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenha());
                 pacienteExistente.setSenhaHash(senhaCriptografada);
             }
             Paciente atualizado = pacienteRepository.save(pacienteExistente);

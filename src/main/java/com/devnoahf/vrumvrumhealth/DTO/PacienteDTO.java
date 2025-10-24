@@ -17,9 +17,8 @@ public class PacienteDTO {
     private Long id;
     private String nome;
     private String email;
-    private String senhaHash;
+    private String senha;
     private String cpf;
-    private RoleEnum roleEnum;
     private LocalDate dataNascimento;
     private TipoAtendimentoEnum tipoAtendimentoEnum;
     private String telefone;
@@ -27,5 +26,5 @@ public class PacienteDTO {
     private String rua;
     private String bairro;
     private Integer numero;
-    private FrequenciaEnum frequenciaEnum;
+    private FrequenciaEnum frequencia;
 }

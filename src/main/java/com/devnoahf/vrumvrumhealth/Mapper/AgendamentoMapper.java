@@ -19,8 +19,8 @@ public class AgendamentoMapper {
                 .toLocalDate()); // converte Date para LocalDate
         dto.setHoraConsulta(agendamento.getHora_consulta());
         dto.setComprovante(agendamento.getComprovante());
-        dto.setLocalAtendimentoEnum(agendamento.getLocal_atendimento());
-        dto.setStatusEnum(agendamento.getStatusEnum());
+        dto.setLocalAtendimento(agendamento.getLocal_atendimento());
+        dto.setStatusComprovanteEnum(agendamento.getStatusComprovanteEnum());
         dto.setRetornoCasa(agendamento.getRetorno_casa());
 
         if (agendamento.getPaciente() != null) {
@@ -39,8 +39,8 @@ public class AgendamentoMapper {
         agendamento.setData_consulta(java.sql.Date.valueOf(dto.getDataConsulta()));
         agendamento.setHora_consulta(dto.getHoraConsulta());
         agendamento.setComprovante(dto.getComprovante());
-        agendamento.setLocal_atendimento(dto.getLocalAtendimentoEnum());
-        agendamento.setStatusEnum(dto.getStatusEnum());
+        agendamento.setLocal_atendimento(dto.getLocalAtendimento());
+        agendamento.setStatusComprovanteEnum(dto.getStatusComprovanteEnum());
         agendamento.setRetorno_casa(dto.getRetornoCasa());
 
         // Associa paciente se passado

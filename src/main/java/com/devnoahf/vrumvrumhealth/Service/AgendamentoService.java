@@ -67,8 +67,8 @@ public class AgendamentoService {
             agendamento.setData_consulta(java.sql.Date.valueOf(dto.getDataConsulta()));
             agendamento.setHora_consulta(dto.getHoraConsulta());
             agendamento.setComprovante(dto.getComprovante());
-            agendamento.setLocal_atendimento(dto.getLocalAtendimentoEnum());
-            agendamento.setStatusEnum(dto.getStatusEnum());
+            agendamento.setLocal_atendimento(dto.getLocalAtendimento());
+            agendamento.setStatusComprovanteEnum(dto.getStatusComprovanteEnum());
             agendamento.setRetorno_casa(dto.getRetornoCasa());
 
             // Atualiza paciente se vier novo ID
