@@ -1,10 +1,12 @@
 //adicionando dependencias necessarias
 const express = require("express")
 const app = express()
+const path = require("path")
 const port = 8080;//porta de localhost, possível alterar?
 const {Storage}= require('@google-cloud/storage')
 const Multer = require('multer')
 
+app.use(express.static(path.join(__dirname, "src", "pages")));
 
 const multer = Multer({
     storage: Multer.memoryStorage(),
@@ -55,7 +57,7 @@ app.post("/upload", multer.single("enviar-anexo"), (req, res) => {
 });
 
 app.get('/', (req,res)=>{
-    res.sendFile('C:/Users/Perin/Documents/GitHub/VrumVrumHealth/src/pages/user/pedido-transporte.html')//local onde o aruqivo vai ser enviado
+  res.sendFile(path.join(__dirname, "src", "pages", "user", "pedido-transporte.html"));//local onde o aruqivo vai ser enviado
     //LEMBREM DE COLOCAR O DIRETÓRIO DE VOCÊS DE C: ATÉ O HTML DE PEDIDO-TRANSPORTE
 })
 
