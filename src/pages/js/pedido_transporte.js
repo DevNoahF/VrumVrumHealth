@@ -32,11 +32,11 @@ function sendImages(){
   let inputElem = document.getElementById("enviar-anexo");
   let file = inputElem.files[0];
   // Create new file so we can rename the file
-  let blob = file.slice(0, file.size, "image/jpeg");
-  newFile = new File([blob], `${postid}_post.jpeg`, { type: "image/jpeg" });
+  let blob = file.slice(0, file.size, "image/*");
+  newFile = new File([blob], `${postid}_post.jpeg`, { type: "image/*" });
   // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
   let formData = new FormData();
-  formData.append("imgfile", newFile);
+  formData.append("enviar-anexo", newFile);
   fetch("/upload", {
     method: "POST",
     body: formData,
@@ -144,9 +144,8 @@ async function getPacienteID(id) {
 
 
 //Função de enviar informações para banco de dados
-document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
+document.getElementById("pedido-transporte").addEventListener("click", async (e) => {
   e.preventDefault();
-
   sendImages()
 
   console.log(verify_data())
