@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/DevNoahF/VrumVrumHealth/issues"
   },
-  "homepage": "https://github.com/DevNoahF/VrumVrumHealth#readme"
+  "homepage": "https://github.com/DevNoahF/VrumVrumHealth#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^7.17.2",
+    "express": "^5.1.0",
+    "multer": "^2.0.2"
+  }
 }
