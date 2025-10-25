@@ -5,6 +5,7 @@ const port = 8080;//porta de localhost, possível alterar?
 const {Storage}= require('@google-cloud/storage')
 const Multer = require('multer')
 
+
 const multer = Multer({
     storage: Multer.memoryStorage(),
     limits:{
@@ -13,8 +14,8 @@ const multer = Multer({
 })
 
 
-let projectId="anexo-project";//Nome do projeto no google Cloud
-let keyFilename='cred.json'//a chave do bucket, vai estar ignorada por padrão a chave, vocês terão que pegar e adicionar manualmente
+let projectId="enviaranexo-475818";//Nome do projeto no google Cloud
+let keyFilename='../cred.json'//a chave do bucket, vai estar ignorada por padrão a chave, vocês terão que pegar e adicionar manualmente
 
 const storage = new Storage({
     projectId,

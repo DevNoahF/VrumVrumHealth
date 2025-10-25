@@ -16,54 +16,6 @@ const frequencia=document.getElementsByClassName("frequencia")[0];//Serve para d
 const submit = document.getElementById("enviar")
 setNull()
 
-//Função de criptografia das imagens
-function uuidv4() {
-  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-    (
-      c ^
-      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-    ).toString(16)
-  );
-}
-
-//Função principal criptografa a imagem e envia para o google cloud
-function sendImages(){
-  let postid = uuidv4();
-  let inputElem = document.getElementById("enviar-anexo");
-  let file = inputElem.files[0];
-  // Create new file so we can rename the file
-  let blob = file.slice(0, file.size, "image/*");
-  newFile = new File([blob], `${postid}_post.jpeg`, { type: "image/*" });
-  // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
-  let formData = new FormData();
-  formData.append("enviar-anexo", newFile);
-  fetch("/upload", {
-    method: "POST",
-    body: formData,
-  })
-    .then((res) => res.text())
-    .then(loadPosts());
-};
-// Carrega os posts
-function loadPosts() {
-  fetch("/upload")
-    .then((res) => res.json())
-    .then((x) => {
-      for (y = 0; y < x[0].length; y++) {
-        console.log(x[0][y]);
-        const newimg = document.createElement("img");
-        newimg.setAttribute(
-          "src",
-          "https://storage.googleapis.com/dansstorage/" + x[0][y].id
-        );
-        newimg.setAttribute("width", 50);
-        newimg.setAttribute("height", 50);
-        document.getElementById("images").appendChild(newimg);
-      }
-    });
-}
-
-
 //Função que deixa todos os campos em null automaticamente
 function setNull(){
   const inputs=document.querySelectorAll("#unidade-value, #frequencia-value,#motivo-value,#acompanhante-value,#data,#hora")
@@ -144,9 +96,8 @@ async function getPacienteID(id) {
 
 
 //Função de enviar informações para banco de dados
-document.getElementById("pedido-transporte").addEventListener("click", async (e) => {
+document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
   e.preventDefault();
-  sendImages()
 
   console.log(verify_data())
   
