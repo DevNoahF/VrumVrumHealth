@@ -11,13 +11,15 @@ function uuidv4() {
 
 //Função principal criptografa a imagem e envia para o google cloud
 document.getElementById("enviar").addEventListener("click",function(){
+  if(verify_data()==false){
+    console.log("campo preenchido pó mandar")
   let postid = uuidv4();
   let inputElem = document.getElementById("enviar-anexo");
   let file = inputElem.files[0];
-  // Create new file so we can rename the file
+
   let blob = file.slice(0, file.size, "image/*");
   newFile = new File([blob], `${postid}_post.jpeg`, { type: "image/*" });
-  // Build the form data - You can add other input values to this i.e descriptions, make sure img is appended last
+
   let formData = new FormData();
   formData.append("enviar-anexo", newFile);
   fetch("/upload", {
@@ -26,6 +28,7 @@ document.getElementById("enviar").addEventListener("click",function(){
   })
     .then((res) => res.text())
     .then(loadPosts());
+}
 });
 // Carrega os posts
 function loadPosts() {
@@ -37,11 +40,11 @@ function loadPosts() {
         const newimg = document.createElement("img");
         newimg.setAttribute(
           "src",
-          "https://storage.googleapis.com/dansstorage/" + x[0][y].id
+          "https://storage.googleapis.com/perinstorage/" + x[0][y].id
         );
         newimg.setAttribute("width", 50);
         newimg.setAttribute("height", 50);
-        document.getElementById("images").appendChild(newimg);
+        document.getElementById("enviar-anexo").appendChild(newimg);
       }
     });
 }
