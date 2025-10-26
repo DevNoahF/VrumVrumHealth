@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/veiculos")
+@RequestMapping("/veiculo")
 public class VeiculoController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class VeiculoController {
     }
 
     @PostMapping
-    public ResponseEntity<VeiculoDTO> criar(@RequestBody VeiculoDTO veiculoDTO) {
+    public ResponseEntity<?> criar(@RequestBody VeiculoDTO veiculoDTO) {
         VeiculoDTO novo = veiculoService.salvar(veiculoDTO);
         return ResponseEntity.status(201).body(novo);
     }

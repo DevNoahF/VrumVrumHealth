@@ -23,13 +23,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 
-
 //    private final ConfigurableWebServerFactory configurableWebServerFactory;
 //
 //
 //    public SecurityConfig(ConfigurableWebServerFactory configurableWebServerFactory) {
 //        this.configurableWebServerFactory = configurableWebServerFactory;
 //    }
+
 
     // Configuração de segurança HTTP para permitir todas as requisições sem autenticação
     @Bean
@@ -47,47 +47,36 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Configuração de segurança HTTP para diferentes endpoints baseada nas roles
+
+    // Configuração de segurança HTTP para proteger endpoints específicos
 //    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        return httpSecurity
-//                .csrf(csrf -> csrf.disable()) // desabilita CSRF para simplificar (não recomendado para produção sem outras medidas)
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers(HttpMethod.POST, "/adm").hasRole("ADMIN") // apenas ADMIN pode acessar /adm
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(csrf -> csrf.disable())
+//                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+//                        .requestMatchers(HttpMethod.POST, "/auth/register/").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 //                        .anyRequest().authenticated()
-//                )
-//                .build();
+//                );
+//        //.addFilter()
+//
+//        return http.build();
 //    }
 
-    // security fiter chain é uma cadeia de filtros que processam as requisições HTTP para aplicar regras de segurança
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // mais utilizada em apis resfful -> autenticação stateless, cada requisição é independente e deve conter todas as informações necessárias para autenticação
-//autenticação stateful, o estado da sessão do usuário é mantido no servidor entre as requisições
-
 }
+
+
+
 //    public Boolean verifyPassword(String rawPassword, String encodedPassword) {
 //        return passwordEncoder().matches(rawPassword, encodedPassword);
 //    }
 
-//    // Configuração de segurança HTTP para diferentes endpoints baseada nas roles
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { // Configura as regras de segurança
-//        http  // desabilita CSRF para simplificar (não recomendado para produção sem outras medidas)
-//                .csrf(AbstractHttpConfigurer::disable)  // configura as autorizações baseadas em roles
-//                .authorizeHttpRequests(auth -> auth // define as regras de autorização
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")  // apenas ADMIN pode acessar /admin/**
-//                        .requestMatchers("/paciente/**").hasRole("PACIENTE") // apenas PACIENTE pode acessar /paciente/**
-//                        .anyRequest().permitAll() // qualquer outra requisição é permitida sem autenticação
-//                )
-//                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll) // permite o formulário de login para todos
-//                .logout(LogoutConfigurer::permitAll); // permite logout para todos
-//        return http.build(); // constrói a cadeia de filtros de segurança
-//    }
-
+//
    
 

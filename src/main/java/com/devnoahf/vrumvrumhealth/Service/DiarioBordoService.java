@@ -1,7 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
-import com.devnoahf.vrumvrumhealth.Entity.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Repository.DiarioBordoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

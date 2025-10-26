@@ -1,8 +1,8 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
-import com.devnoahf.vrumvrumhealth.Entity.Motorista;
-import com.devnoahf.vrumvrumhealth.Entity.Transporte;
-import com.devnoahf.vrumvrumhealth.Entity.Veiculo;
+import com.devnoahf.vrumvrumhealth.Model.Motorista;
+import com.devnoahf.vrumvrumhealth.Model.Transporte;
+import com.devnoahf.vrumvrumhealth.Model.Veiculo;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.stereotype.Component;

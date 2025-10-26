@@ -2,7 +2,7 @@ package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.MotoristaDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.MotoristaMapper;
-import com.devnoahf.vrumvrumhealth.Entity.Motorista;
+import com.devnoahf.vrumvrumhealth.Model.Motorista;
 import com.devnoahf.vrumvrumhealth.Service.MotoristaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

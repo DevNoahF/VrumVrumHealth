@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.Entity;
+package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;

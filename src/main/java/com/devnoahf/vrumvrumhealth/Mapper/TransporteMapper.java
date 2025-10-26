@@ -1,9 +1,9 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
 import com.devnoahf.vrumvrumhealth.DTO.TransporteDTO;
-import com.devnoahf.vrumvrumhealth.Entity.Agendamento;
-import com.devnoahf.vrumvrumhealth.Entity.Transporte;
-import com.devnoahf.vrumvrumhealth.Entity.Veiculo;
+import com.devnoahf.vrumvrumhealth.Model.Agendamento;
+import com.devnoahf.vrumvrumhealth.Model.Transporte;
+import com.devnoahf.vrumvrumhealth.Model.Veiculo;
 import org.springframework.stereotype.Component;
 
 @Component

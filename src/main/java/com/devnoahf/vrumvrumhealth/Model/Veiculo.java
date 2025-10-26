@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.Entity;
+package com.devnoahf.vrumvrumhealth.Model;
 
 import jakarta.persistence.*;
 import lombok.*;

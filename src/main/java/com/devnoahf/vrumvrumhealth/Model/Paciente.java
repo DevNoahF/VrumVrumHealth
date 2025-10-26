@@ -1,8 +1,10 @@
-package com.devnoahf.vrumvrumhealth.Entity;
+package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import lombok.Getter;
 
 import java.time.Instant;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -34,8 +37,8 @@ public class Paciente {
     @Column(nullable = false, unique = true)
     private String cpf;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date dataNascimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate dataNascimento;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -44,7 +47,7 @@ public class Paciente {
     @Column(nullable = false)
     private String senha;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2, columnDefinition = "INT")
     private int ddd;
 
     @Column(nullable = false)
@@ -60,12 +63,7 @@ public class Paciente {
     private String bairro;
 
     @Column(nullable = false)
-    private Integer numero;
-
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Users usuario;
-
+    private String numero;
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
@@ -97,5 +95,8 @@ public class Paciente {
         this.updatedAt = Instant.now();
     }
 
-
+    // Garantir que o roleEnum seja sempre PACIENTE
+    public void setRoleEnum(RoleEnum roleEnum) {
+        this.roleEnum = RoleEnum.PACIENTE;
+    }
 }

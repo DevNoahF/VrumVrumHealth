@@ -1,21 +1,20 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
 import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
-import com.devnoahf.vrumvrumhealth.Entity.Paciente;
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
+import lombok.experimental.UtilityClass;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PacienteMapper {
-    private final BCryptPasswordEncoder passwordEncoder;
+    private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public PacienteMapper() {
-        this.passwordEncoder = new BCryptPasswordEncoder();
-    }
 
     // Converte DTO em entidade, criptografando a senha
-    public Paciente toEntity(PacienteDTO dto) {
-        if (dto.getSenhaHash() == null || dto.getSenhaHash().isEmpty()) {
+    public static Paciente toEntity(PacienteDTO dto) {
+        if (dto.getSenha() == null || dto.getSenha().isEmpty()) {
             throw new IllegalArgumentException("Senha não pode ser nula ou vazia");
         }
 
@@ -30,10 +29,9 @@ public class PacienteMapper {
         paciente.setRua(dto.getRua());
         paciente.setBairro(dto.getBairro());
         paciente.setNumero(dto.getNumero());
-        paciente.setRoleEnum(dto.getRoleEnum());
 
         // Criptografa a senha
-        paciente.setSenha(passwordEncoder.encode(dto.getSenhaHash()));
+        paciente.setSenha(passwordEncoder.encode(dto.getSenha()));
 
 
         return paciente;
@@ -53,7 +51,6 @@ public class PacienteMapper {
         dto.setRua(paciente.getRua());
         dto.setBairro(paciente.getBairro());
         dto.setNumero(paciente.getNumero());
-        dto.setRoleEnum(paciente.getRoleEnum());
         return dto;
     }
 }

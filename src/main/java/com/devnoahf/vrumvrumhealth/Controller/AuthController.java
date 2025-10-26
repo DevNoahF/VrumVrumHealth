@@ -1,10 +1,12 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.Entity.Users;
+import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
+import com.devnoahf.vrumvrumhealth.Mapper.PacienteMapper;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import com.devnoahf.vrumvrumhealth.Repository.AdmRepository;
 import com.devnoahf.vrumvrumhealth.Repository.MotoristaRepository;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
-import com.devnoahf.vrumvrumhealth.Repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class  AuthController {
 
-    private final UsersRepository usuarioRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -30,15 +31,15 @@ public class  AuthController {
 
 
     @PostMapping("/register/paciente")
-    public ResponseEntity<?> registerPaciente(@RequestBody RegisterDTO dto) {
-        Users usuario = new Usuario(dto.getNome(), dto.getEmail(), passwordEncoder.encode(dto.getSenha()), Role.ROLE_PACIENTE);
-        usuarioRepository.save(usuario);
-
-        Paciente paciente = new Paciente();
-        paciente.setUsuario(usuario);
+    public ResponseEntity<?> registerUser(@RequestBody PacienteDTO pacienteDTO) {
+        if (PacienteRepository.existsByEmail(pacienteDTO.getEmail())) {
+            return ResponseEntity.badRequest().body("Erro: Email já está em uso!");
+        }
+        // Cria novo usuário
+        Paciente paciente = PacienteMapper.toEntity(pacienteDTO);
+        paciente.setRoleEnum(RoleEnum.valueOf("PACIENTE"));
         pacienteRepository.save(paciente);
-
-        return ResponseEntity.ok("Paciente registrado com sucesso!");
+        return ResponseEntity.ok("Usuário registrado com sucesso!");
     }
 
 }

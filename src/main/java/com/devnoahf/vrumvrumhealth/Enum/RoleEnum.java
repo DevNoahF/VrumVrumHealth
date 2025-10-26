@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public enum RoleEnum {
     ADMIN("admin"),
-    USER("user"),
+    PACIENTE("paciente"),
     MOTORISTA("motorista");
 
     private String role;

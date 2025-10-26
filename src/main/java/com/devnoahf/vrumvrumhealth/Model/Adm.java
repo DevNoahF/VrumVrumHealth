@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.Entity;
+package com.devnoahf.vrumvrumhealth.Model;
 
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.persistence.*;
@@ -35,9 +35,6 @@ public class Adm  /*implements UserDetails*/ {
 
     private String senha;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Users usuario;
 
     @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp

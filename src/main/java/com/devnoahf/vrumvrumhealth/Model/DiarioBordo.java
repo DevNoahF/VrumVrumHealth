@@ -1,6 +1,6 @@
-package com.devnoahf.vrumvrumhealth.Entity;
+package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.AllArgsConstructor;
@@ -10,54 +10,32 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Date;
 
 @Builder
 @Entity
-@Table(name = "motorista")
+@Table(name = " diario_bordo")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
-
-public class Motorista {
+@Setter
+public class DiarioBordo {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String nome;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
+    @Column(precision = 10, scale = 2)
+    private BigDecimal quilometragemInicial;
 
-    @Column(name = "data_nascimento", nullable = false)
-    private Date dataNascimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
+    @Column(precision = 10, scale = 2)
+    private BigDecimal quilometragemFinal;
 
-    @Column(unique = true, nullable = false)
-    private String cpf;
+    @Column(columnDefinition = "TEXT")
+    private String observacoes;
 
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String senha;
-
-    @Column(nullable = false)
-    private int ddd;
-
-    @Column(length = 20, nullable = false)
-    private String telefone;
-
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Users usuario;
-
-
-    @Enumerated(EnumType.STRING)
-    private RoleEnum roleEnum;
-
-    public Motorista(RoleEnum roleEnum) {
-        this.setRoleEnum(RoleEnum.MOTORISTA);
-    }
     @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp
     private Instant createdAt;
@@ -65,6 +43,19 @@ public class Motorista {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private Instant updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "motorista_id")
+    private Motorista motorista;
+
+
+    @ManyToOne
+    @JoinColumn(name = "veiculo_id")
+    private Veiculo veiculos;
+
+    @ManyToOne
+    @JoinColumn(name = "transporte_id")
+    private Transporte transporte;
 
 
     @PrePersist
@@ -77,4 +68,6 @@ public class Motorista {
     protected void onUpdate() {
         this.updatedAt = Instant.now();
     }
+
+
 }

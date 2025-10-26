@@ -1,10 +1,10 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.Entity.Motorista;
+import com.devnoahf.vrumvrumhealth.Model.Motorista;
 import com.devnoahf.vrumvrumhealth.Repository.MotoristaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +13,11 @@ import java.util.Optional;
 public class MotoristaService {
 
     private final MotoristaRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     public Motorista save(Motorista motorista){
+        var senhaCriptografa =passwordEncoder.encode(motorista.getSenha());
+        motorista.setSenha(senhaCriptografa);
         return repository.save(motorista);
     }
 

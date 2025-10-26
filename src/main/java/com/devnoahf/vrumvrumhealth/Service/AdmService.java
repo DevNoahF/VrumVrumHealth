@@ -2,7 +2,7 @@ package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.AdmMapper;
-import com.devnoahf.vrumvrumhealth.Entity.Adm;
+import com.devnoahf.vrumvrumhealth.Model.Adm;
 import com.devnoahf.vrumvrumhealth.Repository.AdmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

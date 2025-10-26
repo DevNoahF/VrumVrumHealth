@@ -5,17 +5,18 @@ CREATE TABLE paciente (
                           data_nascimento DATE,
                           email VARCHAR(100) UNIQUE NOT NULL,
                           senha VARCHAR(255) NOT NULL,
+                          ddd INTEGER,
                           telefone VARCHAR(20),
                           email VARCHAR(100),
                           cep VARCHAR(9),
                           rua VARCHAR(100),
                           bairro VARCHAR(100),
-                          numero VARCHAR(10),
+                          numero STRING(10),
                           tipo_atendimento ENUM('EXAME','CONSULTA','TRATAMENTO_CONTINUO') NOT NULL,
                           frequencia ENUM('SEMANAL','QUINZENAL','DIARIO','MENSAL') NULL, -- só preenche se for TRATAMENTO_CONTINUO
                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                          role ENUM('PACIENTE','ADMIN') DEFAULT 'PACIENTE'
+                          role ENUM('PACIENTE','ADMIN','MOTORISTA') DEFAULT 'PACIENTE'
 );
 
 CREATE TABLE admin (

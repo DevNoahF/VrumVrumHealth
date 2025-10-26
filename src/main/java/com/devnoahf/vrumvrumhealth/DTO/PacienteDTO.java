@@ -1,12 +1,9 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
-import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
-import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimentoEnum;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -35,11 +32,11 @@ public class PacienteDTO {
     @Size(min = 11,max = 11, message = "CPF deve ter 11 digitos!")
     private String cpf;
 
-    @NotBlank(message = "Data de nascimento é obrigatorio!")
-    private Date dataNascimento;
+    @Past(message = "Data de nascimento não pode ser no futuro!")
+    private LocalDate dataNascimento;
 
-    @NotBlank(message = "Informe o DDD!")
-    @Size(min = 2, max = 2, message = "DDD deve ter 2 digitos!")
+//    @NotBlank(message = "Informe o DDD!")
+//    @Size(min = 2, max = 2, message = "DDD deve ter 2 digitos!")
     private int ddd;
 
     @NotBlank(message = "Telefone é obrigatorio!")
@@ -56,5 +53,7 @@ public class PacienteDTO {
     private String bairro;
 
     @NotBlank(message = "O numero da residência é obrigatorio!")
-    private Integer numero;
+    private String numero;
+
+    private RoleEnum roleEnum = RoleEnum.PACIENTE;
 }

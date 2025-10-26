@@ -2,9 +2,9 @@ package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.TransporteDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.TransporteMapper;
-import com.devnoahf.vrumvrumhealth.Entity.Agendamento;
-import com.devnoahf.vrumvrumhealth.Entity.Transporte;
-import com.devnoahf.vrumvrumhealth.Entity.Veiculo;
+import com.devnoahf.vrumvrumhealth.Model.Agendamento;
+import com.devnoahf.vrumvrumhealth.Model.Transporte;
+import com.devnoahf.vrumvrumhealth.Model.Veiculo;
 import com.devnoahf.vrumvrumhealth.Repository.AgendamentoRepository;
 import com.devnoahf.vrumvrumhealth.Repository.TransporteRepository;
 import com.devnoahf.vrumvrumhealth.Repository.VeiculoRepository;

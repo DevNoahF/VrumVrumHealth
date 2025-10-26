@@ -1,8 +1,8 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
 import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
-import com.devnoahf.vrumvrumhealth.Entity.Agendamento;
-import com.devnoahf.vrumvrumhealth.Entity.Paciente;
+import com.devnoahf.vrumvrumhealth.Model.Agendamento;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import org.springframework.stereotype.Component;
 
 @Component

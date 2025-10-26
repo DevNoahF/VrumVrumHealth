@@ -2,7 +2,7 @@ package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.VeiculoDTO;
 import com.devnoahf.vrumvrumhealth.Mapper.VeiculoMapper;
-import com.devnoahf.vrumvrumhealth.Entity.Veiculo;
+import com.devnoahf.vrumvrumhealth.Model.Veiculo;
 import com.devnoahf.vrumvrumhealth.Repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,11 +38,6 @@ public class VeiculoService {
 
     public VeiculoDTO salvar(VeiculoDTO veiculoDTO) {
         try {
-            // Validação simples: placa obrigatória
-            if (veiculoDTO.getPlaca() == null || veiculoDTO.getPlaca().isBlank()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A placa do veículo é obrigatória");
-            }
-
             Veiculo veiculo = veiculoMapper.toEntity(veiculoDTO);
             Veiculo salvo = veiculoRepository.save(veiculo);
             return veiculoMapper.toDTO(salvo);

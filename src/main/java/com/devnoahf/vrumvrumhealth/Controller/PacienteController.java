@@ -1,6 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import com.devnoahf.vrumvrumhealth.Service.PacienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class PacienteController {
 
     @PostMapping
     public ResponseEntity<?> criar(@Valid @RequestBody PacienteDTO pacienteDTO){
-        PacienteDTO paciente = pacienteService.cadastrarPaciente(pacienteDTO);
+        Paciente paciente = pacienteService.cadastrarPaciente(pacienteDTO);
         return ResponseEntity
                 .ok(pacienteDTO);
     }
@@ -73,12 +74,12 @@ public class PacienteController {
         }
     }
 
-    public ResponseEntity<PacienteDTO> mudarSenha(@RequestParam String email, @RequestParam String novaSenha){
-        pacienteService.mudarSenhaPaciente( email, novaSenha);
-        return ResponseEntity
-                .ok()
-                .build();
-    }
+//    public ResponseEntity<PacienteDTO> mudarSenha(@RequestParam String email, @RequestParam String novaSenha){
+//        pacienteService.mudarSenhaPaciente( email, novaSenha);
+//        return ResponseEntity
+//                .ok()
+//                .build();
+//    }
 
 
 }

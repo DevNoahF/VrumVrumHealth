@@ -1,7 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
 import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
-import com.devnoahf.vrumvrumhealth.Entity.Adm;
+import com.devnoahf.vrumvrumhealth.Model.Adm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
