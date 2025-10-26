@@ -107,13 +107,11 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
   if(verify_data()==false){
     console.log("campo preenchido pó mandar")
 
-
-
 //variável que organiza o json
     const data = {
       "dataConsulta":dataValue.value,
       "horaConsulta":horaValue.value+":00",
-      "comprovante":"anexo",//funcao para pegar link comprovante,
+      "comprovante":sendFile(),
       "localAtendimento":unidadeValue.value,
       "frequencia":frequencia_value.value,
       "retornoCasa":changeRadioValue(getRadioValue("transporte-volta?")),
@@ -122,7 +120,7 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
 
     };
     console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON
-
+    console.log(data.comprovante)
     const response = await fetch("http://localhost:8080/agendamento", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

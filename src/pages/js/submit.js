@@ -1,4 +1,3 @@
-
 //Função de criptografia das imagens
 function uuidv4() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -10,9 +9,7 @@ function uuidv4() {
 }
 
 //Função principal criptografa a imagem e envia para o google cloud
-document.getElementById("enviar").addEventListener("click",function(){
-  if(verify_data()==false){
-    console.log("campo preenchido pó mandar")
+function sendFile(){
   let postid = uuidv4();
   let inputElem = document.getElementById("enviar-anexo");
   let file = inputElem.files[0];
@@ -28,8 +25,15 @@ document.getElementById("enviar").addEventListener("click",function(){
   })
     .then((res) => res.text())
     .then(loadPosts());
+    return "https://storage.cloud.google.com/anexo-project/"+postid+"_post.jpeg";
 }
-});
+
+
+
+
+
+
+
 // Carrega os posts
 function loadPosts() {
   fetch("/upload")
@@ -48,3 +52,4 @@ function loadPosts() {
       }
     });
 }
+
