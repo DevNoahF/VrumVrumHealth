@@ -2,11 +2,10 @@ package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
 import com.devnoahf.vrumvrumhealth.Service.AgendamentoService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
-
 
 import java.util.List;
 
@@ -20,72 +19,72 @@ public class AgendamentoController {
         this.agendamentoService = agendamentoService;
     }
 
+    // Teste simples
     @GetMapping("/teste")
     public String teste() {
-        return "Agendamento controller funcionando ✅";
+        return "agendamento controller funcionando ✅";
     }
 
+    //  Criar
     @PostMapping
     public ResponseEntity<?> criar(@RequestBody AgendamentoDTO dto) {
-        AgendamentoDTO novoAgendamento = agendamentoService.criarAgendamento(dto);
-        if (novoAgendamento != null) {
-            return ResponseEntity.ok(novoAgendamento);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Paciente não encontrado ou dados inválidos.");
+        try {
+            AgendamentoDTO novo = agendamentoService.criarAgendamento(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novo);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar agendamento: " + e.getMessage());
         }
     }
 
+    //  Listar todos
     @GetMapping
     public ResponseEntity<List<AgendamentoDTO>> listar() {
-        List<AgendamentoDTO> agendamentos = agendamentoService.listarAgendamentos();
-        return ResponseEntity.ok(agendamentos);
+        List<AgendamentoDTO> lista = agendamentoService.listarAgendamentos();
+        return ResponseEntity.ok(lista);
     }
 
-    @GetMapping("{id}")
+    //  Buscar por ID
+    @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
-        AgendamentoDTO agendamento = agendamentoService.buscarPorId(id);
-        if (agendamento != null) {
+        try {
+            AgendamentoDTO agendamento = agendamentoService.buscarPorId(id);
             return ResponseEntity.ok(agendamento);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Agendamento não encontrado");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao buscar agendamento: " + e.getMessage());
         }
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> atualizar(@RequestBody AgendamentoDTO dto, @PathVariable Long id) {
-        AgendamentoDTO atualizado = agendamentoService.atualizarAgendamento(dto, id);
-        if (atualizado != null) {
+    //  Atualizar
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody AgendamentoDTO dto) {
+        try {
+            AgendamentoDTO atualizado = agendamentoService.atualizarAgendamento(id, dto);
             return ResponseEntity.ok(atualizado);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Agendamento não encontrado");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao atualizar agendamento: " + e.getMessage());
         }
     }
 
-    @DeleteMapping("{id}")
+    //  Deletar
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-        AgendamentoDTO agendamento = agendamentoService.buscarPorId(id);
-        if (agendamento != null) {
+        try {
             agendamentoService.deletarAgendamento(id);
             return ResponseEntity.ok("Agendamento deletado com sucesso!");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Agendamento não encontrado");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao deletar agendamento: " + e.getMessage());
         }
     }
-
-    // Endpoint para atualizar somente o status do agendamento
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<?> atualizarStatus(@PathVariable Long id, @RequestParam StatusEnum status) {
-        AgendamentoDTO atualizado = agendamentoService.atualizarStatus(id, status);
-        if (atualizado != null) {
-            return ResponseEntity.ok(atualizado);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Agendamento não encontrado para atualização de status.");
-        }
-    }
-
 }

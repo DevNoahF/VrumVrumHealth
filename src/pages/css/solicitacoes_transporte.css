@@ -1,0 +1,58 @@
+body{
+    background-color: #E9EBEC;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+}
+
+nav{
+    position: fixed;
+    height: 100%;
+    width: 104px ;
+    background-color: #006FA7;
+    top:0;
+    left: 0;
+}
+
+#botao-menu{
+    position: absolute;
+    left: 20%;
+    background: none;
+    border: none;
+    font-size: 56px;
+    color: white;
+    cursor: pointer;
+}
+
+#home{
+    position: absolute;
+    left: 20%;
+    padding-top: 100px;
+    width: 64px;
+    height: 64px;
+}
+
+#solicitacoes{
+    position: absolute;
+    left: 20%;
+    padding-top: 200px;
+    width: 64px;
+    height: 64px;
+}
+
+#aprovadas{
+    position: absolute;
+    left: 20%;
+    padding-top: 300px;
+    width: 64px;
+    height: 64px;
+}
+
+.pedido-transporte{
+    position: relative;
+    margin-top: 30px;
+    left: 10%;
+    background-color: #D3D9E0;
+    border-radius: 100px;
+    width: 1729px;
+    height: 729px;
+}

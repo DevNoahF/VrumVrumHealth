@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/solicitacoes_transporte.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Solicitações de Transporte</title>
+</head>
+<body>
+    <nav><!--Problema de não ser clickável os botões, corrigir depois-->
+        <button id="botao-menu">☰</button>
+        <a href="login.html">
+        <img src="..//assets/home.png" id="home">
+        </a>
+
+        <a href="solicitacoes_transporte.html">
+            <img src="../assets/clock.png" id="solicitacoes">
+        </a>
+
+        <a><!--Levar para a página de todas as aprovadas-->
+            <img src="../assets/check.png" id="aprovadas">
+
+        </a>
+    </nav>
+
+    <div class="pedido-transporte"><!--Essa classe deve ser criada sempre que exisitir um pedido PENDENTE no banco de dados-->
+        
+
+        <button class="aprovar">Aprovar</button><!--Aprovar e recusar só devem ser pressionados se pedido médico for clicado-->
+        <button class="recusar">Recusar</button>
+        <button class="anexo">Anexo</button>
+    </div>
+    
+</body>
+</html>
