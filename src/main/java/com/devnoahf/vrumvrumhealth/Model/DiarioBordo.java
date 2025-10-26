@@ -1,5 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,14 +45,15 @@ public class DiarioBordo {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "motorista_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "motorista_id", nullable = false)
+    @JsonBackReference
     private Motorista motorista;
 
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
-    private Veiculo veiculos;
+    private Veiculo veiculo;
 
     @ManyToOne
     @JoinColumn(name = "transporte_id")

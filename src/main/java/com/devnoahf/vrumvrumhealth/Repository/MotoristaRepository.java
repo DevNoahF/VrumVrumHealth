@@ -9,5 +9,8 @@ import java.util.Optional;
 @Repository
 public interface MotoristaRepository extends JpaRepository<Motorista, Long> {
 
-    Optional<Motorista> findByEmail(String email); //método para buscar motorista por email
+    Optional<Motorista> findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
 }

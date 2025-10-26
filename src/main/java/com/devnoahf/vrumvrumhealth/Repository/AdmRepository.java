@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface AdmRepository  extends JpaRepository<Adm,Long> {
+  Optional<Adm> findByEmail(String email);
+  boolean existsByEmail(String email);
 
-  Optional<Adm> findByEmail(String email); //método para buscar admin por email
 }

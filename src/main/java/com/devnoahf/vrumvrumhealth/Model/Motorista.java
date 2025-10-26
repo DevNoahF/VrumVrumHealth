@@ -12,6 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 @Builder
 @Entity
@@ -42,11 +43,14 @@ public class Motorista {
     private String senha;
 
     @Column(nullable = false)
-    private int ddd;
+    private String ddd;
 
     @Column(length = 20, nullable = false)
     private String telefone;
 
+
+    @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DiarioBordo> diariosDeBordo;
 
 
     @Enumerated(EnumType.STRING)
@@ -55,6 +59,8 @@ public class Motorista {
     public Motorista(RoleEnum roleEnum) {
         this.setRoleEnum(RoleEnum.MOTORISTA);
     }
+
+
     @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp
     private Instant createdAt;

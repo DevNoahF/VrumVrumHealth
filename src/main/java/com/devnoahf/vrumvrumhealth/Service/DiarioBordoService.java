@@ -1,10 +1,16 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Mapper.DiarioBordoMapper;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.Model.Motorista;
 import com.devnoahf.vrumvrumhealth.Repository.DiarioBordoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,47 +18,128 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class DiarioBordoService {
+
     private final DiarioBordoRepository diarioBordoRepository;
+    private final DiarioBordoMapper diarioBordoMapper;
 
-    public List<DiarioBordo> listAll(){
-        return diarioBordoRepository.findAll();
+    // 🔹 Listar todos
+    public List<DiarioBordoDTO> listAll() {
+        List<DiarioBordo> diarios = diarioBordoRepository.findAll();
+        return diarios.stream()
+                .map(diarioBordoMapper::toDTO)
+                .toList();
     }
 
-    public DiarioBordo listById(Long id){
-        Optional<DiarioBordo> diarioBordo = diarioBordoRepository.findById(id);
-        return diarioBordo.orElse(null);
+    // 🔹 Buscar por ID
+    public DiarioBordoDTO listById(Long id, Authentication auth) {
+        DiarioBordo diario = diarioBordoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Diário de bordo com ID " + id + " não encontrado."
+                ));
+        return diarioBordoMapper.toDTO(diario);
     }
 
-    public DiarioBordo salvar(DiarioBordoDTO diarioBordo){
-        DiarioBordo novoDiario = DiarioBordo.builder()
-                .quilometragemInicial(diarioBordo.getQuilometragemInicial())
-                .quilometragemFinal(diarioBordo.getQuilometragemFinal())
-                .motorista(diarioBordo.getMotorista())
-                .observacoes(diarioBordo.getObservacoes())
-                .veiculos(diarioBordo.getVeiculo())
-                .transporte(diarioBordo.getTransporte())
-                .build();
-        return diarioBordoRepository.save(novoDiario);
+    //🔹  salvar
+    @Transactional
+    public DiarioBordoDTO salvar(DiarioBordoDTO dto, Authentication auth) {
+        validarDados(dto);
 
+        // Apenas ADMIN ou MOTORISTA podem criar
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        boolean isMotorista = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_MOTORISTA"));
+
+        if (!isAdmin && !isMotorista) {
+            throw new BadRequestException("Apenas administradores ou motoristas podem criar um diário de bordo.");
+        }
+
+        // Se for motorista, garantir que o diário pertence a ele
+        if (isMotorista && dto.getMotorista() == null) {
+            throw new BadRequestException("O motorista deve estar vinculado ao diário de bordo.");
+        }
+
+        DiarioBordo entity = diarioBordoMapper.toEntity(dto);
+        DiarioBordo salvo = diarioBordoRepository.save(entity);
+        return diarioBordoMapper.toDTO(salvo);
     }
 
-    public void delete(Long id){
+
+    // 🔹 Atualizar diário existente
+    @Transactional
+    public DiarioBordoDTO update(Long id, DiarioBordoDTO dto, Authentication auth) {
+        DiarioBordo existente = diarioBordoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Diário de bordo com ID " + id + " não encontrado."));
+
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        boolean isMotorista = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_MOTORISTA"));
+
+        // Se for motorista, garantir que ele só atualize o próprio diário
+        if (isMotorista && !existente.getMotorista().getEmail().equals(auth.getName())) {
+            throw new BadRequestException("Você só pode atualizar seus próprios diários.");
+        }
+
+        validarDados(dto);
+        existente.setQuilometragemInicial(dto.getQuilometragemInicial());
+        existente.setQuilometragemFinal(dto.getQuilometragemFinal());
+        existente.setObservacoes(dto.getObservacoes());
+        existente.setVeiculo(dto.getVeiculo());
+        existente.setTransporte(dto.getTransporte());
+
+        DiarioBordo atualizado = diarioBordoRepository.save(existente);
+        return diarioBordoMapper.toDTO(atualizado);
+    }
+
+
+    // 🔹 Deletar diário
+    @Transactional
+    public void delete(Long id) {
+        if (!diarioBordoRepository.existsById(id)) {
+            throw new ResourceNotFoundException(
+                    "Diário de bordo com ID " + id + " não encontrado."
+            );
+        }
         diarioBordoRepository.deleteById(id);
     }
 
-    public DiarioBordo update(Long id, DiarioBordoDTO diarioBordo){
-     Optional<DiarioBordo> optionalDiario = diarioBordoRepository.findById(id);
-     if(optionalDiario.isPresent()){
-         DiarioBordo diarioBordoUpdate = optionalDiario.get();
-         diarioBordoUpdate.setQuilometragemInicial(diarioBordo.getQuilometragemInicial());
-         diarioBordoUpdate.setQuilometragemFinal(diarioBordo.getQuilometragemFinal());
-         diarioBordoUpdate.setMotorista(diarioBordo.getMotorista());
-         diarioBordoUpdate.setObservacoes(diarioBordo.getObservacoes());
-         return diarioBordoRepository.save(diarioBordoUpdate);
-     }
-        return null;
+    // 🔹 Validação de dados antes de salvar
+    private void validarDados(DiarioBordoDTO dto) {
+        if (dto.getQuilometragemInicial() == null || dto.getQuilometragemFinal() == null) {
+            throw new BadRequestException("As quilometragens inicial e final são obrigatórias.");
+        }
+
+        if (dto.getQuilometragemFinal().compareTo(dto.getQuilometragemInicial()) < 0) {
+            throw new BadRequestException("A quilometragem final não pode ser menor que a inicial.");
+        }
+
+        if (dto.getMotorista() == null) {
+            throw new BadRequestException("O motorista é obrigatório.");
+        }
+
+        if (dto.getVeiculo() == null) {
+            throw new BadRequestException("O veículo é obrigatório.");
+        }
+
+        if (dto.getTransporte() == null) {
+            throw new BadRequestException("O transporte é obrigatório.");
+        }
+    }
+
+
+    // 🔹 listar por nomes de motoristas
+    public List<DiarioBordoDTO> listarPorMotorista(String nome) {
+        List<DiarioBordoDTO> diarios = diarioBordoRepository.findMotorista(nome);
+
+        if (diarios.isEmpty()) {
+            throw new ResourceNotFoundException("Motorista não encontrado.");
+        }
+
+        return diarios;
     }
 
 
 
 }
+

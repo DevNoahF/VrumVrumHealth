@@ -14,7 +14,7 @@ CREATE TABLE diario_bordo (
                               id BIGINT AUTO_INCREMENT PRIMARY KEY,
                               transporte_id BIGINT NOT NULL,
                               motorista_id BIGINT NOT NULL,
-                              veiculo_id BIGINT NOT NULL,
+                              veiculo_id BIGINT NULL,
                               quilometragem_inicial DECIMAL(10,2) NOT NULL,
                               quilometragem_final DECIMAL(10,2) NOT NULL,
                               observacoes TEXT,

@@ -4,6 +4,7 @@ import com.devnoahf.vrumvrumhealth.DTO.MotoristaDTO;
 import com.devnoahf.vrumvrumhealth.Model.Motorista;
 import lombok.Builder;
 import lombok.experimental.UtilityClass;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 

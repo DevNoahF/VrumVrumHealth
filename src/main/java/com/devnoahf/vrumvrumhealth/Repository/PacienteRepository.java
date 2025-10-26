@@ -10,10 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
-
-    static boolean existsByEmail(@Email(message = "Email inválido!") @NotBlank(message = "Email é obrigatorio!") String email) {
-        return false;
-    }
-
     Optional<Paciente> findByEmail(String email);
+    boolean existsByEmail(String email);
 }

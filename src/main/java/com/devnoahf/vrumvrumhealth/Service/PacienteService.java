@@ -1,84 +1,101 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.Mapper.PacienteMapper;
 import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PacienteService {
 
-    @Autowired
-    private PacienteRepository pacienteRepository;
+    private final PacienteRepository pacienteRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final PacienteMapper pacienteMapper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    // 🔹 Cadastrar paciente com senha criptografada
+    public Paciente cadastrarPaciente(@Valid PacienteDTO pacienteDTO) {
+        if (pacienteRepository.existsByEmail(pacienteDTO.getEmail())) {
+            throw new BadRequestException("Já existe um paciente com esse e-mail.");
+        }
 
-    @Autowired
-    private PacienteDTO pacienteDTO;
+        String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenha());
+        pacienteDTO.setSenha(senhaCriptografada);
 
-    @Autowired
-    private PacienteMapper pacienteMapper;
-
-    public Paciente cadastrarPaciente(@Valid PacienteDTO paciente) {
-        // Criptografa a senha
-        String senhaCriptografada = passwordEncoder.encode(paciente.getSenha());
-        paciente.setSenha(senhaCriptografada);
-        // Salva no banco
-        return pacienteRepository.save(pacienteMapper.toEntity(paciente));
+        Paciente paciente = pacienteMapper.toEntity(pacienteDTO);
+        return pacienteRepository.save(paciente);
     }
 
+    // 🔹 Listar todos os pacientes
+    public List<PacienteDTO> listarPaciente() {
+        List<Paciente> pacientes = pacienteRepository.findAll();
 
-    public List<PacienteDTO> listarPaciente(){
-        List<Paciente> admins = pacienteRepository.findAll();
-        return admins.stream()
+        if (pacientes.isEmpty()) {
+            throw new ResourceNotFoundException("Nenhum paciente encontrado.");
+        }
+
+        return pacientes.stream()
                 .map(pacienteMapper::toDTO)
                 .toList();
     }
 
-    public void deletarPaciente(Long id){
-        if (pacienteRepository.existsById(id)){
-            pacienteRepository.deleteById(id);
+    // 🔹 Deletar paciente
+    public void deletarPaciente(Long id) {
+        Paciente paciente = pacienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente com ID " + id + " não encontrado."));
+        pacienteRepository.delete(paciente);
+    }
+
+    // 🔹 Atualizar paciente
+    public PacienteDTO atualizarPaciente(PacienteDTO pacienteDTO, Long id) {
+        Paciente pacienteExistente = pacienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente com ID " + id + " não encontrado."));
+
+        pacienteExistente.setNome(pacienteDTO.getNome());
+        pacienteExistente.setEmail(pacienteDTO.getEmail());
+        pacienteExistente.setTelefone(pacienteDTO.getTelefone());
+        pacienteExistente.setCpf(pacienteDTO.getCpf());
+        pacienteExistente.setDataNascimento(pacienteDTO.getDataNascimento());
+
+        if (pacienteDTO.getSenha() != null && !pacienteDTO.getSenha().isBlank()) {
+            pacienteExistente.setSenha(passwordEncoder.encode(pacienteDTO.getSenha()));
         }
+
+        Paciente atualizado = pacienteRepository.save(pacienteExistente);
+        return pacienteMapper.toDTO(atualizado);
     }
 
-    public PacienteDTO atualizarPaciente(PacienteDTO pacienteDTO, Long id){
-        Optional<Paciente> pacienteOptional = pacienteRepository.findById(id);
-        if (pacienteOptional.isPresent()){
-            Paciente pacienteExistente = pacienteOptional.get();
-            pacienteExistente.setNome(pacienteDTO.getNome());
-            pacienteExistente.setEmail(pacienteDTO.getEmail());
-            if (pacienteDTO.getSenha() != null && !pacienteDTO.getSenha().isEmpty()){
-                String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenha());
-                pacienteExistente.setSenha(senhaCriptografada);
-            }
-            Paciente atualizado = pacienteRepository.save(pacienteExistente);
-            return pacienteMapper.toDTO(atualizado);
-        } else {
-            return null;
+    // 🔹 Buscar paciente por ID
+    public PacienteDTO buscarPorIdPaciente(Long id) {
+        Paciente paciente = pacienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente com ID " + id + " não encontrado."));
+        return pacienteMapper.toDTO(paciente);
+    }
+
+    // 🔹 Mudar senha
+    public void mudarSenhaPaciente(String email, String novaSenha) {
+        Paciente paciente = pacienteRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente com e-mail " + email + " não encontrado."));
+
+        if (novaSenha == null || novaSenha.isBlank()) {
+            throw new BadRequestException("A nova senha não pode estar vazia.");
         }
+
+        paciente.setSenha(passwordEncoder.encode(novaSenha));
+        pacienteRepository.save(paciente);
     }
 
-    public PacienteDTO buscarPorIdPaciente(Long id){
-        Optional<Paciente> admOptional = pacienteRepository.findById(id);
-        return admOptional.map(pacienteMapper::toDTO).orElse(null);
+    // find by email
+    public Paciente findByEmail(String email) {
+        return pacienteRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException(" Email nao encontrado."));
     }
-
-//    public void mudarSenhaPaciente(String email, String novaSenha){
-//        Optional<Paciente> pacienteOptional =  Optional.ofNullable(pacienteRepository.findByEmail(email));
-//        if (pacienteOptional.isPresent()){
-//            Paciente paciente = pacienteOptional.get();
-//            String senhaCriptografada = passwordEncoder.encode(novaSenha);
-//            paciente.setSenha(senhaCriptografada);
-//            pacienteRepository.save(paciente);
-//        }
-    }
-
-
+}

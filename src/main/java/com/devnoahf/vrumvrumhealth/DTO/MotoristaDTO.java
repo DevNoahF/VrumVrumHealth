@@ -37,12 +37,11 @@ public class MotoristaDTO {
 
     @NotBlank(message = "Informe o DDD!")
     @Size(min = 2, max = 2, message = "DDD deve ter 2 digitos!")
-    private int ddd;
+    private String ddd;
 
     @NotBlank(message = "Telefone é obrigatorio!")
     @Size(min = 8, max = 9, message = "Telefone deve ter entre 8 e 9 digitos!")
     private String telefone;
 
-    private List<Long> diarioBordo;
 
 }

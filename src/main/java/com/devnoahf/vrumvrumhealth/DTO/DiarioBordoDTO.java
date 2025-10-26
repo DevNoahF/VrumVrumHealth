@@ -1,5 +1,6 @@
 package com.devnoahf.vrumvrumhealth.DTO;
 
+import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Model.Motorista;
 import com.devnoahf.vrumvrumhealth.Model.Transporte;
 import com.devnoahf.vrumvrumhealth.Model.Veiculo;
@@ -8,10 +9,10 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
+
 @Getter
 @Setter
 @Component
@@ -26,5 +27,17 @@ public class DiarioBordoDTO {
     private Veiculo veiculo;
     private Transporte transporte;
 
-
+    public DiarioBordoDTO(DiarioBordo diario) {
+        this.id = diario.getId();
+        this.quilometragemInicial = diario.getQuilometragemInicial();
+        this.quilometragemFinal = diario.getQuilometragemFinal();
+        this.observacoes = diario.getObservacoes();
+        this.motorista = diario.getMotorista();
+        this.veiculo = diario.getVeiculo();
+        this.transporte = diario.getTransporte();
+    }
 }
+
+
+
+

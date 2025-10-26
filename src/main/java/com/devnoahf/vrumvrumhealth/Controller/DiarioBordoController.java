@@ -1,66 +1,68 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
-import com.devnoahf.vrumvrumhealth.Mapper.DiarioBordoMapper;
-import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Service.DiarioBordoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("diarioBordo")
+@RequestMapping("/diarioBordo")
 @RequiredArgsConstructor
 public class DiarioBordoController {
 
     private final DiarioBordoService service;
 
+    // 🔹 Criar novo diário — apenas ADMIN ou MOTORISTA
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody DiarioBordoDTO dto){
-        DiarioBordoDTO diarioBordo = DiarioBordoMapper.toEntity(dto);
-        DiarioBordo diarioBordoSalvo = service.salvar(diarioBordo);
-        DiarioBordo diarioBordoDTO = DiarioBordoMapper.toDTO(diarioBordoSalvo);
-        return ResponseEntity.status(201).body(diarioBordoDTO);
+    @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA')")
+    public ResponseEntity<DiarioBordoDTO> criar(@RequestBody DiarioBordoDTO dto, Authentication auth) {
+        DiarioBordoDTO salvo = service.salvar(dto, auth);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
+    // 🔹 Atualizar diário — apenas ADMIN ou o próprio motorista dono
     @PutMapping("/{id}")
-    public ResponseEntity<DiarioBordo> update(@PathVariable Long id, @RequestBody DiarioBordoDTO dto){
-        DiarioBordoDTO diarioBordoSalvo = DiarioBordoMapper.toEntity(dto);
-        DiarioBordo diarioBordoAtualizado = service.update(id, diarioBordoSalvo);
-        DiarioBordo diarioBordoDTO = DiarioBordoMapper.toDTO(diarioBordoAtualizado);
-        return ResponseEntity.ok(diarioBordoDTO);
+    @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA')")
+    public ResponseEntity<DiarioBordoDTO> update(@PathVariable Long id, @RequestBody DiarioBordoDTO dto, Authentication auth) {
+        DiarioBordoDTO atualizado = service.update(id, dto, auth);
+        return ResponseEntity.ok(atualizado);
     }
 
+    // 🔹 Deletar diário — apenas ADMIN
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        if (id != null){
-            service.delete(id);
-            return ResponseEntity.status(204).build();
-        } else {
-            return ResponseEntity.status(404).body("Diario de Bordo nao encontrado!");
-        }
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
+    // 🔹 Listar todos — apenas ADMIN
     @GetMapping
-    public ResponseEntity<List<DiarioBordo>> listAll(){
-        List<DiarioBordo> diarioBordo = service.listAll().stream()
-                .map(DiarioBordoMapper::toDTO)
-                .toList();
-        return ResponseEntity.ok(diarioBordo);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<DiarioBordoDTO>> listAll() {
+        List<DiarioBordoDTO> diarios = service.listAll();
+        return ResponseEntity.ok(diarios);
     }
 
+    // 🔹 Buscar por ID — ADMIN pode ver todos, motorista só os próprios
     @GetMapping("/{id}")
-    public ResponseEntity<?> listById(@PathVariable Long id){
-        DiarioBordo diarioBordo = service.listById(id);
-        if (id != null){
-            DiarioBordo diarioBordoDTO = DiarioBordoMapper.toDTO(diarioBordo);
-            return ResponseEntity.ok(diarioBordoDTO);
-        } else {
-            return ResponseEntity.status(404).body("Diario de Bordo nao encontrado!");
-        }
+    @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA')")
+    public ResponseEntity<DiarioBordoDTO> listById(@PathVariable Long id, Authentication auth) {
+        DiarioBordoDTO diario = service.listById(id, auth);
+        return ResponseEntity.ok(diario);
     }
 
-
+    // 🔹 Motorista: listar apenas os seus próprios diários
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('MOTORISTA')")
+    public ResponseEntity<List<DiarioBordoDTO>> listarMeusDiarios(Authentication auth) {
+        List<DiarioBordoDTO> diarios = service.listarPorMotorista(auth.getName());
+        return ResponseEntity.ok(diarios);
+    }
 }
