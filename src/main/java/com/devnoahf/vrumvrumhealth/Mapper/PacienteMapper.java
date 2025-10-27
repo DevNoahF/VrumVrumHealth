@@ -1,9 +1,8 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
 import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
-import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import com.devnoahf.vrumvrumhealth.Model.Paciente;
-import lombok.experimental.UtilityClass;
+import jakarta.validation.Valid;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ public class PacienteMapper {
 
 
     // Converte DTO em entidade, criptografando a senha
-    public static Paciente toEntity(PacienteDTO dto) {
+    public static Paciente toEntity(@Valid PacienteDTO dto) {
         if (dto.getSenha() == null || dto.getSenha().isEmpty()) {
             throw new IllegalArgumentException("Senha não pode ser nula ou vazia");
         }

@@ -13,6 +13,7 @@ import com.devnoahf.vrumvrumhealth.Repository.VeiculoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -110,7 +111,7 @@ public class TransporteService {
         }
     }
 
-    public TransporteDTO buscarPorIdAutenticado(Long id) {
+    public TransporteDTO buscarPorIdAutenticado(Long id, Authentication auth) {
         Transporte transporte = transporteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transporte não encontrado com ID " + id));
 

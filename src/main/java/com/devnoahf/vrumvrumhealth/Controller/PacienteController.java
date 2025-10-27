@@ -22,6 +22,7 @@ import java.util.List;
 public class PacienteController {
 
     private final PacienteService pacienteService;
+    private final PacienteMapper pacienteMapper;
 
     // 🔹 Cadastro de paciente (liberado publicamente)
     @PostMapping
@@ -95,7 +96,7 @@ public class PacienteController {
             throw new ResourceNotFoundException("Paciente autenticado não encontrado.");
         }
 
-        PacienteDTO pacienteDTO = PacienteMapper.toDTO(paciente);
+        PacienteDTO pacienteDTO = pacienteMapper.toDTO(paciente);
         return ResponseEntity.ok(pacienteDTO);
     }
 

@@ -1,64 +1,89 @@
 package com.devnoahf.vrumvrumhealth.Config;
 
+import com.devnoahf.vrumvrumhealth.Security.JwtAuthenticationFilter;
 import com.devnoahf.vrumvrumhealth.Service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final AuthService authService;
+    private final AuthService authService;                 // UserDetailsService
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final PasswordEncoder passwordEncoder;        // vindo do PasswordEncoderConfig
+
+    // Provider com seu UserDetailsService + BCrypt
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(authService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration cfg) throws Exception {
+        return cfg.getAuthenticationManager();
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                // API stateless para JWT
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                // Tratar 401/403 em vez de redirecionar para form login
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint((req, res, ex) ->
+                                res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
+                        .accessDeniedHandler((req, res, ex) ->
+                                res.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden"))
+                )
+
                 .authorizeHttpRequests(auth -> auth
-                        // 🔓 Endpoints públicos (cadastro e login)
-                        .requestMatchers("/auth/**").permitAll()
+                        // 🔓 públicos para testar sem login
+                        .requestMatchers(
+                                "/auth/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
 
-                        // 🔐 Regras de acesso
+                        // 🔐 regras por perfil
                         .requestMatchers("/adm/**").hasRole("ADMIN")
-                        // Motorista pode ver apenas seu perfil (/motorista/me)
                         .requestMatchers("/motorista/me", "/motorista/mudar-senha").hasRole("MOTORISTA")
-                        // Paciente pode ver apenas seu perfil (/paciente/me)
                         .requestMatchers("/paciente/me", "/paciente/mudar-senha").hasRole("PACIENTE")
-
-                        // Admin pode listar todos os motoristas e pacientes
                         .requestMatchers("/motorista/**", "/paciente/**").hasRole("ADMIN")
+                        .requestMatchers("/veiculo/**").hasAnyRole("ADMIN", "MOTORISTA")
 
-                        // 🔒 Qualquer outra rota exige autenticação
+                        // demais precisam de token
                         .anyRequest().authenticated()
                 )
-                .userDetailsService(authService)
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl("/auth/login?logout")
-                        .permitAll()
-                );
 
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // ⚠️ Sem formLogin()/logout() no modo JWT puro
         return http.build();
     }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
-
-
 }

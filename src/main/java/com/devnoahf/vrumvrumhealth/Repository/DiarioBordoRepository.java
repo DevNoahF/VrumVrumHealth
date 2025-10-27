@@ -14,6 +14,7 @@ import java.util.Optional;
 @Repository
 public interface DiarioBordoRepository extends JpaRepository<DiarioBordo, Long> {
 
-    List<DiarioBordoDTO> findMotorista(@Param("nome") String nome);
+    List<DiarioBordo> findByMotoristaEmail(String email);
+
 
 }

@@ -12,6 +12,7 @@ import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import com.devnoahf.vrumvrumhealth.Repository.AdmRepository;
 import com.devnoahf.vrumvrumhealth.Repository.MotoristaRepository;
 import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
+import com.devnoahf.vrumvrumhealth.Security.JwtTokenProvider;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,14 +42,31 @@ public class AuthController {
     private final AdmMapper admMapper;
     private final PacienteMapper pacienteMapper;
 
-    // 🔹 LOGIN — funciona para todos
+    private final JwtTokenProvider jwtTokenProvider;
+
+    // 🔹 LOGIN — funciona para todos os perfis
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email, @RequestParam String senha) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, senha)
-        );
-        UserDetails user = (UserDetails) authentication.getPrincipal();
-        return ResponseEntity.ok("Login bem-sucedido! Usuário: " + user.getUsername());
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(email, senha)
+            );
+
+            // Gera o token JWT
+            String token = jwtTokenProvider.generateToken(authentication);
+
+            UserDetails user = (UserDetails) authentication.getPrincipal();
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Login bem-sucedido!");
+            response.put("email", user.getUsername());
+            response.put("roles", user.getAuthorities());
+            response.put("token", token);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Credenciais inválidas: " + e.getMessage());
+        }
     }
 
     // 🔹 REGISTER — ADMIN
@@ -60,8 +81,7 @@ public class AuthController {
         adm.setSenha(passwordEncoder.encode(adm.getSenha()));
         admRepository.save(adm);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(admMapper.toDTO(adm));
+        return ResponseEntity.status(HttpStatus.CREATED).body(admMapper.toDTO(adm));
     }
 
     // 🔹 REGISTER — MOTORISTA
@@ -76,8 +96,7 @@ public class AuthController {
         motorista.setSenha(passwordEncoder.encode(motorista.getSenha()));
         motoristaRepository.save(motorista);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(MotoristaMapper.toDTO(motorista));
+        return ResponseEntity.status(HttpStatus.CREATED).body(MotoristaMapper.toDTO(motorista));
     }
 
     // 🔹 REGISTER — PACIENTE
@@ -92,7 +111,6 @@ public class AuthController {
         paciente.setSenha(passwordEncoder.encode(paciente.getSenha()));
         pacienteRepository.save(paciente);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(pacienteMapper.toDTO(paciente));
+        return ResponseEntity.status(HttpStatus.CREATED).body(pacienteMapper.toDTO(paciente));
     }
 }

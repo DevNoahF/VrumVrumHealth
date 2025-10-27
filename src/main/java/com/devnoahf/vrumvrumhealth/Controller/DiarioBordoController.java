@@ -1,6 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
+import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import com.devnoahf.vrumvrumhealth.Service.DiarioBordoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -61,8 +62,8 @@ public class DiarioBordoController {
     // 🔹 Motorista: listar apenas os seus próprios diários
     @GetMapping("/me")
     @PreAuthorize("hasRole('MOTORISTA')")
-    public ResponseEntity<List<DiarioBordoDTO>> listarMeusDiarios(Authentication auth) {
-        List<DiarioBordoDTO> diarios = service.listarPorMotorista(auth.getName());
+    public ResponseEntity<List<DiarioBordo>> listarMeusDiarios(Authentication auth) {
+        List<DiarioBordo> diarios = service.listarPorMotorista(auth.getName());
         return ResponseEntity.ok(diarios);
     }
 }

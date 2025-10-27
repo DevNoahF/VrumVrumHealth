@@ -53,10 +53,11 @@ public class TransporteController {
     // 🔹 Buscar por ID — ADMIN e MOTORISTA podem ver qualquer um, paciente apenas o seu
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA', 'PACIENTE')")
-    public ResponseEntity<TransporteDTO> buscarPorId(@PathVariable Long id) {
-        TransporteDTO transporte = transporteService.buscarPorIdAutenticado(id);
+    public ResponseEntity<TransporteDTO> buscarPorId(@PathVariable Long id, Authentication auth) {
+        TransporteDTO transporte = transporteService.buscarPorIdAutenticado(id, auth);
         return ResponseEntity.ok(transporte);
     }
+
 
     // 🔹 Paciente: ver apenas o transporte vinculado ao seu agendamento
     @GetMapping("/me")

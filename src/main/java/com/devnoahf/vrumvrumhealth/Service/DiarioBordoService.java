@@ -5,7 +5,6 @@ import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
 import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.Mapper.DiarioBordoMapper;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
-import com.devnoahf.vrumvrumhealth.Model.Motorista;
 import com.devnoahf.vrumvrumhealth.Repository.DiarioBordoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -129,8 +127,8 @@ public class DiarioBordoService {
 
 
     // 🔹 listar por nomes de motoristas
-    public List<DiarioBordoDTO> listarPorMotorista(String nome) {
-        List<DiarioBordoDTO> diarios = diarioBordoRepository.findMotorista(nome);
+    public List<DiarioBordo> listarPorMotorista(String nome) {
+        List<DiarioBordo> diarios = diarioBordoRepository.findByMotoristaEmail(nome);
 
         if (diarios.isEmpty()) {
             throw new ResourceNotFoundException("Motorista não encontrado.");
