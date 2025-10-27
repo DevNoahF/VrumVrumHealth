@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AgendamentoMapper {
 
-    // esse aqui converte de Entity para DTO
+    // Converte Entity → DTO
     public AgendamentoDTO toDTO(Agendamento agendamento) {
         if (agendamento == null) return null;
 
@@ -25,6 +25,7 @@ public class AgendamentoMapper {
 
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
+            dto.setImagemPaciente(agendamento.getPaciente().getImagem());
         }
 
         return dto;
@@ -51,4 +52,5 @@ public class AgendamentoMapper {
 
         return agendamento;
     }
+
 }

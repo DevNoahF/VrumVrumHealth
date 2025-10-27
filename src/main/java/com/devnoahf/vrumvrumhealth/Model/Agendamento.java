@@ -32,7 +32,14 @@ public class Agendamento {
     @Column(name = "hora_consulta")
     private LocalTime horaConsulta;
 
-    private String comprovante;
+    @Column(length = 1000)
+    private String imagemComprovante;
+
+    //@Column(length = 1000)
+    //private String imagem; com isso aqui vai fazer o paciente ter imagem
+
+    @Column(length = 1000)
+    private String imagem;
 
     @Enumerated(EnumType.STRING)
     private LocalAtendimentoEnum local_atendimento;

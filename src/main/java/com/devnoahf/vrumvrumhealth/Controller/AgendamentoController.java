@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
+
 
 import java.util.List;
 
@@ -29,21 +31,20 @@ public class AgendamentoController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'PACIENTE')")
     public ResponseEntity<?> criar(@RequestBody AgendamentoDTO dto) {
-        try {
-            AgendamentoDTO novo = agendamentoService.criarAgendamento(dto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novo);
-        } catch (Exception e) {
+        AgendamentoDTO novoAgendamento = agendamentoService.criarAgendamento(dto);
+        if (novoAgendamento != null) {
+            return ResponseEntity.ok(novoAgendamento);
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Erro ao criar agendamento: " + e.getMessage());
+                    .body("Paciente não encontrado ou dados inválidos.");
         }
     }
 
-    // 🔹 Listar todos — apenas ADMIN
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<AgendamentoDTO>> listar() {
-        List<AgendamentoDTO> lista = agendamentoService.listarAgendamentos();
-        return ResponseEntity.ok(lista);
+        List<AgendamentoDTO> agendamentos = agendamentoService.listarAgendamentos();
+        return ResponseEntity.ok(agendamentos);
     }
 
     // 🔹 Buscar por ID — ADMIN e PACIENTE (somente o próprio)
@@ -129,7 +130,8 @@ public class AgendamentoController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-        try {
+        AgendamentoDTO agendamento = agendamentoService.buscarPorId(id);
+        if (agendamento != null) {
             agendamentoService.deletarAgendamento(id);
             return ResponseEntity.ok("Agendamento deletado com sucesso!");
         } catch (ResourceNotFoundException e) {
@@ -139,4 +141,5 @@ public class AgendamentoController {
                     .body("Erro ao deletar agendamento: " + e.getMessage());
         }
     }
+
 }

@@ -20,7 +20,6 @@ public class AgendamentoService {
 
     private final AgendamentoRepository agendamentoRepository;
     private final PacienteRepository pacienteRepository;
-    private final AgendamentoMapper agendamentoMapper;
 
     // 🔹 Criar novo agendamento
     @Transactional
@@ -30,7 +29,12 @@ public class AgendamentoService {
         Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com ID " + dto.getPacienteId()));
 
+        Paciente paciente = pacienteOptional.get();
         Agendamento agendamento = agendamentoMapper.toEntity(dto, paciente);
+
+        // Define como PENDENTE
+        agendamento.setStatusEnum(StatusEnum.PENDENTE);
+
         Agendamento salvo = agendamentoRepository.save(agendamento);
         return agendamentoMapper.toDTO(salvo);
     }
@@ -84,7 +88,6 @@ public class AgendamentoService {
         if (!agendamentoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Agendamento não encontrado com ID " + id);
         }
-        agendamentoRepository.deleteById(id);
     }
 
     // 🔹 Validação de dados obrigatórios
