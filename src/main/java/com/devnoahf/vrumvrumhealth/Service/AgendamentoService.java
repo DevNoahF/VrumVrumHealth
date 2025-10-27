@@ -1,6 +1,7 @@
 package com.devnoahf.vrumvrumhealth.Service;
 
 import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
+import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
 import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.Mapper.AgendamentoMapper;
@@ -20,6 +21,7 @@ public class AgendamentoService {
 
     private final AgendamentoRepository agendamentoRepository;
     private final PacienteRepository pacienteRepository;
+    private final AgendamentoMapper  agendamentoMapper;
 
     // 🔹 Criar novo agendamento
     @Transactional
@@ -27,9 +29,10 @@ public class AgendamentoService {
         validarAgendamento(dto);
 
         Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
-                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com ID " + dto.getPacienteId()));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Paciente não encontrado com ID " + dto.getPacienteId()
+                ));
 
-        Paciente paciente = pacienteOptional.get();
         Agendamento agendamento = agendamentoMapper.toEntity(dto, paciente);
 
         // Define como PENDENTE
@@ -38,6 +41,7 @@ public class AgendamentoService {
         Agendamento salvo = agendamentoRepository.save(agendamento);
         return agendamentoMapper.toDTO(salvo);
     }
+
 
     // 🔹 Listar todos os agendamentos
     public List<AgendamentoDTO> listarAgendamentos() {
@@ -68,9 +72,9 @@ public class AgendamentoService {
         agendamento.setDataConsulta(dto.getDataConsulta());
         agendamento.setHoraConsulta(dto.getHoraConsulta());
         agendamento.setComprovante(dto.getComprovante());
-        agendamento.setLocal_atendimento(dto.getLocalAtendimentoEnum());
+        agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
         agendamento.setStatusEnum(dto.getStatusEnum());
-        agendamento.setRetorno_casa(dto.getRetornoCasa());
+        agendamento.setRetornoCasa(dto.getRetornoCasa());
 
         if (dto.getPacienteId() != null) {
             Paciente paciente = pacienteRepository.findById(dto.getPacienteId())

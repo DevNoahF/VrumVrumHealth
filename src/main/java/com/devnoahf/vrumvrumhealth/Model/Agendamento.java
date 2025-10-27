@@ -33,21 +33,20 @@ public class Agendamento {
     private LocalTime horaConsulta;
 
     @Column(length = 1000)
-    private String imagemComprovante;
+    private String comprovante;
 
-    //@Column(length = 1000)
-    //private String imagem; com isso aqui vai fazer o paciente ter imagem
+
 
     @Column(length = 1000)
     private String imagem;
 
     @Enumerated(EnumType.STRING)
-    private LocalAtendimentoEnum local_atendimento;
+    private LocalAtendimentoEnum localAtendimentoEnum;
 
     @Enumerated(EnumType.STRING)
     private StatusEnum statusEnum;
 
-    private Boolean retorno_casa;
+    private Boolean retornoCasa;
 
     private Boolean tratamentoContinuo;
 

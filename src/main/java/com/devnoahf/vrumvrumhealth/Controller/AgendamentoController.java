@@ -130,8 +130,7 @@ public class AgendamentoController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-        AgendamentoDTO agendamento = agendamentoService.buscarPorId(id);
-        if (agendamento != null) {
+        try {
             agendamentoService.deletarAgendamento(id);
             return ResponseEntity.ok("Agendamento deletado com sucesso!");
         } catch (ResourceNotFoundException e) {

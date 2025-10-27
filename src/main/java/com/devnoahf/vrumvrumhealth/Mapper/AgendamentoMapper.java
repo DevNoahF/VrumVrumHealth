@@ -17,15 +17,14 @@ public class AgendamentoMapper {
         dto.setDataConsulta(agendamento.getDataConsulta());
         dto.setHoraConsulta(agendamento.getHoraConsulta());
         dto.setComprovante(agendamento.getComprovante());
-        dto.setLocalAtendimento(agendamento.getLocal_atendimento());
-        dto.setStatusComprovanteEnum(agendamento.getStatusComprovanteEnum());
-        dto.setRetornoCasa(agendamento.getRetorno_casa());
+        dto.setLocalAtendimentoEnum(agendamento.getLocalAtendimentoEnum());
+        dto.setStatusEnum(agendamento.getStatusEnum());
+        dto.setRetornoCasa(agendamento.getRetornoCasa());
         dto.setTratamentoContinuo(agendamento.getTratamentoContinuo());
         dto.setFrequencia(agendamento.getFrequencia());
 
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
-            dto.setImagemPaciente(agendamento.getPaciente().getImagem());
         }
 
         return dto;
@@ -41,9 +40,9 @@ public class AgendamentoMapper {
         agendamento.setDataConsulta(dto.getDataConsulta());
         agendamento.setHoraConsulta(dto.getHoraConsulta());
         agendamento.setComprovante(dto.getComprovante());
-        agendamento.setLocal_atendimento(dto.getLocalAtendimento());
-        agendamento.setStatusComprovanteEnum(dto.getStatusComprovanteEnum());
-        agendamento.setRetorno_casa(dto.getRetornoCasa());
+        agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
+        agendamento.setStatusEnum(dto.getStatusEnum());
+        agendamento.setRetornoCasa(dto.getRetornoCasa());
         agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
         agendamento.setFrequencia(dto.getFrequencia());
 
