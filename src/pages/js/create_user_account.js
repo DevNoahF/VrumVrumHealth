@@ -94,8 +94,7 @@ function prepareData(e) {
 	}
 
 	e.preventDefault();
-}
-=======
+
     const telephoneNum = document.getElementById("telephone_num");
     const email = document.getElementById("email");
     const password = document.getElementById("password");
