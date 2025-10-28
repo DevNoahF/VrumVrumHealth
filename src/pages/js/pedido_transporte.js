@@ -103,18 +103,32 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
       "comprovante":String(sendFile()),
       "localAtendimento":unidadeValue.value,
       "frequencia":frequencia_value.value,
+      "statusEnum":"pendente",
       "retornoCasa":changeRadioValue(getRadioValue("transporte-volta?")),
       "acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
       "paciente_id": 1
 
     };
+
+    const data2={
+      "id": 1,
+      "dataConsulta": "2025-11-15",
+      "horaConsulta": "14:30:00",
+      "comprovante": "comprovante_consulta_123.pdf",
+      "localAtendimentoEnum": "UPA1",
+      "statusEnum": "PENDENTE",
+      "retornoCasa": true,
+      "tratamentoContinuo": true,
+      "frequencia": "SEMANAL",
+      "pacienteId": 1
+    }
     console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON
     console.log(data.comprovante)
     const response = fetch("http://localhost:8080/agendamento", {
       method: "POST",
       mode:'cors',
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data2),
     });
         
   }
