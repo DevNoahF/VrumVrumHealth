@@ -105,7 +105,7 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
       "frequencia":frequencia_value.value,
       "retornoCasa":changeRadioValue(getRadioValue("transporte-volta?")),
       "acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
-      "paciente_id": getPacienteID(1)
+      "paciente_id": 0
 
     };
     console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON

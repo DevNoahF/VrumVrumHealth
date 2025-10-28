@@ -39,7 +39,6 @@ function isInputValid(inputLength, maxSize) {
  */
 function getData() {
 	const name = document.getElementById("given_name");
-<<<<<<< HEAD
 	const email = document.getElementById("email");
 	const password = document.getElementById("password");
 	const birthday = document.getElementById("birthday");
