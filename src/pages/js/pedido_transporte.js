@@ -65,7 +65,7 @@ function changeRadioValue(valor){
 
 //Função para detectar mudança em motivo e aparecer frequencia se necessário
 motivo.addEventListener("change",function(){
-    if(this.value!="Tratamento Contínuo"){
+    if(this.value!="tratamento continuo"){
         frequencia.setAttribute("id","invi")
 
         frequencia_value.disabled=true//Desabilita o botão se não for tratamento contínuo
@@ -100,18 +100,19 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
     const data = {
       "dataConsulta":dataValue.value,
       "horaConsulta":horaValue.value+":00",
-      "comprovante":sendFile(),
+      "comprovante":String(sendFile()),
       "localAtendimento":unidadeValue.value,
       "frequencia":frequencia_value.value,
       "retornoCasa":changeRadioValue(getRadioValue("transporte-volta?")),
       "acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
-      "paciente_id": 0
+      "paciente_id": 1
 
     };
     console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON
     console.log(data.comprovante)
-    const response = await fetch("http://localhost:8080/agendamento", {
+    const response = fetch("http://localhost:8080/agendamento", {
       method: "POST",
+      mode:'cors',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
