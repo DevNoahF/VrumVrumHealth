@@ -83,17 +83,6 @@ motivo.addEventListener("change",function(){
     }
 })
 
-//Pega informações de paciente?
-async function getPacienteID(id) {
-  const response = await fetch(`http://localhost:8080/Paciente/${id}`);
-  
-  const pacienteID = await response.json();
-  console.log('ID da pacienteID:', pacienteID.id);
-
-  return pacienteID.id;
-}
-
-
 
 //Função de enviar informações para banco de dados
 document.getElementById("pedido-transporte").addEventListener("submit", async (e) => {
