@@ -1,6 +1,6 @@
 package com.devnoahf.vrumvrumhealth.Enum;
 
-public enum StatusEnum {
+public enum StatusEnum { // status do comprovante
     PENDENTE("pendente"),
     APROVADO("aprovado"),
     NEGADO("negado");
