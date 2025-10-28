@@ -26,7 +26,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final AuthService authService;                 // UserDetailsService
+    private final AuthService authService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final PasswordEncoder passwordEncoder;        // vindo do PasswordEncoderConfig
 
@@ -47,20 +47,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // API stateless para JWT
+                .cors(cors -> {}) // ✅ Habilita o CORS (usa o CorsConfig automaticamente)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                // Tratar 401/403 em vez de redirecionar para form login
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint((req, res, ex) ->
                                 res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
                         .accessDeniedHandler((req, res, ex) ->
                                 res.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden"))
                 )
-
                 .authorizeHttpRequests(auth -> auth
-                        // 🔓 públicos para testar sem login
                         .requestMatchers(
                                 "/auth/**",
                                 "/swagger-ui/**",
@@ -68,22 +64,17 @@ public class SecurityConfig {
                                 "/swagger-resources/**",
                                 "/webjars/**"
                         ).permitAll()
-
-                        // 🔐 regras por perfil
                         .requestMatchers("/adm/**").hasRole("ADMIN")
-                        .requestMatchers("/motorista/me", "/motorista/mudar-senha").hasRole("MOTORISTA")
-                        .requestMatchers("/paciente/me", "/paciente/mudar-senha").hasRole("PACIENTE")
+                        .requestMatchers("/motorista/me", "/motorista/mudarsenha").hasRole("MOTORISTA")
+                        .requestMatchers("/paciente/me", "/paciente/mudarsenha").hasRole("PACIENTE")
                         .requestMatchers("/motorista/**", "/paciente/**").hasRole("ADMIN")
                         .requestMatchers("/veiculo/**").hasAnyRole("ADMIN", "MOTORISTA")
-
-                        // demais precisam de token
                         .anyRequest().authenticated()
                 )
-
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        // ⚠️ Sem formLogin()/logout() no modo JWT puro
         return http.build();
     }
+
 }
