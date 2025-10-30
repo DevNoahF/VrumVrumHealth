@@ -3,6 +3,7 @@ package com.devnoahf.vrumvrumhealth.DTO;
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,6 @@ import java.util.List;
 
 
 @Builder
-@Component
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -43,5 +43,7 @@ public class MotoristaDTO {
     @Size(min = 8, max = 9, message = "Telefone deve ter entre 8 e 9 digitos!")
     private String telefone;
 
+    @NotBlank(message = "Data de nascimento é obrigatória")
+    private String dataNascimento;
 
 }
