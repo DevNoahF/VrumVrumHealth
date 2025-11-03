@@ -92,6 +92,8 @@ public class AgendamentoService {
         if (!agendamentoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Agendamento não encontrado com ID " + id);
         }
+
+        agendamentoRepository.deleteById(id);
     }
 
     // 🔹 Validação de dados obrigatórios

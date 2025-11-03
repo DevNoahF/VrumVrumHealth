@@ -3,15 +3,16 @@ package com.devnoahf.vrumvrumhealth.Mapper;
 import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
 import com.devnoahf.vrumvrumhealth.Model.Adm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AdmMapper {
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdmMapper() {
-        this.passwordEncoder = new BCryptPasswordEncoder();
+    public AdmMapper(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
     // Converte DTO para entidade, criptografando a senha
@@ -44,6 +45,7 @@ public class AdmMapper {
         dto.setId(adm.getId());
         dto.setNome(adm.getNome());
         dto.setEmail(adm.getEmail());
+        dto.setMatricula(adm.getMatricula());
         return dto;
     }
 

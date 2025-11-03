@@ -23,6 +23,12 @@ public class MotoristaController {
 
     private final MotoristaService service;
 
+    @GetMapping("/teste")
+    public String teste() {
+        return "ok";
+    }
+
+
     // 🔹 Criar novo motorista (acessível publicamente via /auth/register/motorista)
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -49,8 +55,10 @@ public class MotoristaController {
             throw new BadRequestException("Você só pode atualizar seu próprio perfil.");
         }
 
-        Motorista motoristaAtualizado = service.update(id, MotoristaMapper.toEntity(dto));
-        return ResponseEntity.ok(MotoristaMapper.toDTO(motoristaAtualizado));
+        Motorista motoristaAtualizado = MotoristaMapper.toEntityUpdate(motoristaExistente, dto);
+        Motorista salvo = service.update(id, motoristaAtualizado);
+
+        return ResponseEntity.ok(MotoristaMapper.toDTO(salvo));
     }
 
     // 🔹 Deletar motorista (somente Admin)
