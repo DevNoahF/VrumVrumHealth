@@ -4,7 +4,9 @@ public enum FrequenciaEnum {
     SEMANAL("semanal"),
     QUINZENAL("quinzenal"),
     MENSAL("mensal"),
-    DIARIO("diario");
+    DIARIO("diario"),
+    NENHUMA("nenhuma");
+
 
     public final String frequencia;
 

@@ -22,6 +22,7 @@ public class AgendamentoMapper {
         dto.setRetornoCasa(agendamento.getRetornoCasa());
         dto.setTratamentoContinuo(agendamento.getTratamentoContinuo());
         dto.setFrequencia(agendamento.getFrequencia());
+        dto.setAcompanhante(agendamento.getAcompanhante());
 
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
@@ -45,6 +46,7 @@ public class AgendamentoMapper {
         agendamento.setRetornoCasa(dto.getRetornoCasa());
         agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
         agendamento.setFrequencia(dto.getFrequencia());
+        agendamento.setAcompanhante(dto.getAcompanhante());
 
         // Associa paciente se passado
         agendamento.setPaciente(paciente);

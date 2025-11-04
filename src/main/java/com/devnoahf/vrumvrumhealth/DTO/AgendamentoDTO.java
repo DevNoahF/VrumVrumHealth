@@ -39,5 +39,8 @@ public class AgendamentoDTO {
 
     private FrequenciaEnum frequencia;
 
+    @NotNull(message = "É obrigatorio informar se haverá acompanhante")
+    private Boolean acompanhante;
+
     private Long pacienteId;
 }

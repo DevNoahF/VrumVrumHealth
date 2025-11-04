@@ -47,6 +47,8 @@ public class Agendamento {
 
     private FrequenciaEnum frequencia;
 
+    private Boolean acompanhante;
+
     @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp
     private Instant createdAt;
