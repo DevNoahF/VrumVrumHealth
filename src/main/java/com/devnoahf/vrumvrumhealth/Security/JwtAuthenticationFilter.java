@@ -5,55 +5,42 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider,
-                                   UserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
-        this.userDetailsService = userDetailsService;
     }
 
-    /**
-     * Rotas públicas que não precisam passar pelo filtro.
-     */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String p = request.getServletPath();
-        return p.startsWith("/auth/")
-                || p.startsWith("/swagger-ui")
-                || p.startsWith("/v3/api-docs")
-                || p.startsWith("/swagger-resources")
-                || p.startsWith("/webjars");
+        String path = request.getServletPath();
+        return path.startsWith("/auth/") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/v3/api-docs") ||
+                path.startsWith("/swagger-resources") ||
+                path.startsWith("/webjars");
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain chain)
-            throws ServletException, IOException {
-
-        // Se já existe autenticação, não refaz
-        if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            chain.doFilter(request, response);
-            return;
-        }
+                                    FilterChain chain) throws ServletException, IOException {
 
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {
-            // Sem token: apenas segue o fluxo (não retorna 401 aqui)
             chain.doFilter(request, response);
             return;
         }
@@ -63,18 +50,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             if (jwtTokenProvider.validateToken(token)) {
                 String username = jwtTokenProvider.getUsernameFromToken(token);
-                if (username != null) {
-                    UserDetails user = userDetailsService.loadUserByUsername(username);
+                List<String> roles = jwtTokenProvider.getRolesFromToken(token);
+
+                if (username != null && roles != null) {
+                    List<SimpleGrantedAuthority> authorities = roles.stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
 
                     UsernamePasswordAuthenticationToken auth =
-                            new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                            new UsernamePasswordAuthenticationToken(username, null, authorities);
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
             }
         } catch (Exception ignored) {
-            // Qualquer erro de parsing/expiração/etc -> segue sem autenticar
+            // Token inválido ou expirado -> segue sem autenticar
         }
 
         chain.doFilter(request, response);

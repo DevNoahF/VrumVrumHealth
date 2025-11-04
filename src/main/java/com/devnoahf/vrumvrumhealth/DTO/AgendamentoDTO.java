@@ -27,11 +27,11 @@ public class AgendamentoDTO {
     private LocalTime horaConsulta;
     @NotBlank(message = "É obrigatorio o envio do comprovante")
     private String comprovante;
-    @NotBlank(message = "É obrigatorio selecionar o local de atendimento")
+    @NotNull(message = "É obrigatorio selecionar o local de atendimento")
     private LocalAtendimentoEnum localAtendimentoEnum;
 
     private StatusEnum statusEnum; // status do comprovante
-    @NotBlank(message = "É obrigatorio informar se haverá retorno para casa")
+    @NotNull(message = "É obrigatorio informar se haverá retorno para casa")
     private Boolean retornoCasa;
 
     @NotNull(message = "É obrigatorio informar se é tratamento contionuo ou não")

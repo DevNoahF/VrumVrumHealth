@@ -46,16 +46,19 @@ public class AuthController {
 
     // 🔹 LOGIN — funciona para todos os perfis
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String senha) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
         try {
+            String email = loginData.get("email");
+            String senha = loginData.get("senha");
+
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(email, senha)
             );
 
             // Gera o token JWT
             String token = jwtTokenProvider.generateToken(authentication);
-
             UserDetails user = (UserDetails) authentication.getPrincipal();
+
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login bem-sucedido!");
             response.put("email", user.getUsername());
@@ -68,6 +71,22 @@ public class AuthController {
                     .body("Credenciais inválidas: " + e.getMessage());
         }
     }
+
+
+    // REGISTER - ADM TEMPORARIO:
+    @PostMapping("/register/adm-inicial")
+    public ResponseEntity<AdmDTO> criarAdmInicial(@Valid @RequestBody AdmDTO admDTO) {
+        if (admRepository.existsByEmail(admDTO.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(null);
+        }
+
+        Adm adm = admMapper.toEntity(admDTO);
+        admRepository.save(adm);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(admMapper.toDTO(adm));
+    }
+
 
     // 🔹 REGISTER — ADMIN
     @PostMapping("/register/adm")

@@ -74,7 +74,7 @@ public class AgendamentoService {
         agendamento.setComprovante(dto.getComprovante());
         agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
         agendamento.setStatusEnum(dto.getStatusEnum());
-        agendamento.setRetornoCasa(dto.getRetornoCasa());
+        agendamento.setRetornoCasa  (dto.getRetornoCasa());
 
         if (dto.getPacienteId() != null) {
             Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
@@ -92,6 +92,8 @@ public class AgendamentoService {
         if (!agendamentoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Agendamento não encontrado com ID " + id);
         }
+
+        agendamentoRepository.deleteById(id);
     }
 
     // 🔹 Validação de dados obrigatórios

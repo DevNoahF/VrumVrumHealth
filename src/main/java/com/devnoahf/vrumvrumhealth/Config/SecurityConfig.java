@@ -62,13 +62,15 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/motorista/teste"
                         ).permitAll()
                         .requestMatchers("/adm/**").hasRole("ADMIN")
-                        .requestMatchers("/motorista/me", "/motorista/mudarsenha").hasRole("MOTORISTA")
+                        .requestMatchers("/motorista/me", "/motorista/mudar-senha").hasRole("MOTORISTA")
                         .requestMatchers("/paciente/me", "/paciente/mudarsenha").hasRole("PACIENTE")
                         .requestMatchers("/motorista/**", "/paciente/**").hasRole("ADMIN")
                         .requestMatchers("/veiculo/**").hasAnyRole("ADMIN", "MOTORISTA")
+                        .requestMatchers("/transporte/**").hasAnyRole("ADMIN", "MOTORISTA", "PACIENTE")
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
