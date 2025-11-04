@@ -75,6 +75,7 @@ public class AgendamentoService {
         agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
         agendamento.setStatusEnum(dto.getStatusEnum());
         agendamento.setRetornoCasa  (dto.getRetornoCasa());
+        agendamento.setAcompanhante(dto.getAcompanhante());
 
         if (dto.getPacienteId() != null) {
             Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
