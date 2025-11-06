@@ -23,7 +23,7 @@ public class AgendamentoService {
     private final PacienteRepository pacienteRepository;
     private final AgendamentoMapper  agendamentoMapper;
 
-    // 🔹 Criar novo agendamento
+    //  Criar novo agendamento
     @Transactional
     public AgendamentoDTO criarAgendamento(AgendamentoDTO dto) {
         validarAgendamento(dto);
@@ -43,7 +43,7 @@ public class AgendamentoService {
     }
 
 
-    // 🔹 Listar todos os agendamentos
+    //  Listar todos os agendamentos
     public List<AgendamentoDTO> listarAgendamentos() {
         List<Agendamento> agendamentos = agendamentoRepository.findAll();
         if (agendamentos.isEmpty()) {
@@ -54,14 +54,14 @@ public class AgendamentoService {
                 .toList();
     }
 
-    // 🔹 Buscar por ID
+    //  Buscar por ID
     public AgendamentoDTO buscarPorId(Long id) {
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + id));
         return agendamentoMapper.toDTO(agendamento);
     }
 
-    // 🔹 Atualizar agendamento
+    //  Atualizar agendamento
     @Transactional
     public AgendamentoDTO atualizarAgendamento(Long id, AgendamentoDTO dto) {
         Agendamento agendamento = agendamentoRepository.findById(id)
@@ -69,13 +69,15 @@ public class AgendamentoService {
 
         validarAgendamento(dto);
 
+
         agendamento.setDataConsulta(dto.getDataConsulta());
         agendamento.setHoraConsulta(dto.getHoraConsulta());
         agendamento.setComprovante(dto.getComprovante());
         agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
-        agendamento.setStatusEnum(dto.getStatusEnum());
         agendamento.setRetornoCasa  (dto.getRetornoCasa());
         agendamento.setAcompanhante(dto.getAcompanhante());
+        agendamento.setTipoAtendimentoEnum(dto.getTipoAtendimentoEnum());
+        agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
 
         if (dto.getPacienteId() != null) {
             Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
@@ -87,7 +89,7 @@ public class AgendamentoService {
         return agendamentoMapper.toDTO(atualizado);
     }
 
-    // 🔹 Deletar agendamento
+    //  Deletar agendamento
     @Transactional
     public void deletarAgendamento(Long id) {
         if (!agendamentoRepository.existsById(id)) {
@@ -97,7 +99,7 @@ public class AgendamentoService {
         agendamentoRepository.deleteById(id);
     }
 
-    // 🔹 Validação de dados obrigatórios
+    //  Validação de dados obrigatórios
     private void validarAgendamento(AgendamentoDTO dto) {
         if (dto.getDataConsulta() == null) {
             throw new BadRequestException("A data da consulta é obrigatória.");

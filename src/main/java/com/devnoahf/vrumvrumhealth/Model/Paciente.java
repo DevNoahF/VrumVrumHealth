@@ -39,11 +39,11 @@ public class Paciente { // TODO: possivel implementação de imagens de perfil
     private String cpf;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Column(nullable = false, name = "data_nascimento")
     private LocalDate dataNascimento;
 
     @Column(nullable = false, unique = true)
     private String email;
-
 
     @Column(nullable = false)
     private String senha;
