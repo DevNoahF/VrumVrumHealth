@@ -40,7 +40,7 @@ function verify_data(){
 
 //Dar retorno em tratamento a depender do valor 
 function setTratamento(){
-  if (frequencia_value.value=="TRATAMENTO CONTINUO"|| frequencia_value.value=="EXAME"||frequencia_value.value=="CONSULTA")
+  if (frequencia_value.value=="TRATAMENTO_CONTINUO"|| frequencia_value.value=="EXAME"||frequencia_value.value=="CONSULTA")
     return true;
   else{
     return false;
@@ -83,7 +83,7 @@ function changeRadioValue(valor){
 
 //Função para detectar mudança em motivo e aparecer frequencia se necessário
 motivo.addEventListener("change",function(){
-    if(this.value!="tratamento continuo"){
+    if(this.value!="TRATAMENTO_CONTINUO"){
         frequencia.setAttribute("id","invi")
 
         frequencia_value.disabled=true//Desabilita o botão se não for tratamento contínuo
