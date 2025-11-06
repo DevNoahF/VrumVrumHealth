@@ -1,6 +1,6 @@
 //Inicialização de atributos e variáveis
 const unidadeValue=document.getElementById("unidade-value")
-authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluMUB2cnVtLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyMzAwMDA1LCJleHAiOjE3NjIzODY0MDV9.i2hZMxFTO-sQ2v9cBLJDspVaNtydag14uVvg_lwssOC2GHAMpshUeGY8BO_uqNdBwuYiX2K1TC5wxG4pJXcR5A"
+authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjI0NjIxOTYsImV4cCI6MTc2MjU0ODU5Nn0.3MmFldOU1uNKWD-e3VNgsCtVlUdCN_xhvBVlYDoiFZqvOe8zD3DeuT1VdD0lNYbN_roLmQ8ZJePROBWpgASYTw"
 const frequencia_value=document.getElementById("frequencia-value")
 frequencia_value.disabled=true
 
@@ -15,10 +15,11 @@ const frequencia=document.getElementsByClassName("frequencia")[0];//Serve para d
 
 const submit = document.getElementById("enviar")
 setNull()
+console.log(frequencia_value.value)
 
 //Função que deixa todos os campos em null automaticamente
 function setNull(){
-  const inputs=document.querySelectorAll("#unidade-value, #frequencia-value,#motivo-value,#acompanhante-value,#data,#hora")
+  const inputs=document.querySelectorAll("#unidade-value,#motivo-value,#acompanhante-value,#data,#hora")
   inputs.forEach(input=>{
     input.value=null;
   })
@@ -36,6 +37,23 @@ function verify_data(){
     return false;
   }
 }}
+
+//Dar retorno em tratamento a depender do valor 
+function setTratamento(){
+  if (frequencia_value.value=="TRATAMENTO CONTINUO"|| frequencia_value.value=="EXAME"||frequencia_value.value=="CONSULTA")
+    return true;
+  else{
+    return false;
+  }
+}
+
+function setFrequencia(){
+  if(frequencia_value.value==""){
+    return "NENHUMA"
+  }else{
+    return frequencia_value.value
+  }
+}
 
 
 //Função para pegar o valor dos botões de Sim e Não
@@ -70,8 +88,6 @@ motivo.addEventListener("change",function(){
 
         frequencia_value.disabled=true//Desabilita o botão se não for tratamento contínuo
 
-        frequencia_value.value=null//Coloca como nulo se não for tratamento
-
         console.log(frequencia_value.value)
     }else{
         var freqId=document.getElementById("invi")
@@ -101,25 +117,15 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
       "dataConsulta":dataValue.value,
       "horaConsulta":horaValue.value,
       "comprovante":String(sendFile()),
+      "tipoAtendimentoEnum":motivo.value,
       "localAtendimentoEnum":unidadeValue.value,
       "retornoCasa":changeRadioValue(getRadioValue("transporte-volta?")),
-      "tratamentoContinuo":true,
-      "frequencia":"SEMANAL",
-      //"acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
+      "tratamentoContinuo":setTratamento(),
+      "frequencia":frequencia_value.value,
+      "acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
       "pacienteId": 1
-
     };
 
-    const data2={
-      "dataConsulta": "2025-11-15",
-      "horaConsulta": "14:30",
-      "comprovante": "comprovante_consulta_123.pdf",
-      "localAtendimentoEnum": "UPA1",
-      "retornoCasa": true,
-      "tratamentoContinuo": true,
-      "frequencia": "SEMANAL",
-      "pacienteId": 1
-    }
     console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON
     console.log(data.comprovante)
     const response = fetch("http://localhost:8080/agendamento", {
