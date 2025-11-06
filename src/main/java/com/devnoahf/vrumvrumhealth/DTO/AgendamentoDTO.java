@@ -3,6 +3,7 @@ package com.devnoahf.vrumvrumhealth.DTO;
 import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimentoEnum;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -36,6 +37,9 @@ public class AgendamentoDTO {
 
     @NotNull(message = "É obrigatorio informar se é tratamento contionuo ou não")
     private Boolean tratamentoContinuo;
+
+    @NotNull(message = "É obrigatorio selecionar o tipo de atendimento")
+    private TipoAtendimentoEnum tipoAtendimentoEnum;
 
     private FrequenciaEnum frequencia;
 

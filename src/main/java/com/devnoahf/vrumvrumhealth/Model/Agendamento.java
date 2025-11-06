@@ -3,6 +3,7 @@ package com.devnoahf.vrumvrumhealth.Model;
 import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimentoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,17 +37,28 @@ public class Agendamento {
     private String comprovante;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_atendimento")
+    private TipoAtendimentoEnum tipoAtendimentoEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "local_atendimento")
     private LocalAtendimentoEnum localAtendimentoEnum;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status_comprovante")
     private StatusEnum statusEnum;
 
+    @Column(nullable = false, name = "retorno_casa")
     private Boolean retornoCasa;
 
+    @Column(nullable = false, name = "tratamento_continuo")
     private Boolean tratamentoContinuo;
 
+    @Enumerated(EnumType.STRING)
+    // frequencia esta como 'nenhuma' default
     private FrequenciaEnum frequencia;
 
+    @Column(nullable = false)
     private Boolean acompanhante;
 
     @Column(nullable = false, updatable = false, name = "created_at")
