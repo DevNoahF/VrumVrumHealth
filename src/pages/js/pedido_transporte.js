@@ -1,6 +1,6 @@
 //Inicialização de atributos e variáveis
 const unidadeValue=document.getElementById("unidade-value")
-
+authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluMUB2cnVtLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzYyMzAwMDA1LCJleHAiOjE3NjIzODY0MDV9.i2hZMxFTO-sQ2v9cBLJDspVaNtydag14uVvg_lwssOC2GHAMpshUeGY8BO_uqNdBwuYiX2K1TC5wxG4pJXcR5A"
 const frequencia_value=document.getElementById("frequencia-value")
 frequencia_value.disabled=true
 
@@ -99,24 +99,22 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
 //variável que organiza o json
     const data = {
       "dataConsulta":dataValue.value,
-      "horaConsulta":horaValue.value+":00",
+      "horaConsulta":horaValue.value,
       "comprovante":String(sendFile()),
-      "localAtendimento":unidadeValue.value,
-      "frequencia":frequencia_value.value,
-      "statusEnum":"pendente",
+      "localAtendimentoEnum":unidadeValue.value,
       "retornoCasa":changeRadioValue(getRadioValue("transporte-volta?")),
-      "acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
-      "paciente_id": 1
+      "tratamentoContinuo":true,
+      "frequencia":"SEMANAL",
+      //"acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
+      "pacienteId": 1
 
     };
 
     const data2={
-      "id": 1,
       "dataConsulta": "2025-11-15",
-      "horaConsulta": "14:30:00",
+      "horaConsulta": "14:30",
       "comprovante": "comprovante_consulta_123.pdf",
       "localAtendimentoEnum": "UPA1",
-      "statusEnum": "PENDENTE",
       "retornoCasa": true,
       "tratamentoContinuo": true,
       "frequencia": "SEMANAL",
@@ -127,8 +125,10 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
     const response = fetch("http://localhost:8080/agendamento", {
       method: "POST",
       mode:'cors',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data2),
+      headers: {"Content-Type": "application/json",
+         'Authorization': `Bearer ${authToken}`
+       },
+      body: JSON.stringify(data),
     });
         
   }
