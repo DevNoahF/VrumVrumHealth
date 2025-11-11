@@ -16,7 +16,7 @@ p{
     position: absolute;
     left: 30%;/*???????????????????????*/
     width:775px ;
-    height: 775px;
+    height: 850px;
     border-radius: 100px;
     background-color: #D3D9E0;
 
@@ -25,7 +25,7 @@ p{
 
 #visualizar-anexo{
     position: absolute;
-    bottom: -157px;
+    bottom: -200px;
     left: 33%;
     height: 118px;
     width: 673px;
@@ -55,9 +55,10 @@ p{
     font-size: 1.5rem;
     color: #FFFFFF;
     left: 233px;
-    bottom: -157px;
+    bottom: -200px;
     width: 373px;
     height: 72px;
+    cursor: pointer;
 }
 
 
