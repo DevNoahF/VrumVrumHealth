@@ -56,3 +56,88 @@ nav{
     width: 1729px;
     height: 729px;
 }
+
+.pedido-transporte {
+  display: flex;
+  flex-direction: column;      
+  justify-content: space-between;  
+  height: 729px;              
+  padding: 20px;               
+}
+
+
+.pedido-transporte .botoes {
+    display: flex;
+    justify-content: center;      
+    gap: 20px;                    
+}
+
+.botoes {
+  display: flex;
+  justify-content: center;    
+  gap: 20px;                   
+}
+
+.info{
+    margin: 10px 0; 
+}
+.pedido-transporte .info {
+  position: relative;
+}
+
+.pedido-transporte .dir{
+    position: absolute;
+    bottom: 575px;
+    margin-left: 1000px
+}
+
+#frequencia {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  text-align: right;
+}
+
+#acompanhante {
+  position: absolute;
+  left: 50px;
+  top: 40px;
+  text-align: right;
+}
+
+#transporte-volta {
+  position: absolute;
+  left: 50px;
+  top: 60px;
+  text-align: right;
+}
+
+.aprovar {
+    background-color: #339441;
+    border-radius: 100px;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    width: 277px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.recusar {
+    background-color: #BE3030;
+    border-radius: 100px;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    width: 277px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.anexo {
+    background-color: #3F5A6E;
+    width: 336px;
+    height: 60px;
+    border-radius: 100px;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    cursor: pointer;
+}
