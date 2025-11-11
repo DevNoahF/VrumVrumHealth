@@ -1,47 +1,79 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.VeiculoDTO;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.Service.VeiculoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/veiculos")
+@RequestMapping("/veiculo")
+@RequiredArgsConstructor
 public class VeiculoController {
 
-    @Autowired
-    private VeiculoService veiculoService;
+    private final VeiculoService veiculoService;
 
+    // 🔹 Listar todos — ADMIN e MOTORISTA
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA')")
     public ResponseEntity<List<VeiculoDTO>> listarTodos() {
         List<VeiculoDTO> lista = veiculoService.listarTodos();
         return ResponseEntity.ok(lista);
     }
 
+    // 🔹 Buscar por ID — ADMIN e MOTORISTA
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA')")
     public ResponseEntity<VeiculoDTO> buscarPorId(@PathVariable Long id) {
         VeiculoDTO dto = veiculoService.buscarPorId(id);
         return ResponseEntity.ok(dto);
     }
 
+    // 🔹 Criar — apenas ADMIN
     @PostMapping
-    public ResponseEntity<VeiculoDTO> criar(@RequestBody VeiculoDTO veiculoDTO) {
-        VeiculoDTO novo = veiculoService.salvar(veiculoDTO);
-        return ResponseEntity.status(201).body(novo);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> criar(@RequestBody VeiculoDTO veiculoDTO) {
+        try {
+            VeiculoDTO novo = veiculoService.salvar(veiculoDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novo);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erro ao criar veículo: " + e.getMessage());
+        }
     }
 
+    // 🔹 Atualizar — apenas ADMIN
     @PutMapping("/{id}")
-    public ResponseEntity<VeiculoDTO> atualizar(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
-        VeiculoDTO atualizado = veiculoService.atualizar(id, veiculoDTO);
-        return ResponseEntity.ok(atualizado);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
+        try {
+            VeiculoDTO atualizado = veiculoService.atualizar(id, veiculoDTO);
+            return ResponseEntity.ok(atualizado);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erro ao atualizar veículo: " + e.getMessage());
+        }
     }
 
+    // 🔹 Deletar — apenas ADMIN
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        veiculoService.deletar(id);
-        return ResponseEntity.noContent().build();
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deletar(@PathVariable Long id) {
+        try {
+            veiculoService.deletar(id);
+            return ResponseEntity.ok("Veículo deletado com sucesso!");
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erro ao deletar veículo: " + e.getMessage());
+        }
     }
 }

@@ -14,7 +14,6 @@ import java.time.LocalTime;
 @Component
 public class TransporteDTO {
     private Long id;
-
     private LocalTime horarioSaida;
     private Long veiculoId;
     private Long agendamentoId;

@@ -1,33 +1,32 @@
 package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 
-import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimentoEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Getter;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "paciente")
+@Table(name = "tb_paciente")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Paciente {
+public class Paciente { // TODO: possivel implementação de imagens de perfil
+ 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
@@ -39,16 +38,18 @@ public class Paciente {
     @Column(nullable = false, unique = true)
     private String cpf;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date dataNascimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Column(nullable = false, name = "data_nascimento")
+    private LocalDate dataNascimento;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-
     @Column(nullable = false)
     private String senha;
 
+    @Column(nullable = false, length = 2, columnDefinition = "INT")
+    private int ddd;
 
     @Column(nullable = false)
     private String telefone;
@@ -63,8 +64,7 @@ public class Paciente {
     private String bairro;
 
     @Column(nullable = false)
-    private Integer numero;
-
+    private String numero;
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
@@ -96,5 +96,8 @@ public class Paciente {
         this.updatedAt = Instant.now();
     }
 
-
+    // Garantir que o roleEnum seja sempre PACIENTE
+    public void setRoleEnum(RoleEnum roleEnum) {
+        this.roleEnum = RoleEnum.PACIENTE;
+    }
 }

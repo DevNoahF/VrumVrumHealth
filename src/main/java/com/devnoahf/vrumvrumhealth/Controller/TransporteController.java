@@ -2,89 +2,68 @@ package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.TransporteDTO;
 import com.devnoahf.vrumvrumhealth.Service.TransporteService;
-import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/transporte")
+@RequiredArgsConstructor
 public class TransporteController {
 
     private final TransporteService transporteService;
 
-    public TransporteController(TransporteService transporteService) {
-        this.transporteService = transporteService;
-    }
-
-    // Teste
-    @GetMapping("/teste")
-    public String teste() {
-        return "transporte controller funcionando ✅";
-    }
-
-    // Criar transporte
+    // 🔹 Criar transporte — apenas ADMIN
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody TransporteDTO dto) {
-        try {
-            TransporteDTO novo = transporteService.criarTransporte(dto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novo);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao criar transporte: " + e.getMessage());
-        }
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TransporteDTO> criar(@RequestBody TransporteDTO dto) {
+        TransporteDTO novo = transporteService.criarTransporte(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novo);
     }
 
-    // Listar todos
+    // 🔹 Atualizar transporte — apenas ADMIN
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TransporteDTO> atualizar(@PathVariable Long id, @RequestBody TransporteDTO dto) {
+        TransporteDTO atualizado = transporteService.atualizarTransporte(id, dto);
+        return ResponseEntity.ok(atualizado);
+    }
+
+    // 🔹 Deletar transporte — apenas ADMIN
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deletar(@PathVariable Long id) {
+        transporteService.deletarTransporte(id);
+        return ResponseEntity.ok("Transporte deletado com sucesso!");
+    }
+
+    // 🔹 Listar todos os transportes — MOTORISTA e ADMIN
     @GetMapping
-    public ResponseEntity<List<TransporteDTO>> listar() {
+    @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA')")
+    public ResponseEntity<List<TransporteDTO>> listarTodos() {
         List<TransporteDTO> lista = transporteService.listarTransportes();
         return ResponseEntity.ok(lista);
     }
 
-    // Buscar por ID
+    // 🔹 Buscar por ID — ADMIN e MOTORISTA podem ver qualquer um, paciente apenas o seu
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
-        try {
-            TransporteDTO transporte = transporteService.buscarPorId(id);
-            return ResponseEntity.ok(transporte);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar transporte: " + e.getMessage());
-        }
+    @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA', 'PACIENTE')")
+    public ResponseEntity<TransporteDTO> buscarPorId(@PathVariable Long id, Authentication auth) {
+        TransporteDTO transporte = transporteService.buscarPorIdAutenticado(id, auth);
+        return ResponseEntity.ok(transporte);
     }
 
-    // Atualizar
-    @PutMapping("/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody TransporteDTO dto) {
-        try {
-            TransporteDTO atualizado = transporteService.atualizarTransporte(id, dto);
-            return ResponseEntity.ok(atualizado);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao atualizar transporte: " + e.getMessage());
-        }
-    }
 
-    // Deletar
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable Long id) {
-        try {
-            transporteService.deletarTransporte(id);
-            return ResponseEntity.ok("Transporte deletado com sucesso!");
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao deletar transporte: " + e.getMessage());
-        }
+    // 🔹 Paciente: ver apenas o transporte vinculado ao seu agendamento
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('PACIENTE')")
+    public ResponseEntity<TransporteDTO> buscarMeuTransporte(Authentication auth) {
+        TransporteDTO transporte = transporteService.buscarTransportePorPaciente(auth.getName());
+        return ResponseEntity.ok(transporte);
     }
 }

@@ -5,12 +5,10 @@ import com.devnoahf.vrumvrumhealth.Model.Agendamento;
 import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import org.springframework.stereotype.Component;
 
-import java.time.ZoneId;
-
 @Component
 public class AgendamentoMapper {
 
-    // esse aqui converte de Entity para DTO
+    // Request
     public AgendamentoDTO toDTO(Agendamento agendamento) {
         if (agendamento == null) return null;
 
@@ -19,11 +17,13 @@ public class AgendamentoMapper {
         dto.setDataConsulta(agendamento.getDataConsulta());
         dto.setHoraConsulta(agendamento.getHoraConsulta());
         dto.setComprovante(agendamento.getComprovante());
-        dto.setLocalAtendimentoEnum(agendamento.getLocal_atendimento());
-        dto.setStatusEnum(agendamento.getStatusEnum());
-        dto.setRetornoCasa(agendamento.getRetorno_casa());
+        dto.setLocalAtendimentoEnum(agendamento.getLocalAtendimentoEnum());
+        dto.setRetornoCasa(agendamento.getRetornoCasa());
         dto.setTratamentoContinuo(agendamento.getTratamentoContinuo());
         dto.setFrequencia(agendamento.getFrequencia());
+        dto.setAcompanhante(agendamento.getAcompanhante());
+        dto.setTipoAtendimentoEnum(agendamento.getTipoAtendimentoEnum());
+        dto.setTratamentoContinuo(agendamento.getTratamentoContinuo());
 
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
@@ -33,7 +33,7 @@ public class AgendamentoMapper {
     }
 
 
-    // Esse aqui para converter de DTO para Entity
+    // Response
     public Agendamento toEntity(AgendamentoDTO dto, Paciente paciente) {
         if (dto == null) return null;
 
@@ -42,15 +42,17 @@ public class AgendamentoMapper {
         agendamento.setDataConsulta(dto.getDataConsulta());
         agendamento.setHoraConsulta(dto.getHoraConsulta());
         agendamento.setComprovante(dto.getComprovante());
-        agendamento.setLocal_atendimento(dto.getLocalAtendimentoEnum());
+        agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
         agendamento.setStatusEnum(dto.getStatusEnum());
-        agendamento.setRetorno_casa(dto.getRetornoCasa());
+        agendamento.setRetornoCasa(dto.getRetornoCasa());
         agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
         agendamento.setFrequencia(dto.getFrequencia());
+        agendamento.setAcompanhante(dto.getAcompanhante());
 
         // Associa paciente se passado
         agendamento.setPaciente(paciente);
 
         return agendamento;
     }
+
 }

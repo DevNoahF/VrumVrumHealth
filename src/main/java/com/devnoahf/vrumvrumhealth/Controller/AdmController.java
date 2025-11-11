@@ -1,93 +1,115 @@
 package com.devnoahf.vrumvrumhealth.Controller;
 
 import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Model.Adm;
 import com.devnoahf.vrumvrumhealth.Service.AdmService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/adm")
+@RequiredArgsConstructor
 public class AdmController {
 
     private final AdmService admService;
 
-    public AdmController(AdmService admService) {
-        this.admService = admService;
-    }
-
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/teste")
-    public String teste(){
-        return "teste";
-    }
-
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deletar(@PathVariable Long id){
-        AdmDTO admDTO = admService.buscarPorId(id);
-        if (id!= null){
-            admService.deletarAdm(id);
-            return ResponseEntity
-                    .ok("adm deletado com sucesso!");
-        } else {
-            return ResponseEntity
-                    .status(404)
-                    .body("adm não encontrado");
-        }
-
-    }
-
+    // Criar admin normal (somente ADMIN)
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody AdmDTO admDTO){
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<AdmDTO> criar(@Valid @RequestBody AdmDTO admDTO) {
         AdmDTO novoAdm = admService.cadastrarAdm(admDTO);
-        return ResponseEntity
-                .ok(admDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoAdm);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> atualizar(@RequestBody AdmDTO admDTO, @PathVariable Long id){
+    // Criar admin inicial (qualquer um pode acessar)
+    @PostMapping("/criar-admin-inicial")
+    public ResponseEntity<AdmDTO> criarAdminInicial(@Valid @RequestBody AdmDTO admDTO) {
+        AdmDTO novoAdm = admService.cadastrarAdm(admDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoAdm);
+    }
+
+
+    // 🔹 Atualizar um administrador existente (somente o próprio admin ou outro admin)
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> atualizar(@Valid @RequestBody AdmDTO admDTO, @PathVariable Long id, Authentication auth) {
+        AdmDTO admExistente = admService.buscarPorId(id);
+        if (admExistente == null) {
+            throw new ResourceNotFoundException("Administrador com ID " + id + " não encontrado.");
+        }
+
+        // Se não for admin global, verifica se está atualizando o próprio perfil
+        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))
+                && !admExistente.getEmail().equals(auth.getName())) {
+            throw new BadRequestException("Você só pode atualizar seu próprio perfil.");
+        }
+
         AdmDTO admAtualizado = admService.atualizarAdm(admDTO, id);
-        if (admAtualizado != null){
-            return ResponseEntity
-                    .ok(admAtualizado);
-        } else {
-            return ResponseEntity
-                    .status(404)
-                    .body("adm não encontrado");
-        }
+        return ResponseEntity.ok(admAtualizado);
     }
 
-    @GetMapping
-    public ResponseEntity<List<AdmDTO>> listar(){
-        List<AdmDTO> admins = admService.listarAdmins();
-        return ResponseEntity
-                .ok(admins);
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<AdmDTO> buscarPorId(@PathVariable Long id){
+    // 🔹 Deletar um administrador (somente ADMIN)
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deletar(@PathVariable Long id) {
         AdmDTO adm = admService.buscarPorId(id);
-        if (adm != null){
-            return ResponseEntity
-                    .ok(adm);
-        } else {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(null);
+        if (adm == null) {
+            throw new ResourceNotFoundException("Administrador não encontrado.");
         }
+
+        admService.deletarAdm(id);
+        return ResponseEntity.ok("Administrador deletado com sucesso!");
     }
 
-    public ResponseEntity<AdmDTO> mudarSenha(@RequestParam String email, @RequestParam String novaSenha){
+    // 🔹 Listar todos os administradores (somente ADMIN)
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<AdmDTO>> listar() {
+        List<AdmDTO> admins = admService.listarAdmins();
+        return ResponseEntity.ok(admins);
+    }
+
+    // 🔹 Buscar um administrador por ID (somente ADMIN)
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<AdmDTO> buscarPorId(@PathVariable Long id) {
+        AdmDTO adm = admService.buscarPorId(id);
+        if (adm == null) {
+            throw new ResourceNotFoundException("Administrador não encontrado.");
+        }
+        return ResponseEntity.ok(adm);
+    }
+
+    // 🔹 Retornar perfil do admin logado
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Adm> getMyProfile(Authentication authentication) {
+        String email = authentication.getName();
+        Adm adm = admService.findByEmail(email);
+        if (adm == null) {
+            throw new ResourceNotFoundException("Administrador autenticado não encontrado.");
+        }
+        return ResponseEntity.ok(adm);
+    }
+
+    // 🔹 Alterar senha (somente o próprio admin)
+    @PatchMapping("/mudarsenha")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> mudarSenha(
+            @RequestParam String novaSenha,
+            Authentication authentication) {
+
+        String email = authentication.getName();
         admService.mudarSenha(email, novaSenha);
-        return ResponseEntity
-                .ok()
-                .build();
+        return ResponseEntity.ok("Senha alterada com sucesso!");
     }
-
-
 }

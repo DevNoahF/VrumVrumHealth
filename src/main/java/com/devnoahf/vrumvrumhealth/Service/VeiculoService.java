@@ -38,11 +38,6 @@ public class VeiculoService {
 
     public VeiculoDTO salvar(VeiculoDTO veiculoDTO) {
         try {
-            // Validação simples: placa obrigatória
-            if (veiculoDTO.getPlaca() == null || veiculoDTO.getPlaca().isBlank()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A placa do veículo é obrigatória");
-            }
-
             Veiculo veiculo = veiculoMapper.toEntity(veiculoDTO);
             Veiculo salvo = veiculoRepository.save(veiculo);
             return veiculoMapper.toDTO(salvo);

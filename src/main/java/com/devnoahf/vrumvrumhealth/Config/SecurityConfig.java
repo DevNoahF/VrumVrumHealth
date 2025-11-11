@@ -1,89 +1,82 @@
 package com.devnoahf.vrumvrumhealth.Config;
 
-import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import com.devnoahf.vrumvrumhealth.Security.JwtAuthenticationFilter;
+import com.devnoahf.vrumvrumhealth.Service.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import jakarta.servlet.http.HttpServletResponse;
 
-@Configuration //avisa o spring que essa classe é de configuração
-@EnableWebSecurity //habilita a segurança web do spring que esta configuradadentro dessa classe
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-//    private final ConfigurableWebServerFactory configurableWebServerFactory;
-//
-//
-//    public SecurityConfig(ConfigurableWebServerFactory configurableWebServerFactory) {
-//        this.configurableWebServerFactory = configurableWebServerFactory;
-//    }
+    private final AuthService authService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final PasswordEncoder passwordEncoder;        // vindo do PasswordEncoderConfig
 
-    // Configuração de segurança HTTP para permitir todas as requisições sem autenticação
+    // Provider com seu UserDetailsService + BCrypt
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(authService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration cfg) throws Exception {
+        return cfg.getAuthenticationManager();
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // 1. Desativa a proteção CSRF (Cross-Site Request Forgery)
-                // Essencial para permitir requisições POST/PUT/DELETE de clientes como Postman ou um frontend separado.
-                .csrf(csrf -> csrf.disable())
-
-                // 2. Autoriza todas as requisições
+                .cors(cors -> {}) // ✅ Habilita o CORS (usa o CorsConfig automaticamente)
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint((req, res, ex) ->
+                                res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
+                        .accessDeniedHandler((req, res, ex) ->
+                                res.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden"))
+                )
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Permite acesso a QUALQUER requisição sem autenticação
-                );
+                        .requestMatchers(
+                                "/auth/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/motorista/teste"
+                        ).permitAll()
+                        .requestMatchers("/adm/**").hasRole("ADMIN")
+                        .requestMatchers("/motorista/me", "/motorista/mudar-senha").hasRole("MOTORISTA")
+                        .requestMatchers("/paciente/me", "/paciente/mudarsenha").hasRole("PACIENTE")
+                        .requestMatchers("/motorista/**", "/paciente/**").hasRole("ADMIN")
+                        .requestMatchers("/veiculo/**").hasAnyRole("ADMIN", "MOTORISTA")
+                        .requestMatchers("/transporte/**").hasAnyRole("ADMIN", "MOTORISTA", "PACIENTE")
+                        .anyRequest().authenticated()
+                )
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // Configuração de segurança HTTP para diferentes endpoints baseada nas roles
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        return httpSecurity
-//                .csrf(csrf -> csrf.disable()) // desabilita CSRF para simplificar (não recomendado para produção sem outras medidas)
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers(HttpMethod.POST, "/adm").hasRole("ADMIN") // apenas ADMIN pode acessar /adm
-//                        .anyRequest().authenticated()
-//                )
-//                .build();
-//    }
-
-    // security fiter chain é uma cadeia de filtros que processam as requisições HTTP para aplicar regras de segurança
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    // mais utilizada em apis resfful -> autenticação stateless, cada requisição é independente e deve conter todas as informações necessárias para autenticação
-//autenticação stateful, o estado da sessão do usuário é mantido no servidor entre as requisições
-
 }
-//    public Boolean verifyPassword(String rawPassword, String encodedPassword) {
-//        return passwordEncoder().matches(rawPassword, encodedPassword);
-//    }
-
-//    // Configuração de segurança HTTP para diferentes endpoints baseada nas roles
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { // Configura as regras de segurança
-//        http  // desabilita CSRF para simplificar (não recomendado para produção sem outras medidas)
-//                .csrf(AbstractHttpConfigurer::disable)  // configura as autorizações baseadas em roles
-//                .authorizeHttpRequests(auth -> auth // define as regras de autorização
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")  // apenas ADMIN pode acessar /admin/**
-//                        .requestMatchers("/paciente/**").hasRole("PACIENTE") // apenas PACIENTE pode acessar /paciente/**
-//                        .anyRequest().permitAll() // qualquer outra requisição é permitida sem autenticação
-//                )
-//                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll) // permite o formulário de login para todos
-//                .logout(LogoutConfigurer::permitAll); // permite logout para todos
-//        return http.build(); // constrói a cadeia de filtros de segurança
-//    }
-
-   
-

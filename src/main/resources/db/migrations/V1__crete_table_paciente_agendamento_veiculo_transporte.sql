@@ -5,17 +5,16 @@ CREATE TABLE paciente (
                           data_nascimento DATE,
                           email VARCHAR(100) UNIQUE NOT NULL,
                           senha VARCHAR(255) NOT NULL,
+                          ddd INTEGER,
                           telefone VARCHAR(20),
                           email VARCHAR(100),
                           cep VARCHAR(9),
                           rua VARCHAR(100),
                           bairro VARCHAR(100),
-                          numero VARCHAR(10),
-                          tipo_atendimento ENUM('EXAME','CONSULTA','TRATAMENTO_CONTINUO') NOT NULL,
-                          frequencia ENUM('SEMANAL','QUINZENAL','DIARIO','MENSAL') NULL, -- só preenche se for TRATAMENTO_CONTINUO
+                          numero STRING(10),
                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                          role ENUM('PACIENTE','ADMIN') DEFAULT 'PACIENTE'
+                          role ENUM('PACIENTE','ADMIN','MOTORISTA') DEFAULT 'PACIENTE'
 );
 
 CREATE TABLE admin (
@@ -33,10 +32,13 @@ CREATE TABLE agendamento (
                              paciente_id BIGINT NOT NULL,
                              data_consulta DATE NOT NULL,
                              hora_consulta TIME NOT NULL,
-                             comprovante_consulta TEXT, -- pode guardar link do storage (S3, Firebase, filesystem)
+                             comprovante TEXT, -- pode guardar link do storage (S3, Firebase, filesystem)
                              local_atendimento ENUM('UPA1','UPA2','HOSPITAL1','HOSPITAL2') NOT NULL,
-                             status ENUM('PENDENTE','APROVADO','NEGADO') DEFAULT 'PENDENTE',
-                             retorno_para_casa BOOLEAN DEFAULT TRUE,
+                             status_comprovante ENUM('PENDENTE','APROVADO','NEGADO') DEFAULT 'PENDENTE',
+                             frequencia ENUM('SEMANAL','QUINZENAL','DIARIO','MENSAL', 'NENHUMA') DEFAULT 'NENHUMA', -- só preenche se for TRATAMENTO_CONTINUO
+                             tratamento_continuo BOOLEAN DEFAULT FALSE,
+                             retorno_casa BOOLEAN DEFAULT TRUE,
+                             acompanhante BOOLEAN DEFAULT FALSE,
                              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                              updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                              FOREIGN KEY (paciente_id) REFERENCES paciente(id)

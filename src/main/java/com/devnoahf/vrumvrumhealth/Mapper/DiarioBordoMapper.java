@@ -1,40 +1,33 @@
 package com.devnoahf.vrumvrumhealth.Mapper;
 
+import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
 import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
-import lombok.Builder;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@Builder
-@UtilityClass
+@Component
 public class DiarioBordoMapper {
 
+    public DiarioBordoDTO toDTO(DiarioBordo entity) {
+        DiarioBordoDTO dto = new DiarioBordoDTO();
+        dto.setId(entity.getId());
+        dto.setQuilometragemInicial(entity.getQuilometragemInicial());
+        dto.setQuilometragemFinal(entity.getQuilometragemFinal());
+        dto.setMotorista(entity.getMotorista());
+        dto.setVeiculo(entity.getVeiculo());
+        dto.setTransporte(entity.getTransporte());
+        dto.setObservacoes(entity.getObservacoes());
+        return dto;
+    }
 
-    public DiarioBordo toDTO(DiarioBordo diarioBordo) {
+    public DiarioBordo toEntity(DiarioBordoDTO dto) {
         return DiarioBordo.builder()
-                .id(diarioBordo.getId())
-                .quilometragemInicial(diarioBordo.getQuilometragemInicial())
-                .quilometragemFinal(diarioBordo.getQuilometragemFinal())
-                .observacoes(diarioBordo.getObservacoes())
-                .motorista(diarioBordo.getMotorista())
-                .veiculos(diarioBordo.getVeiculos())
-                .transporte(diarioBordo.getTransporte())
+                .id(dto.getId())
+                .quilometragemInicial(dto.getQuilometragemInicial())
+                .quilometragemFinal(dto.getQuilometragemFinal())
+                .motorista(dto.getMotorista())
+                .veiculo(dto.getVeiculo())
+                .transporte(dto.getTransporte())
+                .observacoes(dto.getObservacoes())
                 .build();
     }
-
-
-    public DiarioBordoDTO toEntity(DiarioBordoDTO diarioBordo) {
-        return DiarioBordoDTO.builder()
-                .id(diarioBordo.getId())
-                .quilometragemInicial(diarioBordo.getQuilometragemInicial())
-                .quilometragemFinal(diarioBordo.getQuilometragemFinal())
-                .observacoes(diarioBordo.getObservacoes())
-                .motorista(diarioBordo.getMotorista())
-                .veiculo(diarioBordo.getVeiculo())
-                .transporte(diarioBordo.getTransporte())
-                .build();
-
-
-    }
-
-
 }

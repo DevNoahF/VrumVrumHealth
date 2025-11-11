@@ -3,23 +3,18 @@ package com.devnoahf.vrumvrumhealth.Model;
 import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimentoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Time;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Entity
 @Table(name = "agendamento")
@@ -38,19 +33,33 @@ public class Agendamento {
     @Column(name = "hora_consulta")
     private LocalTime horaConsulta;
 
+    @Column(length = 1000)
     private String comprovante;
 
     @Enumerated(EnumType.STRING)
-    private LocalAtendimentoEnum local_atendimento;
+    @Column(name = "tipo_atendimento")
+    private TipoAtendimentoEnum tipoAtendimentoEnum;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "local_atendimento")
+    private LocalAtendimentoEnum localAtendimentoEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_comprovante")
     private StatusEnum statusEnum;
 
-    private Boolean retorno_casa;
+    @Column(nullable = false, name = "retorno_casa")
+    private Boolean retornoCasa;
 
+    @Column(nullable = false, name = "tratamento_continuo")
     private Boolean tratamentoContinuo;
 
+    @Enumerated(EnumType.STRING)
+    // frequencia esta como 'nenhuma' default
     private FrequenciaEnum frequencia;
+
+    @Column(nullable = false)
+    private Boolean acompanhante;
 
     @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp

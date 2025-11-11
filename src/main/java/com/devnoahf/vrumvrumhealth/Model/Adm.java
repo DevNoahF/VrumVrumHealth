@@ -10,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "adm")
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 // Não descomentar a implementação(necessario terminar as configurações de segurança antes)
-public class Adm /*implements UserDetails*/ {
+public class Adm  /*implements UserDetails*/ {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
@@ -75,34 +74,5 @@ public class Adm /*implements UserDetails*/ {
 //        else return List.of(new SimpleGrantedAuthority("USER"));
 //
 //    }
-
-//    @Override
-//    public String getPassword() {
-//        return "";
-//    }
-//
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
 }
+

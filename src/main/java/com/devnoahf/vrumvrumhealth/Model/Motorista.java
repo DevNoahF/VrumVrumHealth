@@ -10,9 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -44,8 +42,15 @@ public class Motorista {
     @Column(nullable = false)
     private String senha;
 
+    @Column(nullable = false)
+    private String ddd;
+
     @Column(length = 20, nullable = false)
     private String telefone;
+
+
+    @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DiarioBordo> diariosDeBordo;
 
 
     @Enumerated(EnumType.STRING)
@@ -54,6 +59,8 @@ public class Motorista {
     public Motorista(RoleEnum roleEnum) {
         this.setRoleEnum(RoleEnum.MOTORISTA);
     }
+
+
     @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp
     private Instant createdAt;
