@@ -26,12 +26,10 @@ a {
     text-decoration: none;
 }
 
-main {
-    font-family: var(--default_content_font);
-    display: flex;
-    flex-direction: column;
-}
-
 #project_logo {
 	width: 128px;
+}
+
+.small_mov_to_rigth {
+	padding-left: 5px;
 }
