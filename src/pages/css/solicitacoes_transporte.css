@@ -94,21 +94,21 @@ nav{
 #frequencia {
   position: absolute;
   left: 10px;
-  top: 20px;
+  top: 55px;
   text-align: right;
 }
 
 #acompanhante {
   position: absolute;
-  left: 50px;
-  top: 40px;
+  left: 10px;
+  top: 135px;
   text-align: right;
 }
 
 #transporte-volta {
   position: absolute;
-  left: 50px;
-  top: 60px;
+  left: 10px;
+  top: 210px;
   text-align: right;
 }
 
