@@ -1,6 +1,11 @@
 #type {
-	border-bottom: 1px solid black;
-	padding: 0.5rem 0rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 }
 
-
+#type::after {
+	content: "";
+	height: 0.5px;
+	background-color: black
+}
