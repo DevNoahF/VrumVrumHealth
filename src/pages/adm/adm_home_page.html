@@ -5,63 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/commons.css">
     <link rel="stylesheet" type="text/css" href="../css/header.css">
-    <link rel="stylesheet" type="text/css" href="../css/adm_page.css">
-    <title>HomePage</title>
+    <link rel="stylesheet" type="text/css" href="../css/adm_home_page.css">
+    <title>HomePage Administrador</title>
 </head>
 <body>
 	<header id="main_header_container">
    		<div id="logo_container">
 			<img src="../assets/logo.jpg" alt="logo do projeto" id="project_logo">
-			<h1>VrumVrum Health</h1>
+			<h1 class="small_mov_to_rigth">VrumVrum Health</h1>
 		</div>
 		<nav id="main_nav">
 			<ul>
-				<li><a href="#">Início</a></li>
+				<li><a href="./adm_home_page.html">HomePage</a></li>
+				<li><a href="../index.html">Início</a></li>
 				<li><a href="#">Sobre o projeto</a></li>
 			</ul>
 		</nav>
 	</header>
     <main>
-		<section id="greetings_container">
-			<div class="data">
-				<h2>Olá, bem vindo <span class="dynamic_information"></span>
+		<nav id="sidenav">
+			<div id="profile_picture_container">
+				<img src="#" alt="foto de perfil" id="profile_pic">
+				<h5 class="small_mov_to_rigth">Painel de Administrador</h5>
 			</div>
-			<div>
-				<h4><span class="dynamic_information"></span></h4>
-			</div>
-		</section>
-    </main>
-	<script>
-		function formatTime(date) {
-			// 2025-10-20T19:17:36.115Z
-			return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-		}
-
-		function formatDate(date) {
-			return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-		}
-
-		function setOperatorName() {
-			const namePlace = document.getElementsByClassName("dynamic_information")[0];
-			namePlace.innerText = "john doe";
-		}
-
-		function setCurrentDate() {
-			const date = new Date();
-			const datePlace = document.getElementsByClassName("dynamic_information")[1];
-			const formatedTime = formatTime(date);
-			const formatedDate = formatDate(date);
-			
-			datePlace.innerText = `Horas atuais: ${formatedTime}, ${formatedDate}`;
-		}
-
-		function setContent() {
-			console.log("hello!");
-			setOperatorName();
-			setCurrentDate();
-		}
-
-		setContent();
-    </script>
+			<ol id="sidenav_content_container">
+				<li>
+					<img src="#" class="nav_img">
+					<a href="#" class="small_mov_to_rigth">Home</a>
+				</li>
+				<li>
+					<img src="#" class="nav_img">
+					<a href="#" class="small_mov_to_rigth">Solicitações pendentes</a>
+				</li>
+				<li>
+					<img src="#" class="nav_img">
+					<a href="#" class="small_mov_to_rigth">Solicitações aprovadas</a>
+				</li>
+			</ol>
+		</nav>
+		<div id="adm_content_container" class="small_mov_to_rigth">
+			<!--TODO: add content here-->
+		</div>
+	</main>
 </body>
 </html>

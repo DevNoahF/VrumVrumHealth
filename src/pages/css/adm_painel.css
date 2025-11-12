@@ -1,0 +1,24 @@
+main {
+    text-align: center;
+    align-items: center;
+}
+
+#actions_container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.adm_log {
+    border: black solid 1px;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 2em;
+    margin: 0.75em 0.5em;
+}
+
+.adm_log li {
+    padding: 0.5em 0em;
+}
