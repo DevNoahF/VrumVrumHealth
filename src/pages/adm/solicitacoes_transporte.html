@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,43 +8,17 @@
     <title>Solicitações de Transporte</title>
 </head>
 <body>
-    <nav><!--Problema de não ser clickável os botões, corrigir depois-->
+    <nav>
         <button id="botao-menu">☰</button>
-        <a href="login.html">
-        <img src="..//assets/home.png" id="home">
-        </a>
-
-        <a href="solicitacoes_transporte.html">
-            <img src="../assets/clock.png" id="solicitacoes">
-        </a>
-
-        <a><!--Levar para a página de todas as aprovadas-->
-            <img src="../assets/check.png" id="aprovadas">
-
-        </a>
+        <a href="login.html"><img src="../assets/home.png" id="home"></a>
+        <a href="solicitacoes_transporte.html"><img src="../assets/clock.png" id="solicitacoes"></a>
+        <a><img src="../assets/check.png" id="aprovadas"></a>
     </nav>
 
-    <div class="pedido-transporte"><!--Essa classe deve ser criada sempre que exisitir um pedido PENDENTE no banco de dados-->
-        <div class="info">
-            <p id="id">id:</p>
-            <p id="nome">Nome:</p>
-            <p id="data">Data Marcada:</p>
-            <P id="nascimento">Data Nascimento:</P>
-            <p id="cpf">CPF:</p>
-            <p id="endereco">Endereço:</p>
-            <p id="motivo">Motivo Transporte:</p>
-            <p id="unidade">Unidade médica:</p>
-
-            <p class="dir" id="frequencia">Frequencia:</p>
-            <p class="dir" id="acompanhante">Acompanhante?:</p>
-            <p class="dir" id="transporte-volta">Precisa de transporte na volta?:</p>
-        </div>
-        <div class="botoes">
-            <button id="aprovar">Aprovar</button>
-            <button id="recusar">Recusar</button>
-            <button id="anexo">Visualizar Anexo</button>
-        </div>
+    <div id="lista-pedidos">
+      <!-- Aqui serão inseridos dinamicamente os blocos de pedidos pendentes -->
     </div>
+
     <script src="../js/solicitacoes_transporte.js"></script>
 </body>
 </html>

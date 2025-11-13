@@ -1,149 +1,119 @@
-authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjI5MTY0ODYsImV4cCI6MTc2MzAwMjg4Nn0.RtQb8W_cOfrD21ZyBIZ6Xv7toNAy84sooTS9uzEiAYre2YOw74svwsIl2KApiAV1-gVVRJ7xjI7QV-OXsVt4VQ"
-var idAgendamento=document.getElementById("id")
-var nome=document.getElementById("nome")
-var data=document.getElementById("data")
-var nascimento=document.getElementById("nascimento")
-var cpf=document.getElementById("cpf")
-var endereco=document.getElementById("endereco")
-var motivo=document.getElementById("motivo")
-var unidade=document.getElementById("unidade")
-var frequencia=document.getElementById("frequencia")
-var acompanhante=document.getElementById("acompanhante")
-var transporte_volta=document.getElementById("transporte-volta")
+const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjMwNTY0NDYsImV4cCI6MTc2MzE0Mjg0Nn0.m-vXGYHEyaMPaZv2x6-fEkhLEUrRaB9RSMw_zLQkzhX_IjNeaMiPq3zgijf91c3po3LH8028OLwJjIf2L0cy0w";
 
-
-async function agendamentoData(id){
-    const agendamento = await fetch("http://localhost:8080/agendamento/"+id,{
-        method: "GET",
-        mode:'cors',
-        headers: {"Content-Type": "application/json",
-         'Authorization': `Bearer ${authToken}`
-       },
-       
-
-    })
-    const dados= await agendamento.json()
-    const dado_agendamento = {
-      dataConsulta: dados.dataConsulta,
-      horaConsulta: dados.horaConsulta,
-      comprovante:dados.comprovante,
-      localAtendimentoEnum: dados.localAtendimentoEnum,
-      statusEnum: dados.statusEnum,
-      retornoCasa: dados.retornoCasa,
-      tratamentoContinuo:dados.tratamentoContinuo,
-      tipoAtendimentoEnum: dados.tipoAtendimentoEnum,
-      frequencia:dados.frequencia,
-      acompanhante: dados.acompanhante,
-      pacienteId: dados.pacienteId,
-      id:dados.id,
-      estado:dados.statusEnum
-    };
-
-
-
-
-    return dado_agendamento
-
-}
-
-async function mostrarMensagem(id){
-  const dadosPaciente=await pacienteData(id)
-  const dadosAgendamento=await agendamentoData(id)
-    idAgendamento.textContent=("#")+dadosAgendamento.id
-    nome.textContent+=(await dadosPaciente).nome
-    data.textContent+=dadosAgendamento.dataConsulta+("-")+dadosAgendamento.horaConsulta
-    nascimento.textContent+=(await dadosPaciente).dataNasc
-    cpf.textContent+=(await dadosPaciente).cpf
-    endereco.textContent+=(await dadosPaciente).rua+(" ")+(await dadosPaciente).numero+(" ")+(await dadosPaciente).bairro
-    motivo.textContent+=dadosAgendamento.tipoAtendimentoEnum
-    unidade.textContent+=dadosAgendamento.localAtendimentoEnum
-    frequencia.textContent+=dadosAgendamento.frequencia
-    acompanhante.textContent+=changeValue(dadosAgendamento.acompanhante)
-    transporte_volta.textContent+=changeValue(dadosAgendamento.retornoCasa)
+async function getAgendamentosPendentes() {
+  const response = await fetch("http://localhost:8080/agendamento", {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`,
+    },
+  });
+  const dados = await response.json();
+  return dados.filter(a => a.statusEnum === "PENDENTE");
 }
 
 async function pacienteData(id) {
-    const paciente = await fetch("http://localhost:8080/paciente/"+id,{
-        method: "GET",
-        mode:'cors',
-        headers: {"Content-Type": "application/json",
-         'Authorization': `Bearer ${authToken}`
-       },
-       
-
-    })    
-    const dados = await paciente.json()
-    const pacienteData={
-        nome:dados.nome,
-        dataNasc:dados.dataNascimento,
-        cpf:dados.cpf,
-        bairro:dados.bairro,
-        rua:dados.rua,
-        numero:dados.numero
-    }
-    return pacienteData
+  const response = await fetch(`http://localhost:8080/paciente/${id}`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`,
+    },
+  });
+  const dados = await response.json();
+  return {
+    nome: dados.nome,
+    dataNasc: dados.dataNascimento,
+    cpf: dados.cpf,
+    bairro: dados.bairro,
+    rua: dados.rua,
+    numero: dados.numero,
+  };
 }
+
 function changeValue(valor) {
-
-  if(valor==true){
-    return "Sim"
-  }
-  if(valor==false){
-    return "Não"
-  }
+  if (valor === true) return "Sim";
+  if (valor === false) return "Não";
   return "Erro, dado não encontrado";
-  
 }
 
-async function verAnexo(id) {
-  comprovante=await agendamentoData(id)
-  const divAnexo = document.getElementById("anexo");
-  if (comprovante.comprovante) {
-    divAnexo.onclick = () => {
-      // abre em nova aba, por exemplo
-      window.open(comprovante.comprovante, "_blank");
-    };
-    console.log(comprovante.comprovante)
+async function atualizarStatus(id, novoStatus) {
+  const response = await fetch(`http://localhost:8080/agendamento/${id}`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`,
+    },
+  });
+  const agendamento = await response.json();
+  agendamento.statusEnum = novoStatus;
+
+  await fetch(`http://localhost:8080/agendamento/${id}`, {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`,
+    },
+    body: JSON.stringify(agendamento),
+  });
+
+  alert(`Agendamento #${id} ${novoStatus.toLowerCase()} com sucesso!`);
+  // opcional: recarregar a lista
+  carregarLista();
+}
+
+async function carregarLista() {
+  const container = document.getElementById("lista-pedidos");
+  container.innerHTML = ""; // limpa lista existente
+
+  const agendamentos = await getAgendamentosPendentes();
+  for (const ag of agendamentos) {
+    const pac = await pacienteData(ag.pacienteId);
+
+    const div = document.createElement("div");
+    div.classList.add("pedido-transporte");
+    div.innerHTML = `
+      <div class="info">
+        <p>id: ${ag.id}</p>
+        <p>Nome: ${pac.nome}</p>
+        <p>Data Marcada: ${ag.dataConsulta} - ${ag.horaConsulta}</p>
+        <p>Data Nascimento: ${pac.dataNasc}</p>
+        <p>CPF: ${pac.cpf}</p>
+        <p>Endereço: ${pac.rua} ${pac.numero} ${pac.bairro}</p>
+        <p>Motivo Transporte: ${ag.tipoAtendimentoEnum}</p>
+        <p>Unidade médica: ${ag.localAtendimentoEnum}</p>
+
+        <p class="dir">Frequência: ${ag.frequencia}</p>
+        <p class="dir">Acompanhante?: ${changeValue(ag.acompanhante)}</p>
+        <p class="dir">Precisa de transporte na volta?: ${changeValue(ag.retornoCasa)}</p>
+      </div>
+      <div class="botoes">
+        <button class="aprovar">Aprovar</button>
+        <button class="recusar">Recusar</button>
+        <button class="anexo">Visualizar Anexo</button>
+      </div>
+    `;
+
+    // Adiciona os event listeners
+    div.querySelector(".aprovar").addEventListener("click", () => atualizarStatus(ag.id, "APROVADO"));
+    div.querySelector(".recusar").addEventListener("click", () => atualizarStatus(ag.id, "NEGADO"));
+    div.querySelector(".anexo").addEventListener("click", () => {
+      if (ag.comprovante) {
+        window.open(ag.comprovante, "_blank");
+      } else {
+        alert("Nenhum comprovante disponível.");
+      }
+    });
+
+    container.appendChild(div);
   }
-  
 }
 
-async function aprovar(id){
-  agendamentoAprovado = await agendamentoData(id)
-  document.getElementById("aprovar").addEventListener("click",async function(){
-    agendamentoAprovado.statusEnum="APROVADO"
-    const aprovar = await fetch("http://localhost:8080/agendamento/"+id,{
-      method:"PUT",
-      mode:"cors",
-      headers:{"Content-Type": "application/json",
-         'Authorization': `Bearer ${authToken}`
-       },
-       body:JSON.stringify(agendamentoAprovado)
-
-    })
-    console.log(agendamentoAprovado)
-  })
-}
-
-async function recusar(id){
-  agendamentoAprovado = await agendamentoData(id)
-  document.getElementById("recusar").addEventListener("click",async function(){
-    agendamentoAprovado.statusEnum="NEGADO"
-    const aprovar = await fetch("http://localhost:8080/agendamento/"+id,{
-      method:"PUT",
-      mode:"cors",
-      headers:{"Content-Type": "application/json",
-         'Authorization': `Bearer ${authToken}`
-       },
-       body:JSON.stringify(agendamentoAprovado)
-
-    })
-    console.log(agendamentoAprovado)
-  })
-}
-
-//Isso aqui precisa de uma função para colocar o id
-mostrarMensagem(1)
-aprovar(1)
-recusar(1)
-verAnexo(1)
+// Inicializa
+document.addEventListener("DOMContentLoaded", () => {
+  carregarLista();
+});
