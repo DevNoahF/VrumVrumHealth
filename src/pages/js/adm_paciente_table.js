@@ -25,3 +25,80 @@ exportar.addEventListener("click",function(){
 
     doc.save('Solicitações Aprovadas.pdf')
 })
+
+const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjMwNTY0NDYsImV4cCI6MTc2MzE0Mjg0Nn0.m-vXGYHEyaMPaZv2x6-fEkhLEUrRaB9RSMw_zLQkzhX_IjNeaMiPq3zgijf91c3po3LH8028OLwJjIf2L0cy0w";
+
+async function fetchAgendamentosAprovados() {
+  const response = await fetch("http://localhost:8080/agendamento", {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`
+    }
+  });
+  const dados = await response.json();
+  // Filtrar apenas aprovados
+  return dados.filter(a => a.statusEnum === "APROVADO");
+}
+
+async function fetchPaciente(id) {
+  const resp = await fetch(`http://localhost:8080/paciente/${id}`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`
+    }
+  });
+  const dados = await resp.json();
+  return {
+    nome: dados.nome,
+    rua: dados.rua,
+    numero: dados.numero,
+    bairro: dados.bairro,
+    cidade: dados.cidade || "",        // se existir
+    complemento: dados.complemento || "" // se existir
+  };
+}
+
+function changeValue(valor) {
+  if (valor === true) return "Sim";
+  if (valor === false) return "Não";
+  return "";
+}
+
+async function preencherTabela() {
+  const tbody = document.getElementById("tbodySolicitacoes");
+  if (!tbody) {
+    console.error("Elemento #tbodySolicitacoes não encontrado!");
+    return;
+  }
+  tbody.innerHTML = ""; // limpa conteúdo antigo
+
+  const agendamentos = await fetchAgendamentosAprovados();
+
+  for (const ag of agendamentos) {
+    const pac = await fetchPaciente(ag.pacienteId);
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${ag.id}</td>
+      <td>${pac.nome}</td>
+      <td>${pac.rua}</td>
+      <td>${pac.bairro}</td>
+      <td>${pac.cidade}</td>
+      <td>${pac.complemento}</td>
+      <td>${ag.localAtendimentoEnum}</td>
+      <td>${ag.dataConsulta} ${ag.horaConsulta}</td>
+      <td>${changeValue(ag.acompanhante)}</td>
+      <td>${changeValue(ag.retornoCasa)}</td>
+      <td>${changeValue(ag.necessidadeEspecial)}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  preencherTabela();
+});
