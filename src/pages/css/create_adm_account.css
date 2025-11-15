@@ -1,0 +1,11 @@
+#type {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+#type::after {
+	content: "";
+	height: 0.5px;
+	background-color: black
+}
