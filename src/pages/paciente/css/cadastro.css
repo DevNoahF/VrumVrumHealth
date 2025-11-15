@@ -118,6 +118,77 @@ body {
   color: #333;
 }
 
+.needs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.needs-container p {
+  font-size: 1rem;
+  color: #1d4d71;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.options {
+  display: flex;
+  gap: 1rem;
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: #6db869;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.circle:hover {
+  transform: scale(1.1);
+  background-color: #5aa357;
+}
+
+/* Menu flutuante */
+.floating-menu {
+  display: none;
+  margin-top: 1rem;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease;
+}
+
+.floating-menu label {
+  display: block;
+  font-size: 0.9rem;
+  color: #1d4d71;
+  margin-bottom: 0.3rem;
+}
+
+.floating-menu input {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* Botão e link */
 .actions {
   text-align: center;
@@ -172,4 +243,11 @@ body {
   .input-group {
     grid-template-columns: 1fr;
   }
+}
+
+/*botão ativo de ultima hora nessa porra*/
+.circle.ativo {
+  background-color: #005f8f;
+  color: #fff;
+  transition: background 0.3s ease;
 }
