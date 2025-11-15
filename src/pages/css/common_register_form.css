@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.default-font {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #1d4d71;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container principal */
+.container {
+  width: 80%;
+  max-width: 1100px;
+  display: flex;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Lado da imagem */
+.form-image {
+  flex: 1;
+  background-color: #6db869;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.form-image img {
+  width: 80%;
+  max-width: 300px;
+}
+
+/* Lado do formulário */
+.form {
+  flex: 1.2;
+  padding: 3rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Cabeçalho */
+.form-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-header h1 {
+  font-size: 1.8rem;
+  color: #1d4d71;
+  margin-bottom: 0.5rem;
+}
+
+.form-header p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Grupo de inputs */
+.input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5em;
+}
+
+.input-box label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.input-box input {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+}
+
+.input-box input:focus {
+  border-color: #1d4d71;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(29, 77, 113, 0.1);
+}
+
+/* Gênero */
+.gender-section {
+  margin-bottom: 1.5rem;
+}
+
+.gender-section h4 {
+  color: #1d4d71;
+  margin-bottom: 0.5rem;
+}
+
+.gender-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: #333;
+}
+
+.needs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.needs-container p {
+  font-size: 1rem;
+  color: #1d4d71;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.options {
+  display: flex;
+  gap: 1rem;
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: #6db869;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.circle:hover {
+  transform: scale(1.1);
+  background-color: #5aa357;
+}
+
+/* Menu flutuante */
+.floating-menu {
+  display: none;
+  margin-top: 1rem;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease;
+}
+
+.floating-menu label {
+  display: block;
+  font-size: 0.9rem;
+  color: #1d4d71;
+  margin-bottom: 0.3rem;
+}
+
+.floating-menu input {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Botão e link */
+.actions {
+  text-align: center;
+}
+
+.actions button {
+  background-color: #1d4d71;
+  color: #fff;
+  padding: 0.8rem 2.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.actions button:hover {
+  background-color: #163b57;
+}
+
+.actions p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.actions a {
+  color: #6db869;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.actions a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .form-image {
+    display: none;
+  }
+
+  .form {
+    padding: 2rem;
+  }
+
+  .input-group {
+    grid-template-columns: 1fr;
+  }
+<<<<<<<< HEAD:src/pages/css/cadastro.css
+}
+
+/*botão ativo de ultima hora nessa porra*/
+.circle.ativo {
+  background-color: #005f8f;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+========
+}
+>>>>>>>> 14aa09c333c0405d9a1e752951d37f85d5771ce2:src/pages/css/common_register_form.css

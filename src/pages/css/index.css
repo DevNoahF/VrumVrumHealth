@@ -1,0 +1,18 @@
+:root {
+    --ACTIONS_PADDING: 5em;
+}
+
+#general_actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.user_actions,
+.adm_actions {
+    padding: 5em;
+    text-align: center;
+}
+
+.actions {
+    padding-top: var(--ACTIONS_PADDING);
+}

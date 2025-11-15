@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/header.css">
+    <link rel="stylesheet" type="text/css" href="../css/adm_painel.css">
+    <title>Painel de Administrador</title>
+</head>
+<body>
+	<header id="main_header_container">
+   		<div id="logo_container">
+			<img src="../assets/logo.jpg" alt="logo do projeto" id="project_logo">
+			<h1>VrumVrum Health</h1>
+		</div>
+		<nav id="main_nav">
+			<ul>
+				<li><a href="#">HomePage</a></li>
+				<li><a href="../index.html">Início</a></li>
+				<li><a href="#">Sobre o projeto</a></li>
+			</ul>
+		</nav>
+	</header>
+    <main id="main_content_container">
+		<section id="greetings_container">
+			<div class="data">
+				<h2>Olá, bem vindo <span class="dynamic_information"></span>
+			</div>
+			<div>
+				<h4><span class="dynamic_information"></span></h4>
+			</div>
+		</section>
+		<section id="actions_container">
+			<div class="adm_log">
+				<header>
+					<h4>Comunicados e avisos</h4>
+				</header>
+				<div class="log_content_container">
+					<ol class="log_content"></ol>
+				</div>
+			</div>
+			<div class="adm_log">
+				<header>
+					<h4>Solicitações</h4>
+				</header>
+				<div class="log_content_container">
+					<ol class="log_content">
+						<li>Aprovadas<span class="solicitation_content"></span></li>
+						<li>Pendentes: <span class="solicitation_content"></span></li>
+						<li>Totais: <span class="solicitation_content"></span></li>
+					</ol>
+				</div>
+			</div>
+		</section>
+    </main>
+	<script src="../js/adm_set_time_data.js"></script>
+	<script src="../js/adm_set_content.js"></script>
+</body>
+</html>
