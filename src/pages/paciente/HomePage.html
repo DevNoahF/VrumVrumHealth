@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home do Paciente - Vrumvrum Health</title>
+    <link rel="stylesheet" href="HomePage.css">
+
+    <!-- Ícones Feather -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+            <img src="../../assets/iconvrum.png" class="logo" alt="Logo Vrumvrum">
+            
+            <ul class="menu">
+                <li><i data-feather="home"></i> <span>Início</span></li>
+                <li><i data-feather="file-text"></i> <span>Solicitações</span></li>
+                <li><i data-feather="user"></i> <span>Dados</span></li>
+                <li><i data-feather="help-circle"></i> <span>Suporte</span></li>
+            </ul>
+
+            <button class="logout-btn">
+                <i data-feather="log-out"></i>
+                <span>Sair</span>
+            </button>
+        </aside>
+
+        <!-- CONTEÚDO -->
+        <main class="conteudo">
+
+            <header class="cabecalho">
+                <h1>Bem-vindo, Paciente</h1>
+                <p class="sub">Seu portal de acompanhamento pessoal</p>
+            </header>
+
+            <!-- Blocos expansíveis -->
+            <section class="bloco">
+                <button class="bloco-titulo">Solicitações <i data-feather="chevron-down"></i></button>
+                <ul class="bloco-conteudo">
+                    <li><a href="#">Solicitar atendimento</a></li>
+                    <li><a href="#">Consultar solicitações</a></li>
+                </ul>
+            </section>
+
+            <section class="bloco">
+                <button class="bloco-titulo">Dados <i data-feather="chevron-down"></i></button>
+                <ul class="bloco-conteudo">
+                    <li><a href="#">Atualizar informações</a></li>
+                    <li><a href="#">Histórico de atendimentos</a></li>
+                </ul>
+            </section>
+
+            <section class="bloco">
+                <button class="bloco-titulo">Suporte <i data-feather="chevron-down"></i></button>
+                <ul class="bloco-conteudo">
+                    <li><a href="#">Fale conosco</a></li>
+                    <li><a href="#">Dúvidas frequentes</a></li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+<script>
+    feather.replace();
+
+    // Accordions
+    document.querySelectorAll(".bloco-titulo").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const content = btn.nextElementSibling;
+            content.classList.toggle("ativo");
+            btn.querySelector("i").classList.toggle("rotate");
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle de Veículo - Vrumvrum Health</title>
+  <link rel="stylesheet" href="controle.css">
+</head>
+<body>
+  <main class="container">
+    
+    <section class="form-image">
+      <img src="../assets/iconvrum.png" alt="Logo Vrumvrum Health">
+    </section>
+
+    <section class="form">
+      <header class="form-header">
+        <h1>Controle de Veículo</h1>
+        <p>Gerencie a quilometragem e o uso dos veículos da Vrumvrum Health.</p>
+      </header>
+
+      <div class="menu-section">
+        <button id="toggle-quilometragem" class="menu-btn">
+          Quilometragem ▼
+        </button>
+
+        <div id="painel-quilometragem" class="painel oculto">
+          <div class="table-header">
+            <button class="action-btn add">Adicionar</button>
+            <button class="action-btn edit">Editar</button>
+            <button class="action-btn delete">Excluir</button>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Quilometragem inicial</th>
+                  <th>Quilometragem final</th>
+                  <th>Veículo usado</th>
+                  <th>Motorista</th>
+                  <th>Observações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="6" class="empty">Nenhum registro cadastrado ainda.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="controle.js"></script>
+
+</body>
+</html>
