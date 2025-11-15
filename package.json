@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/DevNoahF/VrumVrumHealth/issues"
   },
-  "homepage": "https://github.com/DevNoahF/VrumVrumHealth#readme"
+  "homepage": "https://github.com/DevNoahF/VrumVrumHealth#readme",
+  "dependencies": {
+    "nodemon": "^3.1.11"
+  }
 }
