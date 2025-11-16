@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
     painel.classList.toggle("oculto");
     toggleButton.classList.toggle("ativo");
     toggleButton.textContent = painel.classList.contains("oculto")
-      ? "Quilometragem ▼"
-      : "Quilometragem ▲";
+      ? "Adicionar Nova Entrada ▼"
+      : "Fechar painel de Entrada ▲";
   });
 
   // Função para criar uma linha na tabela
@@ -106,3 +106,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
