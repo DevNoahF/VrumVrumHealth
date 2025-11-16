@@ -1,0 +1,88 @@
+package com.devnoahf.vrumvrumhealth.model;
+
+import com.devnoahf.vrumvrumhealth.enums.FrequenciaEnum;
+import com.devnoahf.vrumvrumhealth.enums.LocalAtendimentoEnum;
+import com.devnoahf.vrumvrumhealth.enums.StatusComprovanteEnum;
+import com.devnoahf.vrumvrumhealth.enums.TipoAtendimentoEnum;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
+import java.time.LocalTime;
+
+@Entity
+@Table(name = "agendamento")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class Agendamento {
+
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "data_consulta")
+    private LocalDate dataConsulta;
+
+    @Column(name = "hora_consulta")
+    private LocalTime horaConsulta;
+
+    @Column(length = 1000)
+    private String comprovante;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_atendimento")
+    private TipoAtendimentoEnum tipoAtendimentoEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "local_atendimento")
+    private LocalAtendimentoEnum localAtendimentoEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_comprovante")
+    private StatusComprovanteEnum statusComprovanteEnum;
+
+    @Column(nullable = false, name = "retorno_casa")
+    private Boolean retornoCasa;
+
+    @Column(nullable = false, name = "tratamento_continuo")
+    private Boolean tratamentoContinuo;
+
+    @Enumerated(EnumType.STRING)
+    // frequencia esta como 'nenhuma' default
+    private FrequenciaEnum frequencia;
+
+    @Column(nullable = false)
+    private Boolean acompanhante;
+
+    @Column(nullable = false, updatable = false, name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Instant updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
+
+
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now(); // opcional
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
+}
