@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.dto;
+package com.devnoahf.vrumvrumhealth.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

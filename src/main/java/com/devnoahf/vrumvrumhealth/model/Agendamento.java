@@ -1,9 +1,9 @@
-package com.devnoahf.vrumvrumhealth.model;
+package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.enums.FrequenciaEnum;
-import com.devnoahf.vrumvrumhealth.enums.LocalAtendimentoEnum;
-import com.devnoahf.vrumvrumhealth.enums.StatusComprovanteEnum;
-import com.devnoahf.vrumvrumhealth.enums.TipoAtendimentoEnum;
+import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
+import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
+import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimentoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,7 +46,7 @@ public class Agendamento {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_comprovante")
-    private StatusComprovanteEnum statusComprovanteEnum;
+    private StatusEnum statusEnum;
 
     @Column(nullable = false, name = "retorno_casa")
     private Boolean retornoCasa;

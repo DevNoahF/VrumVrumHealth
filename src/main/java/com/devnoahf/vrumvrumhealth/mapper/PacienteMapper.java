@@ -1,29 +1,24 @@
-package com.devnoahf.vrumvrumhealth.mapper;
+package com.devnoahf.vrumvrumhealth.Mapper;
 
-import com.devnoahf.vrumvrumhealth.dto.PacienteDTO;
-import com.devnoahf.vrumvrumhealth.model.Paciente;
+import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import jakarta.validation.Valid;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PacienteMapper {
-    private final PasswordEncoder passwordEncoder;
-
-    public PacienteMapper(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
     // Converte DTO em entidade, criptografando a senha
-    public Paciente toEntity(@Valid PacienteDTO dto) {
+    public static Paciente toEntity(@Valid PacienteDTO dto) {
         if (dto.getSenha() == null || dto.getSenha().isEmpty()) {
             throw new IllegalArgumentException("Senha não pode ser nula ou vazia");
         }
 
         // o id nao esta aqui pq é gerado automaticamente
         Paciente paciente = new Paciente();
-        paciente.setId(dto.getId());
         paciente.setNome(dto.getNome());
         paciente.setCpf(dto.getCpf());
         paciente.setDataNascimento(dto.getDataNascimento());
@@ -33,7 +28,6 @@ public class PacienteMapper {
         paciente.setRua(dto.getRua());
         paciente.setBairro(dto.getBairro());
         paciente.setNumero(dto.getNumero());
-        paciente.setDdd(dto.getDdd());
 
         // Criptografa a senha
         paciente.setSenha(passwordEncoder.encode(dto.getSenha()));
@@ -46,14 +40,11 @@ public class PacienteMapper {
     public PacienteDTO toDTO(Paciente paciente) {
         PacienteDTO dto = new PacienteDTO();
 
-
-        // Do NOT encode or access password here. DTO must not expose or require the senha.
-        // Map only public fields from entity to DTO.
+        // adicionado tudo o que vai ser retornado da entidade(menos a senha e o cpf)
         dto.setId(paciente.getId());
         dto.setNome(paciente.getNome());
         dto.setDataNascimento(paciente.getDataNascimento());
         dto.setEmail(paciente.getEmail());
-        dto.setDdd(paciente.getDdd());
         dto.setTelefone(paciente.getTelefone());
         dto.setCep(paciente.getCep());
         dto.setRua(paciente.getRua());

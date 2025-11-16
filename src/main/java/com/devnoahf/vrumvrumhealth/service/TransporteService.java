@@ -1,15 +1,15 @@
-package com.devnoahf.vrumvrumhealth.service;
+package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.dto.TransporteDTO;
-import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.mapper.TransporteMapper;
-import com.devnoahf.vrumvrumhealth.model.Agendamento;
-import com.devnoahf.vrumvrumhealth.model.Transporte;
-import com.devnoahf.vrumvrumhealth.model.Veiculo;
-import com.devnoahf.vrumvrumhealth.repository.AgendamentoRepository;
-import com.devnoahf.vrumvrumhealth.repository.TransporteRepository;
-import com.devnoahf.vrumvrumhealth.repository.VeiculoRepository;
+import com.devnoahf.vrumvrumhealth.DTO.TransporteDTO;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Mapper.TransporteMapper;
+import com.devnoahf.vrumvrumhealth.Model.Agendamento;
+import com.devnoahf.vrumvrumhealth.Model.Transporte;
+import com.devnoahf.vrumvrumhealth.Model.Veiculo;
+import com.devnoahf.vrumvrumhealth.Repository.AgendamentoRepository;
+import com.devnoahf.vrumvrumhealth.Repository.TransporteRepository;
+import com.devnoahf.vrumvrumhealth.Repository.VeiculoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

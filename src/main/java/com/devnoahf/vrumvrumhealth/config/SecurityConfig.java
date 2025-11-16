@@ -1,7 +1,7 @@
-package com.devnoahf.vrumvrumhealth.config;
+package com.devnoahf.vrumvrumhealth.Config;
 
-import com.devnoahf.vrumvrumhealth.security.JwtAuthenticationFilter;
-import com.devnoahf.vrumvrumhealth.service.AuthService;
+import com.devnoahf.vrumvrumhealth.Security.JwtAuthenticationFilter;
+import com.devnoahf.vrumvrumhealth.Service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

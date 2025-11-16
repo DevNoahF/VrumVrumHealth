@@ -1,13 +1,14 @@
-package com.devnoahf.vrumvrumhealth.dto;
+package com.devnoahf.vrumvrumhealth.DTO;
 
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.util.List;
 
 
 @Builder
@@ -42,9 +43,7 @@ public class MotoristaDTO {
     @Size(min = 8, max = 9, message = "Telefone deve ter entre 8 e 9 digitos!")
     private String telefone;
 
-    // Use NotNull + Past for date fields (NotBlank is for CharSequence)
-    @NotNull(message = "Data de nascimento é obrigatória")
-    @Past(message = "Data de nascimento não pode ser no futuro")
-    private LocalDate dataNascimento;
+    @NotBlank(message = "Data de nascimento é obrigatória")
+    private String dataNascimento;
 
 }

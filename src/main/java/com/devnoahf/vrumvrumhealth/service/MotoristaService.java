@@ -1,9 +1,9 @@
-package com.devnoahf.vrumvrumhealth.service;
+package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.model.Motorista;
-import com.devnoahf.vrumvrumhealth.repository.MotoristaRepository;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Model.Motorista;
+import com.devnoahf.vrumvrumhealth.Repository.MotoristaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

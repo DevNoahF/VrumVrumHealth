@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.config;
+package com.devnoahf.vrumvrumhealth.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

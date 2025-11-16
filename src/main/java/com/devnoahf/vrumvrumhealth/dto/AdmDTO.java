@@ -1,5 +1,6 @@
-package com.devnoahf.vrumvrumhealth.dto;
+package com.devnoahf.vrumvrumhealth.DTO;
 
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

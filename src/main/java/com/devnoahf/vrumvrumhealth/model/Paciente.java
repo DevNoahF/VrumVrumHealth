@@ -1,19 +1,22 @@
-package com.devnoahf.vrumvrumhealth.model;
+package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.enums.RoleEnum;
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Getter;
 
 import java.time.Instant;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity

@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.exception;
+package com.devnoahf.vrumvrumhealth.Exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

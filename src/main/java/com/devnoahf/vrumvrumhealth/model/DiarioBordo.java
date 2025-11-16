@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.model;
+package com.devnoahf.vrumvrumhealth.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;

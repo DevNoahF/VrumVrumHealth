@@ -1,11 +1,13 @@
-package com.devnoahf.vrumvrumhealth.dto;
+package com.devnoahf.vrumvrumhealth.DTO;
 
-import com.devnoahf.vrumvrumhealth.enums.RoleEnum;
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -31,7 +33,6 @@ public class PacienteDTO {
     private String cpf;
 
     @Past(message = "Data de nascimento não pode ser no futuro!")
-    @NotNull(message = "Data de nascimento é obrigatória")
     private LocalDate dataNascimento;
 
 //    @NotBlank(message = "Informe o DDD!")

@@ -1,8 +1,8 @@
-package com.devnoahf.vrumvrumhealth.mapper;
+package com.devnoahf.vrumvrumhealth.Mapper;
 
-import com.devnoahf.vrumvrumhealth.dto.AgendamentoDTO;
-import com.devnoahf.vrumvrumhealth.model.Agendamento;
-import com.devnoahf.vrumvrumhealth.model.Paciente;
+import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
+import com.devnoahf.vrumvrumhealth.Model.Agendamento;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +13,7 @@ public class AgendamentoMapper {
         if (agendamento == null) return null;
 
         AgendamentoDTO dto = new AgendamentoDTO();
+        dto.setId(agendamento.getId());
         dto.setDataConsulta(agendamento.getDataConsulta());
         dto.setHoraConsulta(agendamento.getHoraConsulta());
         dto.setComprovante(agendamento.getComprovante());
@@ -42,7 +43,7 @@ public class AgendamentoMapper {
         agendamento.setHoraConsulta(dto.getHoraConsulta());
         agendamento.setComprovante(dto.getComprovante());
         agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
-        agendamento.setStatusComprovanteEnum(dto.getStatusComprovanteEnum());
+        agendamento.setStatusEnum(dto.getStatusEnum());
         agendamento.setRetornoCasa(dto.getRetornoCasa());
         agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
         agendamento.setFrequencia(dto.getFrequencia());

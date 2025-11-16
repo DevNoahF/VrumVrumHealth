@@ -1,4 +1,4 @@
-package com.devnoahf.vrumvrumhealth.security;
+package com.devnoahf.vrumvrumhealth.Security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

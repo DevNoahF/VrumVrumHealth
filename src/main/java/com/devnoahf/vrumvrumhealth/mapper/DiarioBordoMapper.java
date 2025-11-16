@@ -1,7 +1,7 @@
-package com.devnoahf.vrumvrumhealth.mapper;
+package com.devnoahf.vrumvrumhealth.Mapper;
 
-import com.devnoahf.vrumvrumhealth.dto.DiarioBordoDTO;
-import com.devnoahf.vrumvrumhealth.model.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
+import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
 import org.springframework.stereotype.Component;
 
 @Component

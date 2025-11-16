@@ -1,10 +1,10 @@
-package com.devnoahf.vrumvrumhealth.controller;
+package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.dto.AdmDTO;
-import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.model.Adm;
-import com.devnoahf.vrumvrumhealth.service.AdmService;
+import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Model.Adm;
+import com.devnoahf.vrumvrumhealth.Service.AdmService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

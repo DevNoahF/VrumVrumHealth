@@ -1,11 +1,12 @@
-package com.devnoahf.vrumvrumhealth.service;
+package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.dto.AdmDTO;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
-import com.devnoahf.vrumvrumhealth.mapper.AdmMapper;
-import com.devnoahf.vrumvrumhealth.model.Adm;
-import com.devnoahf.vrumvrumhealth.repository.AdmRepository;
+import com.devnoahf.vrumvrumhealth.DTO.AdmDTO;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Mapper.AdmMapper;
+import com.devnoahf.vrumvrumhealth.Model.Adm;
+import com.devnoahf.vrumvrumhealth.Model.Motorista;
+import com.devnoahf.vrumvrumhealth.Repository.AdmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

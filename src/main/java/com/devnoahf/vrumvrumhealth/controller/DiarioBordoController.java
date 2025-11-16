@@ -1,8 +1,8 @@
-package com.devnoahf.vrumvrumhealth.controller;
+package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.dto.DiarioBordoDTO;
-import com.devnoahf.vrumvrumhealth.model.DiarioBordo;
-import com.devnoahf.vrumvrumhealth.service.DiarioBordoService;
+import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
+import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.Service.DiarioBordoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

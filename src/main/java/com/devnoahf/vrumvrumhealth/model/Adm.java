@@ -1,6 +1,6 @@
-package com.devnoahf.vrumvrumhealth.model;
+package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.enums.RoleEnum;
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

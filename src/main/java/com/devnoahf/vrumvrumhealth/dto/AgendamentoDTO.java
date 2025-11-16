@@ -1,10 +1,9 @@
-package com.devnoahf.vrumvrumhealth.dto;
+package com.devnoahf.vrumvrumhealth.DTO;
 
-import com.devnoahf.vrumvrumhealth.enums.FrequenciaEnum;
-import com.devnoahf.vrumvrumhealth.enums.LocalAtendimentoEnum;
-import com.devnoahf.vrumvrumhealth.enums.StatusComprovanteEnum;
-import com.devnoahf.vrumvrumhealth.enums.TipoAtendimentoEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.devnoahf.vrumvrumhealth.Enum.FrequenciaEnum;
+import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
+import com.devnoahf.vrumvrumhealth.Enum.LocalAtendimentoEnum;
+import com.devnoahf.vrumvrumhealth.Enum.TipoAtendimentoEnum;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -24,16 +24,14 @@ public class AgendamentoDTO {
     private Long id;
     @Future(message = "A data da consulta deve ser no futuro.")
     private LocalDate dataConsulta;
-    // Use ISO time format HH:mm for requests/responses
-    @NotNull(message = "A hora da consulta é obrigatória.")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    @Future(message = "A hora da consulta deve ser no futuro.")
     private LocalTime horaConsulta;
     @NotBlank(message = "É obrigatorio o envio do comprovante")
     private String comprovante;
     @NotNull(message = "É obrigatorio selecionar o local de atendimento")
     private LocalAtendimentoEnum localAtendimentoEnum;
 
-    private StatusComprovanteEnum statusComprovanteEnum; // status do comprovante
+    private StatusEnum statusEnum; // status do comprovante
     @NotNull(message = "É obrigatorio informar se haverá retorno para casa")
     private Boolean retornoCasa;
 

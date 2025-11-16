@@ -1,8 +1,7 @@
-package com.devnoahf.vrumvrumhealth.security;
+package com.devnoahf.vrumvrumhealth.Security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,33 +39,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
 
-        // Try to obtain token from Authorization header first; if missing, check cookie named "Authorization".
-        String token = null;
         String header = request.getHeader("Authorization");
-        if (header != null && header.startsWith("Bearer ")) {
-            token = header.substring(7);
-        } else {
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie c : cookies) {
-                    if ("Authorization".equals(c.getName()) && c.getValue() != null && !c.getValue().isBlank()) {
-                        String val = c.getValue();
-                        // Cookie stored raw token (no 'Bearer ' prefix) to comply with RFC; accept either form
-                        if (val.startsWith("Bearer ")) {
-                            token = val.substring(7);
-                        } else {
-                            token = val;
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (token == null) {
+        if (header == null || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
         }
+
+        String token = header.substring(7);
 
         try {
             if (jwtTokenProvider.validateToken(token)) {

@@ -1,14 +1,15 @@
-package com.devnoahf.vrumvrumhealth.controller;
+package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.dto.AgendamentoDTO;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.service.AgendamentoService;
+import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Service.AgendamentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
 
 
 import java.util.List;

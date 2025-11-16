@@ -1,8 +1,8 @@
-package com.devnoahf.vrumvrumhealth.controller;
+package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.dto.VeiculoDTO;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.service.VeiculoService;
+import com.devnoahf.vrumvrumhealth.DTO.VeiculoDTO;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Service.VeiculoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

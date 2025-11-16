@@ -1,11 +1,11 @@
-package com.devnoahf.vrumvrumhealth.service;
+package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.dto.DiarioBordoDTO;
-import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.mapper.DiarioBordoMapper;
-import com.devnoahf.vrumvrumhealth.model.DiarioBordo;
-import com.devnoahf.vrumvrumhealth.repository.DiarioBordoRepository;
+import com.devnoahf.vrumvrumhealth.DTO.DiarioBordoDTO;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Mapper.DiarioBordoMapper;
+import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.Repository.DiarioBordoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;

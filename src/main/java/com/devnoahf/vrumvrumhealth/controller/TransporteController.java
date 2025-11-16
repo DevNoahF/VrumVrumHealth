@@ -1,7 +1,7 @@
-package com.devnoahf.vrumvrumhealth.controller;
+package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.dto.TransporteDTO;
-import com.devnoahf.vrumvrumhealth.service.TransporteService;
+import com.devnoahf.vrumvrumhealth.DTO.TransporteDTO;
+import com.devnoahf.vrumvrumhealth.Service.TransporteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

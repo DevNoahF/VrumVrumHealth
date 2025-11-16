@@ -1,14 +1,14 @@
-package com.devnoahf.vrumvrumhealth.service;
+package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.dto.AgendamentoDTO;
-import com.devnoahf.vrumvrumhealth.enums.StatusComprovanteEnum;
-import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.mapper.AgendamentoMapper;
-import com.devnoahf.vrumvrumhealth.model.Agendamento;
-import com.devnoahf.vrumvrumhealth.model.Paciente;
-import com.devnoahf.vrumvrumhealth.repository.AgendamentoRepository;
-import com.devnoahf.vrumvrumhealth.repository.PacienteRepository;
+import com.devnoahf.vrumvrumhealth.DTO.AgendamentoDTO;
+import com.devnoahf.vrumvrumhealth.Enum.StatusEnum;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Mapper.AgendamentoMapper;
+import com.devnoahf.vrumvrumhealth.Model.Agendamento;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
+import com.devnoahf.vrumvrumhealth.Repository.AgendamentoRepository;
+import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class AgendamentoService {
         Agendamento agendamento = agendamentoMapper.toEntity(dto, paciente);
 
         // Define como PENDENTE
-        agendamento.setStatusComprovanteEnum(StatusComprovanteEnum.PENDENTE);
+        agendamento.setStatusEnum(StatusEnum.PENDENTE);
 
         Agendamento salvo = agendamentoRepository.save(agendamento);
         return agendamentoMapper.toDTO(salvo);
@@ -74,7 +74,7 @@ public class AgendamentoService {
         agendamento.setHoraConsulta(dto.getHoraConsulta());
         agendamento.setComprovante(dto.getComprovante());
         agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
-        agendamento.setRetornoCasa(dto.getRetornoCasa());
+        agendamento.setRetornoCasa  (dto.getRetornoCasa());
         agendamento.setAcompanhante(dto.getAcompanhante());
         agendamento.setTipoAtendimentoEnum(dto.getTipoAtendimentoEnum());
         agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
@@ -124,7 +124,7 @@ public class AgendamentoService {
 
     public String buscarEmailPorIdPaciente(Long pacienteId) {
         return pacienteRepository.findById(pacienteId)
-                .map(Paciente::getEmail)
+                .map(p -> p.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Paciente não encontrado com ID " + pacienteId
                 ));

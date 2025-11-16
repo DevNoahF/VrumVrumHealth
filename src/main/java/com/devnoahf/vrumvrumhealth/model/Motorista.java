@@ -1,7 +1,6 @@
-package com.devnoahf.vrumvrumhealth.model;
+package com.devnoahf.vrumvrumhealth.Model;
 
-import com.devnoahf.vrumvrumhealth.enums.RoleEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.devnoahf.vrumvrumhealth.Enum.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -32,9 +30,8 @@ public class Motorista {
     @Column(length = 100, nullable = false)
     private String nome;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @Column(nullable = false, name = "data_nascimento")
-    private LocalDate dataNascimento;
+    @Column(name = "data_nascimento", nullable = false)
+    private Date dataNascimento;
 
     @Column(unique = true, nullable = false)
     private String cpf;

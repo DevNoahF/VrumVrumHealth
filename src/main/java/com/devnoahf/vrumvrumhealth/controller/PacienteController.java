@@ -1,11 +1,11 @@
-package com.devnoahf.vrumvrumhealth.controller;
+package com.devnoahf.vrumvrumhealth.Controller;
 
-import com.devnoahf.vrumvrumhealth.dto.PacienteDTO;
-import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
-import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
-import com.devnoahf.vrumvrumhealth.mapper.PacienteMapper;
-import com.devnoahf.vrumvrumhealth.model.Paciente;
-import com.devnoahf.vrumvrumhealth.service.PacienteService;
+import com.devnoahf.vrumvrumhealth.DTO.PacienteDTO;
+import com.devnoahf.vrumvrumhealth.Exception.BadRequestException;
+import com.devnoahf.vrumvrumhealth.Exception.ResourceNotFoundException;
+import com.devnoahf.vrumvrumhealth.Mapper.PacienteMapper;
+import com.devnoahf.vrumvrumhealth.Model.Paciente;
+import com.devnoahf.vrumvrumhealth.Service.PacienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,8 @@
-package com.devnoahf.vrumvrumhealth.service;
+package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.repository.AdmRepository;
-import com.devnoahf.vrumvrumhealth.repository.MotoristaRepository;
-import com.devnoahf.vrumvrumhealth.repository.PacienteRepository;
+import com.devnoahf.vrumvrumhealth.Repository.AdmRepository;
+import com.devnoahf.vrumvrumhealth.Repository.MotoristaRepository;
+import com.devnoahf.vrumvrumhealth.Repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,47 +24,50 @@ public class AuthService implements UserDetailsService {
     private final AdmRepository admRepository;
     private final MotoristaRepository motoristaRepository;
     private final PacienteRepository pacienteRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        String email = username == null ? "" : username.trim();
-        log.info("Tentando autenticar usuário com email: {}", email);
+        log.info("Tentando autenticar usuário com email: {}", username);
 
         // Verifica administrador
-        Optional<UserDetails> adm = admRepository.findByEmail(email)
-                .map(a -> User.withUsername(a.getEmail())
-                        .password(a.getSenha())
-                        .authorities(List.of(new SimpleGrantedAuthority("ROLE_ADMIN")))
-                        .build());
+        Optional<UserDetails> adm = admRepository.findByEmail(username)
+                .map(a -> new User(
+                        a.getEmail(),
+                        a.getSenha(),
+                        List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                ));
         if (adm.isPresent()) {
-            log.info("Administrador encontrado: {}", email);
+            log.info("Administrador autenticado: {}", username);
             return adm.get();
         }
 
         // Verifica motorista
-        Optional<UserDetails> motorista = motoristaRepository.findByEmail(email)
-                .map(m -> User.withUsername(m.getEmail())
-                        .password(m.getSenha())
-                        .authorities(List.of(new SimpleGrantedAuthority("ROLE_MOTORISTA")))
-                        .build());
+        Optional<UserDetails> motorista = motoristaRepository.findByEmail(username)
+                .map(m -> new User(
+                        m.getEmail(),
+                        m.getSenha(),
+                        List.of(new SimpleGrantedAuthority("ROLE_MOTORISTA"))
+                ));
         if (motorista.isPresent()) {
-            log.info("Motorista encontrado: {}", email);
+            log.info("Motorista autenticado: {}", username);
             return motorista.get();
         }
 
         // Verifica paciente
-        Optional<UserDetails> paciente = pacienteRepository.findByEmail(email)
-                .map(p -> User.withUsername(p.getEmail())
-                        .password(p.getSenha())
-                        .authorities(List.of(new SimpleGrantedAuthority("ROLE_PACIENTE")))
-                        .build());
+        Optional<UserDetails> paciente = pacienteRepository.findByEmail(username)
+                .map(p -> new User(
+                        p.getEmail(),
+                        p.getSenha(),
+                        List.of(new SimpleGrantedAuthority("ROLE_PACIENTE"))
+                ));
         if (paciente.isPresent()) {
-            log.info("Paciente encontrado: {}", email);
+            log.info("Paciente autenticado: {}", username);
             return paciente.get();
         }
 
         // Se não achou em nenhum repositório
-        log.error("Usuário não encontrado: {}", email);
-        throw new UsernameNotFoundException("Usuário com e-mail " + email + " não encontrado.");
+        log.error("Usuário não encontrado: {}", username);
+        throw new UsernameNotFoundException("Usuário com e-mail " + username + " não encontrado.");
     }
 }

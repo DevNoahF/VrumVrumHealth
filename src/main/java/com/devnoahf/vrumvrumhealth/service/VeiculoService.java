@@ -1,9 +1,9 @@
-package com.devnoahf.vrumvrumhealth.service;
+package com.devnoahf.vrumvrumhealth.Service;
 
-import com.devnoahf.vrumvrumhealth.dto.VeiculoDTO;
-import com.devnoahf.vrumvrumhealth.mapper.VeiculoMapper;
-import com.devnoahf.vrumvrumhealth.model.Veiculo;
-import com.devnoahf.vrumvrumhealth.repository.VeiculoRepository;
+import com.devnoahf.vrumvrumhealth.DTO.VeiculoDTO;
+import com.devnoahf.vrumvrumhealth.Mapper.VeiculoMapper;
+import com.devnoahf.vrumvrumhealth.Model.Veiculo;
+import com.devnoahf.vrumvrumhealth.Repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

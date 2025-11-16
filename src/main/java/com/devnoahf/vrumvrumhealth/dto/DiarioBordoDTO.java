@@ -1,14 +1,15 @@
-package com.devnoahf.vrumvrumhealth.dto;
+package com.devnoahf.vrumvrumhealth.DTO;
 
-import com.devnoahf.vrumvrumhealth.model.DiarioBordo;
-import com.devnoahf.vrumvrumhealth.model.Motorista;
-import com.devnoahf.vrumvrumhealth.model.Transporte;
-import com.devnoahf.vrumvrumhealth.model.Veiculo;
+import com.devnoahf.vrumvrumhealth.Model.DiarioBordo;
+import com.devnoahf.vrumvrumhealth.Model.Motorista;
+import com.devnoahf.vrumvrumhealth.Model.Transporte;
+import com.devnoahf.vrumvrumhealth.Model.Veiculo;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 @NoArgsConstructor
 
