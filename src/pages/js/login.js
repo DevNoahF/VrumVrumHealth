@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         alert("Login bem sucedido!");
         // Aqui você pode redirecionar para outra página
-        window.location.href = "/pagina-de-sucesso.html";
+        window.location.href = "./HomePage.html";
       } else {
         const errorText = await response.text();
         console.error("Erro no login:", response.status, errorText);
