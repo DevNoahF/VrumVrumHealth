@@ -51,3 +51,17 @@ logoutBtn.addEventListener("click", () => {
         window.location.href = "../login/login.html"; 
     }
 });
+
+function direcionarPagina(link) {
+    window.location.href = String(link);
+}
+
+document.getElementById("pendentes").addEventListener("click",function(e){
+    e.preventDefault()
+    window.location.href = "./solicitacoesTransporte.html";
+})
+
+document.getElementById("aprovadas").addEventListener("click",function(e){
+    e.preventDefault()
+    window.location.href = "./pacientesAprovados.html";
+})

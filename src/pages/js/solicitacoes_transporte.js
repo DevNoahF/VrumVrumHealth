@@ -1,4 +1,4 @@
-const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjMwNTY0NDYsImV4cCI6MTc2MzE0Mjg0Nn0.m-vXGYHEyaMPaZv2x6-fEkhLEUrRaB9RSMw_zLQkzhX_IjNeaMiPq3zgijf91c3po3LH8028OLwJjIf2L0cy0w";
+const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjMzNDIwMjYsImV4cCI6MTc2MzQyODQyNn0.LaIK6MQc6FliARjq-VZEnV6MT2WIbm_nANfKKNHtcxXVQvbtBqsU-NBFmoYQsWXkKVJJJbct0UBvGgNsZSKTCQ";
 
 async function getAgendamentosPendentes() {
   const response = await fetch("http://localhost:8080/agendamento", {
@@ -10,7 +10,7 @@ async function getAgendamentosPendentes() {
     },
   });
   const dados = await response.json();
-  return dados.filter(a => a.statusEnum === "PENDENTE");
+  return dados
 }
 
 async function pacienteData(id) {
