@@ -1,4 +1,4 @@
-const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjMzMjI1NDYsImV4cCI6MTc2MzQwODk0Nn0.VXbAUW9hWPkY7ZKn598E58uirjs7W-9K4adjBwTCJl_Kp9cU6KGEfOk8IJUrPYPNE2pKtWHbl8gBAVssD0shLw";
+const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjMzMzk0NzAsImV4cCI6MTc2MzQyNTg3MH0.ivG3eh1aKHa-M3MWNtzndl0izMy_pakzOIik_kRrFU5kTIGnanI-kkKJDL7-tupB6QRxZKGkqMdZZ03rkrJT_w";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
