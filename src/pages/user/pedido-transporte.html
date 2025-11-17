@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="../css/pedido_transporte.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"><!--Fonte padrão do projeto-->
+    <title>Fazer Solicitação de transporte</title>
+</head>
+<body>
+    <!--Precisa adicionar uma header indicando para o usuário preencher as informações corretamente-->
+
+    <!--Só para registro que esse código foi feito de madrugada, capaz de eu esquecer tudo que eu fiz amanha-->
+    <div class="barra esq"></div>
+    <div class="barra dir"></div>
+
+<!--Cada campo está divido por uma div com o nome do que ela representa-->
+
+    <form id="pedido-transporte" autocomplete="on">
+
+        <div class="motivo">
+            <label>Selecione o motivo do transporte</label>
+            <select class="menu-flutuante" id="motivo-value">
+                <option value="EXAME">Exame</option>
+                <option value="CONSULTA">Consulta</option>
+                <option value="TRATAMENTO_CONTINUO">Tratamento Contínuo</option>
+            </select>
+        </div>
+
+        <div class="frequencia" id="invi">
+            <label>Selecione a frequência do tratamento</label>
+            <select class="menu-flutuante" id="frequencia-value">
+                <option value="NENHUMA"></option>
+                <option value="DIARIO">Diário</option>
+                <option value="SEMANAL">Semanal</option>
+                <option value="QUINZENAL">Quinzenal</option>
+                <option value="MENSAL">Mensal</option>
+            </select>
+        </div>
+
+        <div class="data-hora">
+            <label>Selecione a data e hora da consulta</label>
+            <div id="inputs"><!--Tem alguma forma de fazer isso sem 2 divs?-->
+                <input type="date" class="hora-data" id="data">
+                <input type="time" class="hora-data" id="hora">
+            </div>
+        </div>
+    
+        <div class="unidade">
+            <label>Selecione uma unidade de saúde</label>
+            <select class="menu-flutuante" id="unidade-value">
+                <option value="HOSPITAL1">Hospital1</option>
+                <option value="HOSPITAL2">Hospital2</option>
+                <option value="UPA1">UPA1</option>
+                <option value="UPA2">UPA2</option>
+            </select>
+        </div>
+
+       <div class="anexo">
+            <label id="anexo-text">Anexe a foto do pedido médico</label>
+            <div id="foto">
+                <input type="file" accept="image/*" id="enviar-anexo"><img src="../assets/upload.png"><!--Aceita só arquivos do tipo imagem-->
+                <!--Precisa fazer em Js para tirar o texto-->
+            </div>
+        </div>
+
+        <div class="acompanhante">
+            <label> Tem acompanhante?</label>
+            <div class="inputs" id="acompanhante-value"><!--Uma forma mais fácil de fazer essa poha ficar deitada, vai tomanocu-->
+                <input type="radio" class="botao" name="acompanhante?" value="Não">Não
+                <input type="radio" class="botao" name="acompanhante?" value="Sim">Sim
+            </div>
+        </div> 
+
+        <div class="transporte-volta">
+            <label>Precisa de transporte na volta?</label>
+            <div class="inputs" id="retorno-value">
+            <input type="radio" class="botao" name="transporte-volta?" value="Não">Não
+            <input type="radio" class="botao" name="transporte-volta?" value="Sim">Sim
+            </div>
+
+        </div>
+
+        <button type="submit" id="enviar">Enviar</button>
+
+    </form>
+    <script src="../js/pedido_transporte.js"></script>
+    <script src="../js/submit.js"></script>
+</body>
+</html>

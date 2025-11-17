@@ -1,0 +1,92 @@
+h2{
+    text-align: center;
+}
+p{
+    font-size: 1.5rem;
+    padding-left: 20px;
+    margin-top: 43px;
+}
+
+#titulo{
+    text-align: center;
+    font-size: 3rem;/*Tamanho vem de pedido-transporte.css*/
+}
+
+#info-status{
+    position: absolute;
+    left: 30%;/*???????????????????????*/
+    width:775px ;
+    height: 850px;
+    border-radius: 100px;
+    background-color: #D3D9E0;
+
+}
+
+
+#visualizar-anexo{
+    position: absolute;
+    bottom: -200px;
+    left: 33%;
+    height: 118px;
+    width: 673px;
+    border-radius: 100px;
+    background-color: #D3D9E0;
+    cursor: pointer;
+
+}
+#anexo{
+    text-align: center;
+    margin-top: -50px;
+    cursor: auto;
+}
+
+#visualizar-anexo img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#cancelar{
+    position: absolute;
+    background-color: #BE3030;
+    border-radius: 100px;
+    border-color: #BE3030;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    left: 233px;
+    bottom: -200px;
+    width: 373px;
+    height: 72px;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width:1366px) {
+    body{
+        font-size: 1.5rem;
+    }
+
+    #info-status{
+        left: 27%;
+        width:620px ;
+        height: 620px;
+    }
+    p{
+        margin-top: 35px;
+    }
+
+    #visualizar-anexo{
+        bottom: -250px;
+        height: 78px;
+        width: 448px;
+    }
+
+    #cancelar{
+        left: 130px;
+        bottom: -250px;
+        width: 298px;
+        height:57px ;
+    }
+    
+}
