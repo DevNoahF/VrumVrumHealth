@@ -1,3 +1,6 @@
+
+
+authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM0MzUwNDQsImV4cCI6MTc2MzUyMTQ0NH0.4TwZO8KB-GuQ1bXV1VerVQ1iGZ2PC49esL7LytnzL964hSR2mFwGd3xhIvz8v7YcI8xCCc3jk_U8l67RE5lF8A"
 // Espera o carregamento completo do DOM
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -32,6 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     const confirmpassword = document.getElementById("confirmpassword").value;
+    const dataNascimento = document.getElementById("borndata").value;
+    const ddd = document.getElementById("ddd").value;
+    const telefone= document.getElementById("number").value;
+    const cep = document.getElementById("cep").value;
+    const rua = document.getElementById("rua").value;
+    const bairro = document.getElementById("bairro").value;
+    const numero = document.getElementById("numero_casa").value
 
     // Verificação de campos obrigatórios
     if (!firstname || !lastname || !cpf || !email || !password || !confirmpassword) {
@@ -45,11 +55,37 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    cadastro={
+      nome:firstname+lastname,
+      email:email,
+      senha:password,
+      cpf:cpf,
+      dataNascimento:dataNascimento,
+      ddd:ddd,
+      telefone:telefone,
+      cep:cep,
+      rua:rua,
+      bairro:bairro,
+      numero:numero
+    }
+
     // Exemplo de sucesso (futuro backend pode ser conectado aqui)
+    const response = fetch("http://localhost:8080/paciente",{
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${authToken}`
+        },
+        body: JSON.stringify(cadastro)
+      });
+    })
+    console.log(JSON.stringify(cadastro))
+
+
     alert(`Cadastro realizado com sucesso, ${firstname}!`);
     form.reset();
     menuFlutuante.style.display = "none";
     btnSim.classList.remove("ativo");
     btnNao.classList.remove("ativo");
   });
-});

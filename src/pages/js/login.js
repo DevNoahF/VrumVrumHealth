@@ -1,5 +1,4 @@
-const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjMzMzk0NzAsImV4cCI6MTc2MzQyNTg3MH0.ivG3eh1aKHa-M3MWNtzndl0izMy_pakzOIik_kRrFU5kTIGnanI-kkKJDL7-tupB6QRxZKGkqMdZZ03rkrJT_w";
-
+import {authToken} from '../../../server.js'
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
 

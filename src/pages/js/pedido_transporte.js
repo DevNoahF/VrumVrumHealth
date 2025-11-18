@@ -1,6 +1,7 @@
+
+
 //Inicialização de atributos e variáveis
 const unidadeValue=document.getElementById("unidade-value")
-authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjI5MTY0ODYsImV4cCI6MTc2MzAwMjg4Nn0.RtQb8W_cOfrD21ZyBIZ6Xv7toNAy84sooTS9uzEiAYre2YOw74svwsIl2KApiAV1-gVVRJ7xjI7QV-OXsVt4VQ"
 const frequencia_value=document.getElementById("frequencia-value")
 frequencia_value.disabled=true
 
@@ -16,6 +17,12 @@ const frequencia=document.getElementsByClassName("frequencia")[0];//Serve para d
 const submit = document.getElementById("enviar")
 setNull()
 console.log(frequencia_value.value)
+
+async function takeToken() {
+    const token = await takeToken();
+    console.log("Token:", token);
+}
+takeToken()
 
 //Função que deixa todos os campos em null automaticamente
 function setNull(){

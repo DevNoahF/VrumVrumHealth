@@ -1,10 +1,12 @@
 //adicionando dependencias necessarias
+module.exports = { authToken}
 const express = require("express")
 const app = express()
 const path = require("path")
 const port = 8180;//porta de localhost, possível alterar?
 const {Storage}= require('@google-cloud/storage')
 const Multer = require('multer')
+const fetch = require('node-fetch');
 
 app.use(express.static(path.join(__dirname, "src", "pages")));
 
@@ -65,7 +67,53 @@ app.listen(port,()=>{//Só uma mensagem quando for abrir o site localmente
     console.log('Servidor aberto em '+port)
 });
 
+async function obterToken() {
+  try {
+    let response = await fetch('http://localhost:8080/auth/register/adm-inicial', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome: "string",
+        matricula: "string",
+        email: "user@example.com",
+        senha: "string"
+      })
+    });
+
+    if (response.status === 400) {
+      console.warn("POST deu 400, tentando GET");
+      response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: "string",
+          matricula: "string",
+          email: "user@example.com",
+          senha: "string"
+      })
+      });
+    }
+
+    if (!response.ok) {
+      const erroTexto = await response.text();
+      throw new Error(`Erro ao obter token: ${response.status} — ${erroTexto}`);
+    }
+
+    const dados = await response.json();
+    return dados;
+
+  } catch (error) {
+    console.error("Erro ao obter token:", error);
+    throw error;
+  }
+}
 
 
-
-
+var authToken=obterToken()
+  .then(dadosToken => {
+    console.log("Token recebido:", dadosToken);
+    // Aqui você pode salvar em localStorage, usar em outras requisições, etc.
+  })
+  .catch(err => {
+    console.error("Erro ao chamar obterToken:", err);
+  });
