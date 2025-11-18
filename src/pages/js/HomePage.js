@@ -34,3 +34,13 @@ logoutBtn.addEventListener("click", () => {
     alert("Você saiu da sua conta.");
     window.location.href = "../login/login.html"; // Ajuste se seu caminho for outro
 });
+
+document.getElementById("solicitar").addEventListener("click",function(e){
+    e.preventDefault()
+    window.location.href = "./pedidoTransporte.html";
+})
+
+document.getElementById("consultar").addEventListener("click",function(e){
+    e.preventDefault()
+    window.location.href="./statusSolicitacao.html"
+})
