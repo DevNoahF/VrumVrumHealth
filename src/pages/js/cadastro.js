@@ -1,6 +1,5 @@
 
-
-authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM0MzUwNDQsImV4cCI6MTc2MzUyMTQ0NH0.4TwZO8KB-GuQ1bXV1VerVQ1iGZ2PC49esL7LytnzL964hSR2mFwGd3xhIvz8v7YcI8xCCc3jk_U8l67RE5lF8A"
+authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM0ODk0MjgsImV4cCI6MTc2MzU3NTgyOH0.uwVI3j_yp-VX8OQU71eeCAMc4fzvcDxNhUvH9zBfMtDgeQ8zY1Z10GgGFhgVFoVRfrJTe2WjZNHjYN0A9O3xNQ"
 // Espera o carregamento completo do DOM
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -55,18 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    cadastro={
-      nome:firstname+lastname,
-      email:email,
-      senha:password,
-      cpf:cpf,
-      dataNascimento:dataNascimento,
-      ddd:ddd,
-      telefone:telefone,
-      cep:cep,
-      rua:rua,
-      bairro:bairro,
-      numero:numero
+    var cadastro={
+      nome:String(firstname+lastname),
+      email:String(email),
+      senha:String(password),
+      cpf:String(cpf),
+      dataNascimento:String(dataNascimento),
+      ddd:Number(ddd),
+      telefone:String(telefone),
+      cep:String(cep),
+      rua:String(rua),
+      bairro:String(bairro),
+      numero:String(numero)
     }
 
     // Exemplo de sucesso (futuro backend pode ser conectado aqui)
@@ -77,15 +76,14 @@ document.addEventListener("DOMContentLoaded", () => {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${authToken}`
         },
-        body: JSON.stringify(cadastro)
+        body:JSON.stringify(cadastro)
       });
+      console.log(JSON.stringify(cadastro))
+      if (response.status==200)
+        alert(`Cadastro realizado com sucesso, ${firstname}!`);
+        form.reset();
+        menuFlutuante.style.display = "none";
+        btnSim.classList.remove("ativo");
+        btnNao.classList.remove("ativo");
     })
-    console.log(JSON.stringify(cadastro))
-
-
-    alert(`Cadastro realizado com sucesso, ${firstname}!`);
-    form.reset();
-    menuFlutuante.style.display = "none";
-    btnSim.classList.remove("ativo");
-    btnNao.classList.remove("ativo");
   });
