@@ -38,11 +38,15 @@ const response = await fetch("http://localhost:8080/auth/login", {
     body: JSON.stringify(bodyData)
   });
   const responseJson = await response.json();
-  console.log(responseJson.role)
+  console.log(responseJson.roles[0].authority)
 
-  if (response.status === 401) {//Depois trocar para 200, matem no 400 pq senão não funciona
-
-
+  if (response.status === 200) {//Depois trocar para 200, matem no 400 pq senão não funciona
+      if(responseJson.roles[0].authority==="ROLE_PACIENTE"){
+          window.location.href = "../user/HomePage.html"; 
+      }
+      if(responseJson.roles[0].authority==="ROLE_ADMIN"){
+        window.location.href="../adm/homePageADM.html"
+      }
   }});
 
-  });
+});

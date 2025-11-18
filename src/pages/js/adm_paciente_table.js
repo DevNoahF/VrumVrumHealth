@@ -26,7 +26,7 @@ exportar.addEventListener("click",function(){
     doc.save('Solicitações Aprovadas.pdf')
 })
 
-const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM0ODk0MjgsImV4cCI6MTc2MzU3NTgyOH0.uwVI3j_yp-VX8OQU71eeCAMc4fzvcDxNhUvH9zBfMtDgeQ8zY1Z10GgGFhgVFoVRfrJTe2WjZNHjYN0A9O3xNQ";
+const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM1MDQ4NDAsImV4cCI6MTc2MzU5MTI0MH0.FLKTQCA_z7S3YfpytFNWymEb8-hnMVQkfQrxyAqef1-_zZOxJaDIdMMJ6M6ebJlTT203tHoq2pTKHjjKka0SIA";
 
 async function fetchAgendamentosAprovados() {
   const response = await fetch("http://localhost:8080/agendamento", {

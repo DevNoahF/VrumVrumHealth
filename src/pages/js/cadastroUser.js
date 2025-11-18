@@ -1,5 +1,5 @@
 
-authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM0ODk0MjgsImV4cCI6MTc2MzU3NTgyOH0.uwVI3j_yp-VX8OQU71eeCAMc4fzvcDxNhUvH9zBfMtDgeQ8zY1Z10GgGFhgVFoVRfrJTe2WjZNHjYN0A9O3xNQ"
+authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM1MDUzNTEsImV4cCI6MTc2MzU5MTc1MX0.RbZV5OcsF9b3bls1qA46Bu5NXYV4svkc-5z12EFXNlgGSMKxixeaQvQyGvNvw_fHAx_nRfKdbC_bY-gfole4gw"
 // Espera o carregamento completo do DOM
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Exemplo de sucesso (futuro backend pode ser conectado aqui)
-    const response = fetch("http://localhost:8080/paciente",{
+    const response = fetch("http://localhost:8080/auth/register/paciente",{
         method: "POST",
         mode: "cors",
         headers: {
