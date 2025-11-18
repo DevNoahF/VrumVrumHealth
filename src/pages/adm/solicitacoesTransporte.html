@@ -8,15 +8,29 @@
     <title>Solicitações de Transporte</title>
 </head>
 <body>
+
     <nav>
         <button id="botao-menu">☰</button>
-        <a href="login.html"><img src="../assets/home.png" id="home"></a>
-        <a href="solicitacoes_transporte.html"><img src="../assets/clock.png" id="solicitacoes"></a>
-        <a><img src="../assets/check.png" id="aprovadas"></a>
+
+        <a href="login.html">
+            <img src="../assets/home.png" id="home" alt="Home">
+        </a>
+
+        <a href="solicitacoes_transporte.html">
+            <img src="../assets/clock.png" id="solicitacoes" alt="Solicitações">
+        </a>
+
+        <a href="aprovadas.html">
+            <img src="../assets/check.png" id="aprovadas" alt="Aprovadas">
+        </a>
+
+        <a href="logout.html">
+            <img src="../assets/logout.png" id="logout" alt="Logout">
+        </a>
     </nav>
 
     <div id="lista-pedidos">
-      <!-- Aqui serão inseridos dinamicamente os blocos de pedidos pendentes -->
+        <!-- Os pedidos serão inseridos dinamicamente via JS -->
     </div>
 
     <script src="../js/solicitacoes_transporte.js"></script>

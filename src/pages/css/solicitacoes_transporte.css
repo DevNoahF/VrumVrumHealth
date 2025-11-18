@@ -1,143 +1,74 @@
-body{
-    background-color: #E9EBEC;
+
+body {
+    margin: 0;
+    padding: 0;
     font-family: 'Montserrat', sans-serif;
-    font-size: 32px;
+    background-color: #f5f5f5;
 }
 
-nav{
+/* NAV LATERAL */
+nav {
     position: fixed;
-    height: 100%;
-    width: 104px ;
-    background-color: #006FA7;
-    top:0;
+    top: 0;
     left: 0;
+    width: 70px;
+    height: 100vh;
+    background-color: #005181;
+    box-shadow: 2px 0 8px rgba(rgb(0, 81, 129));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
+    gap: 25px;
 }
 
-#botao-menu{
-    position: absolute;
-    left: 20%;
+/* Botão do menu */
+#botao-menu {
     background: none;
     border: none;
-    font-size: 56px;
-    color: white;
+    font-size: 28px;
     cursor: pointer;
 }
 
-#home{
-    position: absolute;
-    left: 20%;
-    padding-top: 100px;
-    width: 64px;
-    height: 64px;
-}
-
-#solicitacoes{
-    position: absolute;
-    left: 20%;
-    padding-top: 200px;
-    width: 64px;
-    height: 64px;
-}
-
-#aprovadas{
-    position: absolute;
-    left: 20%;
-    padding-top: 300px;
-    width: 64px;
-    height: 64px;
-}
-
-.pedido-transporte{
-    position: relative;
-    margin-top: 30px;
-    left: 10%;
-    background-color: #D3D9E0;
-    border-radius: 100px;
-    width: 1729px;
-    height: 729px;
-}
-
-.pedido-transporte {
-  display: flex;
-  flex-direction: column;      
-  justify-content: space-between;  
-  height: 729px;              
-  padding: 20px;               
-}
-
-
-.pedido-transporte .botoes {
-    display: flex;
-    justify-content: center;      
-    gap: 20px;                    
-}
-
-.botoes {
-  display: flex;
-  justify-content: center;    
-  gap: 20px;                   
-}
-
-.info{
-    margin: 10px 0; 
-}
-.pedido-transporte .info {
-  position: relative;
-}
-
-.pedido-transporte .dir{
-    position: absolute;
-    bottom: 575px;
-    margin-left: 1000px
-}
-
-#frequencia {
-  position: absolute;
-  left: 10px;
-  top: 55px;
-  text-align: right;
-}
-
-#acompanhante {
-  position: absolute;
-  left: 10px;
-  top: 135px;
-  text-align: right;
-}
-
-#transporte-volta {
-  position: absolute;
-  left: 10px;
-  top: 210px;
-  text-align: right;
-}
-
-#aprovar {
-    background-color: #339441;
-    border-radius: 100px;
-    font-size: 1.2rem;
-    color: #FFFFFF;
-    width: 277px;
-    height: 60px;
+/* Ícones */
+nav img {
+    width: 32px;
+    height: 32px;
     cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-#recusar {
-    background-color: #BE3030;
-    border-radius: 100px;
-    font-size: 1.2rem;
-    color: #FFFFFF;
-    width: 277px;
-    height: 60px;
-    cursor: pointer;
+nav img:hover {
+    transform: scale(1.1);
 }
 
-#anexo {
-    background-color: #3F5A6E;
-    width: 336px;
-    height: 60px;
-    border-radius: 100px;
-    font-size: 1.2rem;
-    color: #FFFFFF;
-    cursor: pointer;
+/* Área onde aparecem os pedidos */
+#lista-pedidos {
+    margin-left: 90px; /* espaço para o menu lateral */
+    padding: 20px;
+}
+
+/* Exemplo de bloco de pedido */
+.pedido {
+    background: #ffffff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 600px) {
+    nav {
+        width: 55px;
+    }
+
+    nav img {
+        width: 26px;
+        height: 26px;
+    }
+
+    #lista-pedidos {
+        margin-left: 70px;
+    }
 }
