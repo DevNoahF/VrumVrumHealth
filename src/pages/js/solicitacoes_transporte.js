@@ -1,4 +1,6 @@
-import {authToken} from '../../../server.js'
+
+
+authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM0ODk0MjgsImV4cCI6MTc2MzU3NTgyOH0.uwVI3j_yp-VX8OQU71eeCAMc4fzvcDxNhUvH9zBfMtDgeQ8zY1Z10GgGFhgVFoVRfrJTe2WjZNHjYN0A9O3xNQ"
 async function getAgendamentosPendentes() {
   const response = await fetch("http://localhost:8080/agendamento", {
     method: "GET",
@@ -76,7 +78,7 @@ async function carregarLista() {
     const div = document.createElement("div");
     div.classList.add("pedido-transporte");
     div.innerHTML = `
-      <div class="info">
+      <div class="pedido">
         <p>id: ${ag.id}</p>
         <p>Nome: ${pac.nome}</p>
         <p>Data Marcada: ${ag.dataConsulta} - ${ag.horaConsulta}</p>
@@ -91,16 +93,16 @@ async function carregarLista() {
         <p class="dir">Precisa de transporte na volta?: ${changeValue(ag.retornoCasa)}</p>
       </div>
       <div class="botoes">
-        <button class="aprovar">Aprovar</button>
-        <button class="recusar">Recusar</button>
-        <button class="anexo">Visualizar Anexo</button>
+        <button id="aprovar">Aprovar</button>
+        <button id="recusar">Recusar</button>
+        <button id="anexo">Visualizar Anexo</button>
       </div>
     `;
 
     // Adiciona os event listeners
-    div.querySelector(".aprovar").addEventListener("click", () => atualizarStatus(ag.id, "APROVADO"));
-    div.querySelector(".recusar").addEventListener("click", () => atualizarStatus(ag.id, "NEGADO"));
-    div.querySelector(".anexo").addEventListener("click", () => {
+    div.querySelector("#aprovar").addEventListener("click", () => atualizarStatus(ag.id, "APROVADO"));
+    div.querySelector("#recusar").addEventListener("click", () => atualizarStatus(ag.id, "NEGADO"));
+    div.querySelector("#anexo").addEventListener("click", () => {
       if (ag.comprovante) {
         window.open(ag.comprovante, "_blank");
       } else {
