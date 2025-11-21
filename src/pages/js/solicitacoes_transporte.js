@@ -1,6 +1,8 @@
+import {getToken} from "./submit.js"
+const authToken=await getToken()
 
 
-authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM1MDQ4NDAsImV4cCI6MTc2MzU5MTI0MH0.FLKTQCA_z7S3YfpytFNWymEb8-hnMVQkfQrxyAqef1-_zZOxJaDIdMMJ6M6ebJlTT203tHoq2pTKHjjKka0SIA"
+
 async function getAgendamentosPendentes() {
   const response = await fetch("http://localhost:8080/agendamento", {
     method: "GET",

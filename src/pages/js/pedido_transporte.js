@@ -1,4 +1,5 @@
-authToken=getToken()
+import {getToken, sendFile} from "./submit.js"
+const authToken=await getToken()
 
 //Inicialização de atributos e variáveis
 const unidadeValue=document.getElementById("unidade-value")
@@ -126,7 +127,7 @@ document.getElementById("pedido-transporte").addEventListener("submit", async (e
       "tratamentoContinuo":setTratamento(),
       "frequencia":frequencia_value.value,
       "acompanhante":changeRadioValue(getRadioValue("acompanhante?")),
-      "pacienteId": 1
+      "pacienteId": sessionStorage.getItem("pacienteId")
     };
 
     console.log(JSON.stringify(data))//Stringfy deixa trata a variável data e deixa no jeito para enviar um JSON

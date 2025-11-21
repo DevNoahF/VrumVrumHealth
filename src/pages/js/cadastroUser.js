@@ -1,7 +1,5 @@
-
-authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM1MDUzNTEsImV4cCI6MTc2MzU5MTc1MX0.RbZV5OcsF9b3bls1qA46Bu5NXYV4svkc-5z12EFXNlgGSMKxixeaQvQyGvNvw_fHAx_nRfKdbC_bY-gfole4gw"
-// Espera o carregamento completo do DOM
-document.addEventListener("DOMContentLoaded", () => {
+import {getToken} from "./submit.js"
+const authToken=await getToken()
 
   // Botões de necessidade especial
   const btnSim = document.getElementById("btn-sim");
@@ -79,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body:JSON.stringify(cadastro)
       });
       console.log(JSON.stringify(cadastro))
+      
       if (response.status==200)
         alert(`Cadastro realizado com sucesso, ${firstname}!`);
         form.reset();
@@ -86,4 +85,5 @@ document.addEventListener("DOMContentLoaded", () => {
         btnSim.classList.remove("ativo");
         btnNao.classList.remove("ativo");
     })
-  });
+
+  

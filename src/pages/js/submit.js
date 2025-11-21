@@ -9,13 +9,13 @@ function uuidv4() {
 }
 
 //Função principal criptografa a imagem e envia para o google cloud
-function sendFile(){
+export function sendFile(){
   let postid = uuidv4();
   let inputElem = document.getElementById("enviar-anexo");
   let file = inputElem.files[0];
 
   let blob = file.slice(0, file.size, "image/*");
-  newFile = new File([blob], `${postid}_post.jpeg`, { type: "image/*" });
+  const newFile = new File([blob], `${postid}_post.jpeg`, { type: "image/*" });
 
   let formData = new FormData();
   formData.append("enviar-anexo", newFile);
@@ -47,7 +47,7 @@ function loadPosts() {
     });
 }
 
-async function getToken() {
+export async function getToken() {
   const response = await fetch("http://localhost:8080/auth/login",{
     method: "POST",
     mode: "cors",
@@ -63,6 +63,5 @@ async function getToken() {
   return dados.token
   
 }
-
 
 

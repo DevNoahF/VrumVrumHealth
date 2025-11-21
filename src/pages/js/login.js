@@ -1,14 +1,14 @@
+import { getToken } from "./submit.js";
+
 document.addEventListener("DOMContentLoaded", () => {
-  authToken=getToken()
   const form = document.querySelector("form");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const email = document.getElementById("email").value
-    const password = document.getElementById("password").value
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    // Validação simples
     if (!email || !password) {
       alert("Por favor, preencha todos os campos obrigatórios.");
       return;
@@ -20,84 +20,92 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Cria o objeto que será enviado
-    var bodyData = {
-      email: email,
-      senha: password
-  };
+    try {
+      const authToken = await getToken();
 
-const response = await fetch("http://localhost:8080/auth/login", {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${authToken}`
-    },
-    body: JSON.stringify(bodyData)
-  });
-  const responseJson = await response.json();
-  console.log(responseJson.roles[0].authority)
+      const loginBody = { email: email, senha: password };
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${authToken}`
+        },
+        body: JSON.stringify(loginBody)
+      });
 
-if (response.status === 200) {
-  if (responseJson.roles[0].authority === "ROLE_PACIENTE") {
-    let id = await getId("http://localhost:8080/paciente");
-    if (id != null) {
-        console.log(id)
-        window.location.href="../user/homePage.html"
+      const responseJson = await response.json();
+
+      if (response.status !== 200) {
+        // tratar erro de login
+        alert("Erro ao fazer login.");
+        return;
       }
-  }
 
-if (responseJson.roles[0].authority === "ROLE_ADMIN") {
-  let id = await getId("http://localhost:8080/adm");
-  console.log(await id)
-  if(id!=null){
-    console.log(id)
-    window.location.href = "../adm/homePageADM.html";
-  }
-    }
-    }
-  
-}
-)})
+      const role = responseJson.roles?.[0]?.authority;
+      if (role === "ROLE_PACIENTE") {
+        const id = await getId("http://localhost:8080/paciente", email, authToken);
 
-async function getId(url) {
-  let found = false;
+        if (id != null) {
+          console.log("Paciente id:", id)
+
+          sessionStorage.setItem("pacienteId", id);
+          window.location.href = "../user/homePage.html";
+        } else {
+          alert("Não foi possível localizar o paciente.");
+        }
+      } else if (role === "ROLE_ADMIN") {
+
+        const adminId = await getId("http://localhost:8080/adm", email, authToken);
+
+        if (adminId != null) {
+
+          console.log("Admin id:", adminId);
+          sessionStorage.setItem("adminId", adminId);
+          window.location.href = "../adm/homePageADM.html";
+        } else {
+          alert("Não foi possível localizar o administrador.");
+        }
+      } else {
+        alert("Função não reconhecida.");
+      }
+    } catch (err) {
+      console.error("Erro no processo de login:", err);
+      alert("Ocorreu um erro. Tente novamente.");
+    }
+  });
+});
+
+async function getId(url, email, token) {
   let i = 1;
-  const email = document.getElementById("email").value;
-  authToken=await getToken()
+  const maxAttempts = 1000;
 
-  while (!found) {
+  while (i <= maxAttempts) {
     const response = await fetch(`${url}/${i}`, {
       method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authToken}`
+        "Authorization": `Bearer ${token}`
       }
     });
 
     if (!response.ok) {
-      console.log("Erro ou sem mais pacientes para ID:", i);
+      console.log("Erro ou sem mais dados para ID:", i);
       break;
     }
 
     const dados = await response.json();
 
     if (dados.email === email) {
-      const paciente = { id: dados.id, nome: dados.nome };
-      console.log("Paciente encontrado:", paciente);
-      return paciente.id;  // aqui retorna o id encontrado
+      console.log("Encontrado paciente/admin:", dados);
+      return dados.id;
     }
 
     i += 1;
-
-    if (i > 1000) {
-      console.log("Limite de tentativas atingido");
-      break;
-    }
   }
 
-  // Se sair do loop sem encontrar:
-  return null;  // ou `undefined`, dependendo do que você quer indicar
+  return null;
 }
+
 

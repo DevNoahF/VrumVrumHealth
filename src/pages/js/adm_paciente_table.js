@@ -1,5 +1,7 @@
-var exportar = document.getElementById("exportar")
+import { getToken } from "./submit.js";
 
+var exportar = document.getElementById("exportar")
+const authToken=await getToken()
 
 //Função que permite exportar tabela para pdf
 exportar.addEventListener("click",function(){
@@ -26,7 +28,7 @@ exportar.addEventListener("click",function(){
     doc.save('Solicitações Aprovadas.pdf')
 })
 
-const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM1MDQ4NDAsImV4cCI6MTc2MzU5MTI0MH0.FLKTQCA_z7S3YfpytFNWymEb8-hnMVQkfQrxyAqef1-_zZOxJaDIdMMJ6M6ebJlTT203tHoq2pTKHjjKka0SIA";
+
 
 async function fetchAgendamentosAprovados() {
   const response = await fetch("http://localhost:8080/agendamento", {
@@ -94,7 +96,7 @@ async function preencherTabela() {
     tbody.appendChild(tr);
   }
 
-  /*    const tr = document.createElement("tr");
+    const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${ag.id}</td>
       <td>${pac.nome}</td>
@@ -110,9 +112,11 @@ async function preencherTabela() {
     `;
     tbody.appendChild(tr);
   }
-    */
-}
+    
+
 
 document.addEventListener("DOMContentLoaded", () => {
   preencherTabela();
+  fetchAgendamentosAprovados()
+
 });
