@@ -1,4 +1,4 @@
-authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM1MDQ4NDAsImV4cCI6MTc2MzU5MTI0MH0.FLKTQCA_z7S3YfpytFNWymEb8-hnMVQkfQrxyAqef1-_zZOxJaDIdMMJ6M6ebJlTT203tHoq2pTKHjjKka0SIA"
+authToken=getToken()
 
 //Inicialização de atributos e variáveis
 const unidadeValue=document.getElementById("unidade-value")

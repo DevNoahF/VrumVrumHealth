@@ -1,7 +1,5 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
-  authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM3MzI0NzQsImV4cCI6MTc2MzgxODg3NH0.p-xSfYioKRtdOpVStrMrFqDBwMQMCAzxtxrms2QyNRwhiJF_nJAEGhkvRVZULBucaZraj1qnUh0gcl3EjZR1eA"
+  authToken=getToken()
   const form = document.querySelector("form");
 
   form.addEventListener("submit", async (event) => {
@@ -50,10 +48,10 @@ if (response.status === 200) {
   }
 
 if (responseJson.roles[0].authority === "ROLE_ADMIN") {
-  let idAdmin = await getId("http://localhost:8080/adm");
-  console.log(await idAdmin)
-  if(idAdmin!=null){
-    console.log(idAdmin)
+  let id = await getId("http://localhost:8080/adm");
+  console.log(await id)
+  if(id!=null){
+    console.log(id)
     window.location.href = "../adm/homePageADM.html";
   }
     }
@@ -66,6 +64,7 @@ async function getId(url) {
   let found = false;
   let i = 1;
   const email = document.getElementById("email").value;
+  authToken=await getToken()
 
   while (!found) {
     const response = await fetch(`${url}/${i}`, {

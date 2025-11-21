@@ -28,12 +28,6 @@ function sendFile(){
     return "https://storage.cloud.google.com/anexo-project/"+postid+"_post.jpeg";
 }
 
-
-
-
-
-
-
 // Carrega os posts
 function loadPosts() {
   fetch("/upload")
@@ -52,4 +46,23 @@ function loadPosts() {
       }
     });
 }
+
+async function getToken() {
+  const response = await fetch("http://localhost:8080/auth/login",{
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body:JSON.stringify({
+      "email": "novo.admin@vrum.com",
+      "senha": "Senha123"
+    })
+  })
+  const dados = await response.json()
+  return dados.token
+  
+}
+
+
 

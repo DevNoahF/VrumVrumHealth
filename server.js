@@ -1,5 +1,4 @@
 //adicionando dependencias necessarias
-module.exports = { authToken}
 const express = require("express")
 const app = express()
 const path = require("path")
@@ -67,53 +66,23 @@ app.listen(port,()=>{//Só uma mensagem quando for abrir o site localmente
     console.log('Servidor aberto em '+port)
 });
 
-async function obterToken() {
-  try {
-    let response = await fetch('http://localhost:8080/auth/register/adm-inicial', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        nome: "string",
-        matricula: "string",
-        email: "user@example.com",
-        senha: "string"
-      })
-    });
-
-    if (response.status === 400) {
-      console.warn("POST deu 400, tentando GET");
-      response = await fetch('http://localhost:8080/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome: "string",
-          matricula: "string",
-          email: "user@example.com",
-          senha: "string"
-      })
-      });
-    }
-
-    if (!response.ok) {
-      const erroTexto = await response.text();
-      throw new Error(`Erro ao obter token: ${response.status} — ${erroTexto}`);
-    }
-
-    const dados = await response.json();
-    return dados;
-
-  } catch (error) {
-    console.error("Erro ao obter token:", error);
-    throw error;
-  }
+async function createToken() {
+  const response = await fetch("http://localhost:8080/auth/register/adm-inicial",{
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body:JSON.stringify({
+      "nome": "AdminInicial",
+      "matricula": "0001",
+      "email": "novo.admin@vrum.com",
+      "senha": "Senha123"
+    })
+  })
+  
 }
 
+createToken()
 
-var authToken=obterToken()
-  .then(dadosToken => {
-    console.log("Token recebido:", dadosToken);
-    // Aqui você pode salvar em localStorage, usar em outras requisições, etc.
-  })
-  .catch(err => {
-    console.error("Erro ao chamar obterToken:", err);
-  });
+
