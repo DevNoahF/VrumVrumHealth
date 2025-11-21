@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM0ODg1MTIsImV4cCI6MTc2MzU3NDkxMn0.ixB68veSSorf3jADds0L7DtAVbEvi0NPdkl0VojgkZDcrYGaE-YS-CR69z__E20qFFZkTTC7PJ-D0ZXi4O_xmQ"
+  authToken="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvLmFkbWluQHZydW0uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjM3MzI0NzQsImV4cCI6MTc2MzgxODg3NH0.p-xSfYioKRtdOpVStrMrFqDBwMQMCAzxtxrms2QyNRwhiJF_nJAEGhkvRVZULBucaZraj1qnUh0gcl3EjZR1eA"
   const form = document.querySelector("form");
 
   form.addEventListener("submit", async (event) => {
@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Cria o objeto que será enviado
-    const bodyData = {
+    var bodyData = {
       email: email,
       senha: password
-    };
+  };
 
 const response = await fetch("http://localhost:8080/auth/login", {
     method: "POST",
@@ -40,13 +40,55 @@ const response = await fetch("http://localhost:8080/auth/login", {
   const responseJson = await response.json();
   console.log(responseJson.roles[0].authority)
 
-  if (response.status === 200) {//Depois trocar para 200, matem no 400 pq senão não funciona
-      if(responseJson.roles[0].authority==="ROLE_PACIENTE"){
-          window.location.href = "../user/HomePage.html"; 
-      }
-      if(responseJson.roles[0].authority==="ROLE_ADMIN"){
-        window.location.href="../adm/homePageADM.html"
-      }
-  }});
+if (response.status === 200) {
+  if (responseJson.roles[0].authority === "ROLE_PACIENTE") {
+      console.log(await getId("http://localhost:8080/paciente"))
 
-});
+  if (responseJson.roles[0].authority === "ROLE_ADMIN") {
+    window.location.href = "../adm/homePageADM.html";
+      }
+    }
+  }
+}
+)})
+
+async function getId(url) {
+  let found = false;
+  let i = 1;
+  const email = document.getElementById("email").value;
+
+  while (!found) {
+    const response = await fetch(`${url}/${i}`, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
+      }
+    });
+
+    if (!response.ok) {
+      console.log("Erro ou sem mais pacientes para ID:", i);
+      break;
+    }
+
+    const dados = await response.json();
+
+    if (dados.email === email) {
+      const paciente = { id: dados.id, nome: dados.nome };
+      console.log("Paciente encontrado:", paciente);
+      return paciente.id;  // aqui retorna o id encontrado
+    }
+
+    i += 1;
+
+    if (i > 1000) {
+      console.log("Limite de tentativas atingido");
+      break;
+    }
+  }
+
+  // Se sair do loop sem encontrar:
+  return null;  // ou `undefined`, dependendo do que você quer indicar
+}
+
