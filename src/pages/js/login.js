@@ -42,17 +42,23 @@ const response = await fetch("http://localhost:8080/auth/login", {
 
 if (response.status === 200) {
   if (responseJson.roles[0].authority === "ROLE_PACIENTE") {
-    const id = await getId("http://localhost:8080/paciente");
+    let id = await getId("http://localhost:8080/paciente");
     if (id != null) {
         console.log(id)
         window.location.href="../user/homePage.html"
       }
-
-  if (responseJson.roles[0].authority === "ROLE_ADMIN") {
-    window.location.href = "../adm/homePageADM.html";
-      }
-    }
   }
+
+if (responseJson.roles[0].authority === "ROLE_ADMIN") {
+  let idAdmin = await getId("http://localhost:8080/adm");
+  console.log(await idAdmin)
+  if(idAdmin!=null){
+    console.log(idAdmin)
+    window.location.href = "../adm/homePageADM.html";
+  }
+    }
+    }
+  
 }
 )})
 
