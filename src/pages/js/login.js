@@ -42,7 +42,11 @@ const response = await fetch("http://localhost:8080/auth/login", {
 
 if (response.status === 200) {
   if (responseJson.roles[0].authority === "ROLE_PACIENTE") {
-      console.log(await getId("http://localhost:8080/paciente"))
+    const id = await getId("http://localhost:8080/paciente");
+    if (id != null) {
+        console.log(id)
+        window.location.href="../user/homePage.html"
+      }
 
   if (responseJson.roles[0].authority === "ROLE_ADMIN") {
     window.location.href = "../adm/homePageADM.html";
