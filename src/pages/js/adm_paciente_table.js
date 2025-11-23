@@ -41,7 +41,7 @@ async function fetchAgendamentosAprovados() {
   });
   const dados = await response.json();
   // Filtrar apenas aprovados
-  return dados//.filter(a => a.statusEnum === "APROVADO");
+  return dados.filter(a => a.statusComprovanteEnum === "APROVADO");
 }
 
 async function fetchPaciente(id) {
@@ -76,14 +76,15 @@ async function preencherTabela() {
     console.error("Elemento #tbodySolicitacoes não encontrado!");
     return;
   }
-  tbody.innerHTML = ""; // limpa conteúdo antigo
+  tbody.innerHTML = "";
 
   const agendamentos = await fetchAgendamentosAprovados();
 
   for (const ag of agendamentos) {
     const pac = await fetchPaciente(ag.pacienteId);
 
-    const tr = document.createElement("tr");
+    // tr principal
+    let tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${pac.nome}</td>
       <td>${pac.rua}</td>
@@ -94,9 +95,9 @@ async function preencherTabela() {
       <td>${changeValue(ag.retornoCasa)}</td>
     `;
     tbody.appendChild(tr);
-  }
 
-    const tr = document.createElement("tr");
+    // tr extra que você tinha (com ag.id, cidade, complemento, etc)
+    tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${ag.id}</td>
       <td>${pac.nome}</td>
@@ -112,11 +113,12 @@ async function preencherTabela() {
     `;
     tbody.appendChild(tr);
   }
+}
+
     
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  preencherTabela();
-  fetchAgendamentosAprovados()
 
-});
+preencherTabela();
+
+
