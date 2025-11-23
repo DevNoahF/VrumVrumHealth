@@ -19,7 +19,6 @@ target/
 *.iml
 *.ipr
 
-
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -33,9 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-
-###API KEY###
-cred.json
-
-###Node.js###
-node_modules
+.env

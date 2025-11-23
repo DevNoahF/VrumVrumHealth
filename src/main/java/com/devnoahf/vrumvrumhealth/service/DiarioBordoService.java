@@ -34,14 +34,20 @@ public class DiarioBordoService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Diário de bordo com ID " + id + " não encontrado."
                 ));
+        // ADMIN can view any; MOTORISTA can view only their own
+        boolean isMotorista = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_MOTORISTA"));
+
+        if (isMotorista && !diario.getMotorista().getEmail().equals(auth.getName())) {
+            throw new BadRequestException("Você não tem permissão para ver este diário.");
+        }
+
         return diarioBordoMapper.toDTO(diario);
     }
 
     //🔹  salvar
     @Transactional
     public DiarioBordoDTO salvar(DiarioBordoDTO dto, Authentication auth) {
-        validarDados(dto);
-
         // Apenas ADMIN ou MOTORISTA podem criar
         boolean isAdmin = auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
@@ -57,9 +63,45 @@ public class DiarioBordoService {
             throw new BadRequestException("O motorista deve estar vinculado ao diário de bordo.");
         }
 
-        DiarioBordo entity = diarioBordoMapper.toEntity(dto);
+        // Para criação inicial, apenas salvar motorista e transporte (não exigir quilometragens)
+        DiarioBordo entity = new DiarioBordo();
+        entity.setMotorista(dto.getMotorista());
+        entity.setTransporte(dto.getTransporte());
+        // veículo e observações são opcionais neste momento
+        if (dto.getVeiculo() != null) {
+            entity.setVeiculo(dto.getVeiculo());
+        }
+        entity.setObservacoes(dto.getObservacoes());
+
         DiarioBordo salvo = diarioBordoRepository.save(entity);
         return diarioBordoMapper.toDTO(salvo);
+    }
+
+    // 🔹 Adicionar/atualizarAgendamentoPaciente apenas a quilometragem final (PUT específico)
+    @Transactional
+    public DiarioBordoDTO adicionarQuilometragemFinal(Long id, DiarioBordoDTO dto, Authentication auth) {
+        DiarioBordo existente = diarioBordoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Diário de bordo com ID " + id + " não encontrado."));
+
+        boolean isMotorista = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_MOTORISTA"));
+
+        if (isMotorista && !existente.getMotorista().getEmail().equals(auth.getName())) {
+            throw new BadRequestException("Você só pode atualizarAgendamentoPaciente seus próprios diários.");
+        }
+
+        if (dto.getQuilometragemFinal() == null) {
+            throw new BadRequestException("A quilometragem final é obrigatória.");
+        }
+
+        if (existente.getQuilometragemInicial() != null && dto.getQuilometragemFinal().compareTo(existente.getQuilometragemInicial()) < 0) {
+            throw new BadRequestException("A quilometragem final não pode ser menor que a inicial.");
+        }
+
+        existente.setQuilometragemFinal(dto.getQuilometragemFinal());
+
+        DiarioBordo atualizado = diarioBordoRepository.save(existente);
+        return diarioBordoMapper.toDTO(atualizado);
     }
 
 
@@ -69,14 +111,12 @@ public class DiarioBordoService {
         DiarioBordo existente = diarioBordoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Diário de bordo com ID " + id + " não encontrado."));
 
-        boolean isAdmin = auth.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
         boolean isMotorista = auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_MOTORISTA"));
 
         // Se for motorista, garantir que ele só atualize o próprio diário
         if (isMotorista && !existente.getMotorista().getEmail().equals(auth.getName())) {
-            throw new BadRequestException("Você só pode atualizar seus próprios diários.");
+            throw new BadRequestException("Você só pode atualizarAgendamentoPaciente seus próprios diários.");
         }
 
         validarDados(dto);
@@ -140,4 +180,3 @@ public class DiarioBordoService {
 
 
 }
-

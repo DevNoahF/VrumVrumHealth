@@ -51,6 +51,7 @@ public class PacienteMapper {
         // Map only public fields from entity to DTO.
         dto.setId(paciente.getId());
         dto.setNome(paciente.getNome());
+        dto.setCpf(paciente.getCpf());
         dto.setDataNascimento(paciente.getDataNascimento());
         dto.setEmail(paciente.getEmail());
         dto.setDdd(paciente.getDdd());

@@ -33,13 +33,17 @@ public class AgendamentoService {
                         "Paciente não encontrado com ID " + dto.getPacienteId()
                 ));
 
-        Agendamento agendamento = agendamentoMapper.toEntity(dto, paciente);
+        Agendamento agendamento = agendamentoMapper.response(dto, paciente);
 
         // Define como PENDENTE
         agendamento.setStatusComprovanteEnum(StatusComprovanteEnum.PENDENTE);
 
+        if (agendamento.getFrequencia() == null) {
+            agendamento.setFrequencia(com.devnoahf.vrumvrumhealth.enums.FrequenciaEnum.NENHUMA);
+        }
+
         Agendamento salvo = agendamentoRepository.save(agendamento);
-        return agendamentoMapper.toDTO(salvo);
+        return agendamentoMapper.request(salvo);
     }
 
 
@@ -50,7 +54,7 @@ public class AgendamentoService {
             throw new ResourceNotFoundException("Nenhum agendamento encontrado.");
         }
         return agendamentos.stream()
-                .map(agendamentoMapper::toDTO)
+                .map(agendamentoMapper::request)
                 .toList();
     }
 
@@ -58,27 +62,46 @@ public class AgendamentoService {
     public AgendamentoDTO buscarPorId(Long id) {
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + id));
-        return agendamentoMapper.toDTO(agendamento);
+        return agendamentoMapper.request(agendamento);
     }
 
-    //  Atualizar agendamento
+    //  Atualizar agendamento (parcial)
     @Transactional
-    public AgendamentoDTO atualizarAgendamento(Long id, AgendamentoDTO dto) {
+    public AgendamentoDTO atualizarAgendamentoPaciente(Long id, AgendamentoDTO dto) {
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + id));
 
-        validarAgendamento(dto);
-
-
-        agendamento.setDataConsulta(dto.getDataConsulta());
-        agendamento.setHoraConsulta(dto.getHoraConsulta());
-        agendamento.setComprovante(dto.getComprovante());
-        agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
-        agendamento.setRetornoCasa(dto.getRetornoCasa());
-        agendamento.setAcompanhante(dto.getAcompanhante());
-        agendamento.setTipoAtendimentoEnum(dto.getTipoAtendimentoEnum());
-        agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
-
+        // Atualização parcial: só altera se campo não for null
+        if (dto.getDataConsulta() != null) {
+            agendamento.setDataConsulta(dto.getDataConsulta());
+        }
+        if (dto.getHoraConsulta() != null) {
+            agendamento.setHoraConsulta(dto.getHoraConsulta());
+        }
+        if (dto.getComprovante() != null) {
+            agendamento.setComprovante(dto.getComprovante());
+        }
+        if (dto.getLocalAtendimentoEnum() != null) {
+            agendamento.setLocalAtendimentoEnum(dto.getLocalAtendimentoEnum());
+        }
+        if (dto.getRetornoCasa() != null) {
+            agendamento.setRetornoCasa(dto.getRetornoCasa());
+        }
+        if (dto.getAcompanhante() != null) {
+            agendamento.setAcompanhante(dto.getAcompanhante());
+        }
+        if (dto.getTipoAtendimentoEnum() != null) {
+            agendamento.setTipoAtendimentoEnum(dto.getTipoAtendimentoEnum());
+        }
+        if (dto.getTratamentoContinuo() != null) {
+            agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
+        }
+        if (dto.getFrequencia() != null) {
+            agendamento.setFrequencia(dto.getFrequencia());
+        }
+        if (dto.getStatusComprovanteEnum() != null) {
+            agendamento.setStatusComprovanteEnum(dto.getStatusComprovanteEnum());
+        }
         if (dto.getPacienteId() != null) {
             Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
                     .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com ID " + dto.getPacienteId()));
@@ -86,8 +109,27 @@ public class AgendamentoService {
         }
 
         Agendamento atualizado = agendamentoRepository.save(agendamento);
-        return agendamentoMapper.toDTO(atualizado);
+        return agendamentoMapper.request(atualizado);
     }
+
+    public AgendamentoDTO atualizarStatusComprovante(Long id, StatusComprovanteEnum novoStatus){
+        Agendamento agendamento = agendamentoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + id));
+
+        agendamento.setStatusComprovanteEnum(novoStatus);
+        Agendamento atualizado = agendamentoRepository.save(agendamento);
+        return agendamentoMapper.request(atualizado);
+    }
+
+
+
+
+
+
+
+
+
+
 
     //  Deletar agendamento
     @Transactional
@@ -118,7 +160,7 @@ public class AgendamentoService {
     public List<AgendamentoDTO> listarAgendamentosPorPaciente(String emailPaciente) {
         List<Agendamento> agendamentos = agendamentoRepository.findByPacienteEmail(emailPaciente);
         return agendamentos.stream()
-                .map(agendamentoMapper::toDTO)
+                .map(agendamentoMapper::request)
                 .toList();
     }
 
@@ -130,5 +172,15 @@ public class AgendamentoService {
                 ));
     }
 
+    public String alterarStatusComprovante(Long agendamentoId, StatusComprovanteEnum novoStatus) {
+        Agendamento agendamento = agendamentoRepository.findById(agendamentoId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Agendamento não encontrado com ID " + agendamentoId
+                ));
+        agendamento.setStatusComprovanteEnum(novoStatus);
+        agendamentoRepository.save(agendamento);
+        return "Status do comprovante atualizado para " + novoStatus;
+
+    }
 
 }

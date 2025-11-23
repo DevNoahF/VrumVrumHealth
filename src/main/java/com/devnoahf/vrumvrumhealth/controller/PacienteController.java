@@ -6,6 +6,12 @@ import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.mapper.PacienteMapper;
 import com.devnoahf.vrumvrumhealth.model.Paciente;
 import com.devnoahf.vrumvrumhealth.service.PacienteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/paciente")
 @RequiredArgsConstructor
+@Tag(name = "Pacientes", description = "Gerenciamento de pacientes")
 public class PacienteController {
 
     private final PacienteService pacienteService;
@@ -26,6 +33,11 @@ public class PacienteController {
 
     // 🔹 Cadastro de paciente (liberado publicamente)
     @PostMapping
+    @Operation(summary = "Criar paciente", description = "Cadastra um novo paciente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Paciente criado"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<PacienteDTO> criar(@Valid @RequestBody PacienteDTO pacienteDTO) {
         Paciente paciente = pacienteService.cadastrarPaciente(pacienteDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -35,6 +47,11 @@ public class PacienteController {
     // 🔹 Atualizar paciente (somente o próprio paciente ou admin)
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('PACIENTE','ADMIN')")
+    @Operation(summary = "Atualizar paciente", description = "Atualiza dados do paciente. Apenas o próprio paciente ou admin.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Paciente atualizado"),
+            @ApiResponse(responseCode = "404", description = "Paciente não encontrado", content = @Content(schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<?> atualizar(@Valid @RequestBody PacienteDTO pacienteDTO,
                                        @PathVariable Long id,
                                        Authentication auth) {
@@ -46,7 +63,7 @@ public class PacienteController {
         boolean isAdmin = auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
         if (!isAdmin && !existente.getEmail().equals(auth.getName())) {
-            throw new BadRequestException("Você só pode atualizar seu próprio perfil.");
+            throw new BadRequestException("Você só pode atualizarAgendamentoPaciente seu próprio perfil.");
         }
 
         PacienteDTO atualizado = pacienteService.atualizarPaciente(pacienteDTO, id);
@@ -56,6 +73,7 @@ public class PacienteController {
     // 🔹 Deletar paciente (somente admin)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Deletar paciente", description = "Remove um paciente pelo ID (ADMIN)")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         PacienteDTO pacienteDTO = pacienteService.buscarPorIdPaciente(id);
         if (pacienteDTO == null) {
@@ -69,6 +87,7 @@ public class PacienteController {
     // 🔹 Listar todos (somente admin)
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Listar pacientes", description = "Lista todos os pacientes (ADMIN)")
     public ResponseEntity<List<PacienteDTO>> listar() {
         List<PacienteDTO> pacientes = pacienteService.listarPaciente();
         return ResponseEntity.ok(pacientes);
@@ -77,6 +96,7 @@ public class PacienteController {
     // 🔹 Buscar paciente por ID (somente admin)
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Buscar paciente por ID", description = "Recupera um paciente pelo ID (ADMIN)")
     public ResponseEntity<PacienteDTO> buscarPorId(@PathVariable Long id) {
         PacienteDTO pacienteDTO = pacienteService.buscarPorIdPaciente(id);
         if (pacienteDTO == null) {
@@ -88,6 +108,7 @@ public class PacienteController {
     // 🔹 Retornar perfil do paciente logado
     @GetMapping("/me")
     @PreAuthorize("hasRole('PACIENTE')")
+    @Operation(summary = "Meu perfil (paciente)", description = "Retorna dados do paciente autenticado")
     public ResponseEntity<PacienteDTO> getMyProfile(Authentication authentication) {
         String email = authentication.getName();
         Paciente paciente = pacienteService.findByEmail(email);
@@ -104,6 +125,7 @@ public class PacienteController {
     // 🔹 Mudar senha (somente o próprio paciente)
     @PatchMapping("/mudarsenha")
     @PreAuthorize("hasRole('PACIENTE')")
+    @Operation(summary = "Mudar senha (paciente)", description = "Altera a senha do paciente autenticado")
     public ResponseEntity<?> mudarSenha(@RequestParam String novaSenha,
                                         Authentication authentication) {
         String email = authentication.getName();
