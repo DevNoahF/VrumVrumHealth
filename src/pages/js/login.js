@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           alert("Não foi possível localizar o paciente.");
         }
-      } else if (role === "ROLE_ADMIN") {
+      }if (role === "ROLE_ADMIN") {
 
         const adminId = await getId("http://localhost:8080/adm", email, authToken);
 
@@ -63,12 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("Admin id:", adminId);
           sessionStorage.setItem("adminId", adminId);
           window.location.href = "../adm/homePageADM.html";
-        } else {
-          alert("Não foi possível localizar o administrador.");
         }
-      } else {
-        alert("Função não reconhecida.");
+      
       }
+        if(role==="ROLE_MOTORISTA"){
+        const motoristaId = await getId("http://localhost:8080/motorista", email, authToken);
+
+        if(motoristaId !=null){
+          console.log("Motorista id:", motoristaId);
+          sessionStorage.setItem("motoristaId", motoristaId);
+          window.location.href="../motorista/diarioDeBordo.html";
+        }
+      }
+      
     } catch (err) {
       console.error("Erro no processo de login:", err);
       alert("Ocorreu um erro. Tente novamente.");
