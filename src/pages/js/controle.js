@@ -25,7 +25,6 @@ import { getToken } from "./submit.js";
     const inputKmInicial = form.querySelector("#kmInicial");
     const inputKmFinal = form.querySelector("#kmFinal");
     const selectVeiculo = form.querySelector("#veiculo");
-    const selectMotorista = form.querySelector("#motorista");
     const textareaObs = form.querySelector("#obs");
     const btnIniciar = document.getElementById("btn-iniciar");
     const btnFinalizar = document.getElementById("btn-finalizar");
@@ -53,26 +52,19 @@ import { getToken } from "./submit.js";
     async function carregarMotoristasEVeiculos() {
       try {
         const [respMotoristas, respVeiculos] = await Promise.all([
-          fetch("http://localhost:8080/motorista", { headers: getAuthHeaders() }),
           fetch("http://localhost:8080/veiculo", { headers: getAuthHeaders() })
         ]);
 
-        if (!respMotoristas.ok || !respVeiculos.ok) {
+        if (!respVeiculos.ok) {
           throw new Error("Erro ao buscar motoristas ou veículos");
         }
 
-        const motoristas = await respMotoristas.json();
         const veiculos = await respVeiculos.json();
 
-        selectMotorista.innerHTML = `<option value="">-- selecione motorista --</option>`;
+
         selectVeiculo.innerHTML = `<option value="">-- selecione veículo --</option>`;
 
-        motoristas.forEach(m => {
-          const opt = document.createElement("option");
-          opt.value = m.id;
-          opt.textContent = m.nome;
-          selectMotorista.appendChild(opt);
-        });
+
 
         veiculos.forEach(v => {
           const opt = document.createElement("option");
@@ -154,7 +146,7 @@ import { getToken } from "./submit.js";
         kmInicial: Number(inputKmInicial.value),
         kmFinal: Number(inputKmFinal.value),
         veiculoId: selectVeiculo.value,
-        motoristaId: selectMotorista.value,
+        motoristaId: sessionStorage.getItem("motoristaId"),//Pega o id com base na sessão
         obs: textareaObs.value
       };
 
