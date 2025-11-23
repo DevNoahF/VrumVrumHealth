@@ -77,7 +77,7 @@ public class DiarioBordoService {
         return diarioBordoMapper.toDTO(salvo);
     }
 
-    // 🔹 Adicionar/atualizar apenas a quilometragem final (PUT específico)
+    // 🔹 Adicionar/atualizarAgendamentoPaciente apenas a quilometragem final (PUT específico)
     @Transactional
     public DiarioBordoDTO adicionarQuilometragemFinal(Long id, DiarioBordoDTO dto, Authentication auth) {
         DiarioBordo existente = diarioBordoRepository.findById(id)
@@ -87,7 +87,7 @@ public class DiarioBordoService {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_MOTORISTA"));
 
         if (isMotorista && !existente.getMotorista().getEmail().equals(auth.getName())) {
-            throw new BadRequestException("Você só pode atualizar seus próprios diários.");
+            throw new BadRequestException("Você só pode atualizarAgendamentoPaciente seus próprios diários.");
         }
 
         if (dto.getQuilometragemFinal() == null) {
@@ -116,7 +116,7 @@ public class DiarioBordoService {
 
         // Se for motorista, garantir que ele só atualize o próprio diário
         if (isMotorista && !existente.getMotorista().getEmail().equals(auth.getName())) {
-            throw new BadRequestException("Você só pode atualizar seus próprios diários.");
+            throw new BadRequestException("Você só pode atualizarAgendamentoPaciente seus próprios diários.");
         }
 
         validarDados(dto);

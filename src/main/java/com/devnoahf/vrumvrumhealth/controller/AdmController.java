@@ -5,6 +5,12 @@ import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
 import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.model.Adm;
 import com.devnoahf.vrumvrumhealth.service.AdmService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/adm")
 @RequiredArgsConstructor
+@Tag(name = "Administradores", description = "Gerenciamento de administradores")
 public class AdmController {
 
     private final AdmService admService;
@@ -41,6 +48,11 @@ public class AdmController {
     // 🔹 Atualizar um administrador existente (somente o próprio admin ou outro admin)
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Atualizar administrador", description = "Atualiza dados do administrador")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Administrador atualizado"),
+            @ApiResponse(responseCode = "404", description = "Administrador não encontrado", content = @Content(schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<?> atualizar(@Valid @RequestBody AdmDTO admDTO, @PathVariable Long id, Authentication auth) {
         AdmDTO admExistente = admService.buscarPorId(id);
         if (admExistente == null) {
@@ -48,9 +60,9 @@ public class AdmController {
         }
 
         // Se não for admin global, verifica se está atualizando o próprio perfil
-        if (!auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))
+        if (auth.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))
                 && !admExistente.getEmail().equals(auth.getName())) {
-            throw new BadRequestException("Você só pode atualizar seu próprio perfil.");
+            throw new BadRequestException("Você só pode atualizarAgendamentoPaciente seu próprio perfil.");
         }
 
         AdmDTO admAtualizado = admService.atualizarAdm(admDTO, id);
@@ -60,6 +72,7 @@ public class AdmController {
     // 🔹 Deletar um administrador (somente ADMIN)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Deletar administrador", description = "Remove um administrador pelo ID")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         AdmDTO adm = admService.buscarPorId(id);
         if (adm == null) {
@@ -73,6 +86,7 @@ public class AdmController {
     // 🔹 Listar todos os administradores (somente ADMIN)
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Listar administradores", description = "Lista todos os administradores")
     public ResponseEntity<List<AdmDTO>> listar() {
         List<AdmDTO> admins = admService.listarAdmins();
         return ResponseEntity.ok(admins);
@@ -81,6 +95,7 @@ public class AdmController {
     // 🔹 Buscar um administrador por ID (somente ADMIN)
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Buscar administrador por ID", description = "Recupera um administrador pelo ID")
     public ResponseEntity<AdmDTO> buscarPorId(@PathVariable Long id) {
         AdmDTO adm = admService.buscarPorId(id);
         if (adm == null) {
@@ -92,6 +107,7 @@ public class AdmController {
     // 🔹 Retornar perfil do admin logado
     @GetMapping("/me")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Perfil do admin logado", description = "Retorna dados do admin autenticado")
     public ResponseEntity<Adm> getMyProfile(Authentication authentication) {
         String email = authentication.getName();
         Adm adm = admService.findByEmail(email);
@@ -104,6 +120,7 @@ public class AdmController {
     // 🔹 Alterar senha (somente o próprio admin)
     @PatchMapping("/mudarsenha")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Mudar senha (admin)", description = "Altera a senha do administrador autenticado")
     public ResponseEntity<?> mudarSenha(
             @RequestParam String novaSenha,
             Authentication authentication) {
