@@ -1,18 +1,321 @@
+/* ============================================================
+   ESTILOS GERAIS
+============================================================ */
 :root {
-    --ACTIONS_PADDING: 5em;
+  --primary: #1a73e8;
+  --primary-dark: #0f5ac1;
+  --bg: #f5f7fa;
+  --text: #232323;
+  --text-light: #555;
+  --white: #ffffff;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-#general_actions {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   HEADER (LOGO ESQUERDA / MENU DIREITA)
+============================================================ */
+header.navbar {
+    background: url('/assets/img/header-doctors.jpg') no-repeat center/cover, #0d6efd;
+    color: #fff;
+    padding: 40px 80px;
     display: flex;
-    justify-content: space-evenly;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.user_actions,
-.adm_actions {
-    padding: 5em;
+/* LOGO */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* MENU */
+.menu {
+    display: flex;
+    gap: 40px;
+}
+
+.menu a {
+    color: #fff !important;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 6px 10px;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* ============================================================
+   HERO (SEÇÃO 1)
+============================================================ */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 120px 80px;
+  gap: 50px;
+}
+
+.hero-text {
+  max-width: 550px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.hero-img {
+  position: relative;
+}
+
+.hero-img img {
+  width: 460px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+/* Círculos decorativos */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.23;
+}
+
+.c1 { width: 120px; height: 120px; top: -40px; right: -40px; }
+.c2 { width: 90px; height: 90px; bottom: -30px; left: -30px; }
+
+/* ============================================================
+   SOBRE (SEÇÃO 2)
+============================================================ */
+.sobre {
+  padding: 80px 80px;
+}
+
+.sobre h2 {
+  text-align: center;
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+.sobre-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.sobre-img {
+  position: relative;
+}
+
+.sobre-img img {
+  width: 480px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.c3 {
+  width: 110px;
+  height: 110px;
+  top: -35px;
+  right: -35px;
+}
+
+.sobre-text p {
+  font-size: 18px;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   CONTATO (SEÇÃO 3)
+============================================================ */
+.contato {
+  padding: 80px 80px;
+}
+
+.contato h2 {
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.contato-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.contato-info p {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--text-light);
+}
+
+.contato-logo {
+  position: relative;
+}
+
+.contato-logo img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.c4 {
+  display: none !important;  
+  width: 120px;
+  height: 120px;
+  right: -20px;
+  bottom: -20px;
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.footer {
+  background: var(--primary);
+  color: var(--white);
+  padding: 50px;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.footer p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+
+/* ==================== EFEITOS NOS BOTÕES ==================== */
+
+.menu a {
+    position: relative;
+    padding: 8px 16px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* Hover suave */
+.menu a:hover {
+    transform: scale(1.04);
+    transition: 0.2s ease;
+}
+
+/* Efeito Press */
+.menu a:active {
+    transform: scale(0.92);
+}
+
+/* Ripple (clicado) */
+.menu a .ripple {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: scale(0);
+    background: rgba(255, 255, 255, 0.5);
+    animation: rippleEffect 0.45s linear;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(6);
+        opacity: 0;
+    }
+}
+
+
+
+/* ============================================================
+   RESPONSIVIDADE
+============================================================ */
+@media (max-width: 980px) {
+
+  header.navbar {
+    padding: 25px 30px;
+  }
+
+  .menu {
+    gap: 20px;
+  }
+
+  .hero {
+    flex-direction: column;
     text-align: center;
+  }
+
+  .hero-img img {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .sobre-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sobre-img img {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .contato-content {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
 }
 
-.actions {
-    padding-top: var(--ACTIONS_PADDING);
+@media (max-width: 600px) {
+  .menu {
+    display: none; /* pode trocar por menu hamburguer depois */
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .sobre h2,
+  .contato h2 {
+    font-size: 28px;
+  }
 }
