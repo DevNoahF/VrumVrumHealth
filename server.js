@@ -67,7 +67,7 @@ app.listen(port,()=>{//Só uma mensagem quando for abrir o site localmente
 });
 
 async function createToken() {
-  const response = await fetch("http://localhost:8080/auth/register/adm-inicial",{
+  const response = await fetch("http://localhost:8080/auth/register/adm",{
     method: "POST",
     mode: "cors",
     headers: {

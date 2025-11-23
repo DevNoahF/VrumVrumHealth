@@ -50,66 +50,59 @@ function changeValue(valor) {
   return "Erro, dado não encontrado";
 }
 
+/**
+ * Atualiza apenas o campo de status usando PATCH.
+ * Envia um body mínimo { statusComprovanteEnum: novoStatus }.
+ * Aceita resposta 200/204 com/sem corpo.
+ */
 async function atualizarStatus(id, novoStatus) {
   try {
-    // 1. Buscar o agendamento atual
-    const getResponse = await fetch(`http://localhost:8080/agendamento/${id}`, {
-      method: "GET",
+    if (!id) {
+      throw new Error("ID do agendamento inválido");
+    }
+    if (!authToken) {
+      throw new Error("Token de autenticação ausente");
+    }
+
+    // Body mínimo para PATCH — evita enviar todo o recurso
+
+    const patchResponse = await fetch(`http://localhost:8080/agendamento/status/${id}`, {
+      method: "PATCH",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authToken}`,
       },
+      body: JSON.stringify(novoStatus),
     });
 
-    if (!getResponse.ok) {
-      throw new Error(`Erro ao obter agendamento ${id}: ${getResponse.status}`);
+    if (!patchResponse.ok) {
+      // tenta ler corpo de erro para dar mais contexto
+      let detalhe = "";
+      try {
+        detalhe = await patchResponse.text();
+        if (detalhe) {
+          // limitar tamanho do detalhe no log
+          console.error("Detalhe do erro PATCH:", detalhe.slice(0, 200));
+        }
+      } catch (e) {
+        console.warn("Não foi possível ler corpo de erro do PATCH.");
+      }
+      throw new Error(`Erro ao atualizar agendamento ${id}: ${patchResponse.status}`);
     }
 
-    // 2. Ler o corpo da resposta com segurança
-    const getText = await getResponse.text();
-    let agendamento;
-    if (getText) {
+    // PATCH pode retornar 204 No Content ou 200 com JSON; tentamos ler com segurança
+    let respostaAtualizada = null;
+    const text = await patchResponse.text();
+    if (text) {
       try {
-        agendamento = JSON.parse(getText);
+        respostaAtualizada = JSON.parse(text);
+        console.log("Agendamento atualizado (body):", respostaAtualizada);
       } catch (err) {
-        console.error("Erro ao fazer parse do agendamento:", getText, err);
-        throw new Error("Resposta GET inválida");
+        console.warn("Resposta PATCH não é JSON válido:", text);
       }
     } else {
-      console.warn("Resposta GET veio vazia para o agendamento", id);
-      // Se vier vazia, depende do seu backend: você pode decidir não continuar
-      return;
-    }
-
-    // 3. Alterar o status
-    agendamento.statusComprovanteEnum = novoStatus;
-
-    // 4. Enviar o PUT com o agendamento atualizado
-    const putResponse = await fetch(`http://localhost:8080/agendamento/${id}`, {
-      method: "PUT",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${authToken}`,
-      },
-      body: JSON.stringify(agendamento),
-    });
-
-    if (!putResponse.ok) {
-      throw new Error(`Erro ao atualizar agendamento ${id}: ${putResponse.status}`);
-    }
-
-    // 5. Tentar ler a resposta do PUT (se houver corpo)
-    const putText = await putResponse.text();
-    if (putText) {
-      try {
-        const respostaAtualizada = JSON.parse(putText);
-        console.log("Agendamento atualizado:", respostaAtualizada);
-      } catch (err) {
-        console.warn("Resposta PUT não é JSON válido:", putText);
-        // Se não for JSON, pode ignorar ou tratar de outro jeito
-      }
+      console.log("PATCH retornou sem corpo (204).");
     }
 
     alert(`Agendamento #${id} ${novoStatus.toLowerCase()} com sucesso!`);
@@ -186,5 +179,4 @@ async function carregarLista() {
 }
 
 // Inicializa
-
 carregarLista();

@@ -41,7 +41,7 @@ async function fetchAgendamentosAprovados() {
   });
   const dados = await response.json();
   // Filtrar apenas aprovados
-  return dados//.filter(a => a.statusComprovanteEnum === "APROVADO");
+  return dados.filter(a => a.statusComprovanteEnum === "APROVADO");
 }
 
 async function fetchPaciente(id) {
