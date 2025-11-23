@@ -26,15 +26,6 @@ public class DiarioBordoDTO {
     private Veiculo veiculo;
     private Transporte transporte;
 
-    public DiarioBordoDTO(DiarioBordo diario) {
-        this.id = diario.getId();
-        this.quilometragemInicial = diario.getQuilometragemInicial();
-        this.quilometragemFinal = diario.getQuilometragemFinal();
-        this.observacoes = diario.getObservacoes();
-        this.motorista = diario.getMotorista();
-        this.veiculo = diario.getVeiculo();
-        this.transporte = diario.getTransporte();
-    }
 }
 
 

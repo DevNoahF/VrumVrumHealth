@@ -14,6 +14,12 @@ import com.devnoahf.vrumvrumhealth.repository.AdmRepository;
 import com.devnoahf.vrumvrumhealth.repository.MotoristaRepository;
 import com.devnoahf.vrumvrumhealth.repository.PacienteRepository;
 import com.devnoahf.vrumvrumhealth.security.JwtTokenProvider;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +40,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Autenticação", description = "Endpoints de login e registro que retornam JWT")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -49,6 +56,14 @@ public class AuthController {
 
     // 🔹 LOGIN — funciona para todos os perfis
     @PostMapping("/login")
+    @Operation(
+            summary = "Login",
+            description = "Autentica o usuário e retorna o JWT no corpo (token), no header Authorization (Bearer <token>) e em um cookie chamado Authorization."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Login realizado com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Credenciais inválidas", content = @Content(schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginData) {
         try {
             String email = loginData.getEmail();
@@ -87,8 +102,13 @@ public class AuthController {
     }
 
 
-    // REGISTER - ADM TEMPORARIO:
-    @PostMapping("/register/adm-inicial")
+    // REGISTER - ADM
+    @PostMapping("/register/adm")
+    @Operation(summary = "Registrar administrador inicial", description = "Cria o primeiro administrador e retorna o JWT")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Administrador criado"),
+            @ApiResponse(responseCode = "400", description = "E-mail já utilizado", content = @Content(schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<?> criarAdmInicial(@Valid @RequestBody AdmDTO admDTO) {
         if (admRepository.existsByEmail(admDTO.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -121,41 +141,51 @@ public class AuthController {
     }
 
 
-    // 🔹 REGISTER — ADMIN
-    @PostMapping("/register/adm")
-    public ResponseEntity<?> registerAdm(@Valid @RequestBody AdmDTO admDTO) {
-        if (admRepository.existsByEmail(admDTO.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Já existe um administrador com este e-mail.");
-        }
-
-        Adm adm = admMapper.toEntity(admDTO);
-        admRepository.save(adm);
-
-        // Generate token for new admin
-        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(adm.getEmail(), null, authorities);
-        String token = jwtTokenProvider.generateToken(auth);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Administrador criado com sucesso");
-        response.put("user", admMapper.toDTO(adm));
-        response.put("token", token);
-
-        ResponseCookie cookie = ResponseCookie.from("Authorization", token)
-                .path("/")
-                .httpOnly(false)
-                .sameSite("Lax")
-                .build();
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body(response);
-    }
+//    // 🔹 REGISTER — ADMIN
+//    @PostMapping("/register/adm")
+//    @Operation(summary = "Registrar administrador", description = "Cria um administrador e retorna o JWT")
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "201", description = "Administrador criado"),
+//            @ApiResponse(responseCode = "400", description = "E-mail já utilizado", content = @Content(schema = @Schema(implementation = String.class)))
+//    })
+//    public ResponseEntity<?> registerAdm(@Valid @RequestBody AdmDTO admDTO) {
+//        if (admRepository.existsByEmail(admDTO.getEmail())) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                    .body("Já existe um administrador com este e-mail.");
+//        }
+//
+//        Adm adm = admMapper.toEntity(admDTO);
+//        admRepository.save(adm);
+//
+//        // Generate token for new admin
+//        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(adm.getEmail(), null, authorities);
+//        String token = jwtTokenProvider.generateToken(auth);
+//
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("message", "Administrador criado com sucesso");
+//        response.put("user", admMapper.toDTO(adm));
+//        response.put("token", token);
+//
+//        ResponseCookie cookie = ResponseCookie.from("Authorization", token)
+//                .path("/")
+//                .httpOnly(false)
+//                .sameSite("Lax")
+//                .build();
+//
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+//                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+//                .body(response);
+//    }
 
     // 🔹 REGISTER — MOTORISTA
     @PostMapping("/register/motorista")
+    @Operation(summary = "Registrar motorista", description = "Cria um motorista e retorna o JWT")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Motorista criado"),
+        @ApiResponse(responseCode = "400", description = "E-mail já utilizado", content = @Content(schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<?> registerMotorista(@Valid @RequestBody MotoristaDTO motoristaDTO) {
         if (motoristaRepository.existsByEmail(motoristaDTO.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -189,6 +219,11 @@ public class AuthController {
 
     // 🔹 REGISTER — PACIENTE
     @PostMapping("/register/paciente")
+    @Operation(summary = "Registrar paciente", description = "Cria um paciente e retorna o JWT")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Paciente criado"),
+        @ApiResponse(responseCode = "400", description = "E-mail já utilizado", content = @Content(schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<?> registerPaciente(@Valid @RequestBody PacienteDTO pacienteDTO) {
         if (pacienteRepository.existsByEmail(pacienteDTO.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
