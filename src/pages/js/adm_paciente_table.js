@@ -41,7 +41,7 @@ async function fetchAgendamentosAprovados() {
   });
   const dados = await response.json();
   // Filtrar apenas aprovados
-  return dados.filter(a => a.statusComprovanteEnum === "APROVADO");
+  return dados//.filter(a => a.statusComprovanteEnum === "APROVADO");
 }
 
 async function fetchPaciente(id) {
@@ -85,16 +85,6 @@ async function preencherTabela() {
 
     // tr principal
     let tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${pac.nome}</td>
-      <td>${pac.rua}</td>
-      <td>${pac.bairro}</td>
-      <td>${ag.localAtendimentoEnum}</td>
-      <td>${ag.dataConsulta} ${ag.horaConsulta}</td>
-      <td>${changeValue(ag.acompanhante)}</td>
-      <td>${changeValue(ag.retornoCasa)}</td>
-    `;
-    tbody.appendChild(tr);
 
     // tr extra que você tinha (com ag.id, cidade, complemento, etc)
     tr = document.createElement("tr");
@@ -103,13 +93,11 @@ async function preencherTabela() {
       <td>${pac.nome}</td>
       <td>${pac.rua}</td>
       <td>${pac.bairro}</td>
-      <td>${pac.cidade}</td>
-      <td>${pac.complemento}</td>
       <td>${ag.localAtendimentoEnum}</td>
       <td>${ag.dataConsulta} ${ag.horaConsulta}</td>
       <td>${changeValue(ag.acompanhante)}</td>
       <td>${changeValue(ag.retornoCasa)}</td>
-      <td>${changeValue(ag.necessidadeEspecial)}</td>
+      <td>${ag.comprovante}</td>
     `;
     tbody.appendChild(tr);
   }

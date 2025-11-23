@@ -189,6 +189,13 @@ body {
   background-color: #0055aa;
 }
 
+.solicitacoes-table td, 
+.solicitacoes-table th {
+  text-align: center;        /* horizontal */
+  vertical-align: middle;    /* vertical */
+  padding: 8px;              /* só para dar “respiro” no conteúdo */
+}
+
 
 
 
