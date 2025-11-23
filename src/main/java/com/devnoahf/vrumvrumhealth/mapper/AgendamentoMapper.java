@@ -1,6 +1,7 @@
 package com.devnoahf.vrumvrumhealth.mapper;
 
 import com.devnoahf.vrumvrumhealth.dto.AgendamentoDTO;
+import com.devnoahf.vrumvrumhealth.enums.FrequenciaEnum;
 import com.devnoahf.vrumvrumhealth.model.Agendamento;
 import com.devnoahf.vrumvrumhealth.model.Paciente;
 import org.springframework.stereotype.Component;
@@ -9,20 +10,22 @@ import org.springframework.stereotype.Component;
 public class AgendamentoMapper {
 
     // Request
-    public AgendamentoDTO toDTO(Agendamento agendamento) {
+    public AgendamentoDTO request(Agendamento agendamento) {
         if (agendamento == null) return null;
+        agendamento.setFrequencia(agendamento.getFrequencia() == null ? FrequenciaEnum.NENHUMA : agendamento.getFrequencia());
 
         AgendamentoDTO dto = new AgendamentoDTO();
+        dto.setId(agendamento.getId());
         dto.setDataConsulta(agendamento.getDataConsulta());
         dto.setHoraConsulta(agendamento.getHoraConsulta());
         dto.setComprovante(agendamento.getComprovante());
         dto.setLocalAtendimentoEnum(agendamento.getLocalAtendimentoEnum());
+        dto.setStatusComprovanteEnum(agendamento.getStatusComprovanteEnum());
         dto.setRetornoCasa(agendamento.getRetornoCasa());
         dto.setTratamentoContinuo(agendamento.getTratamentoContinuo());
         dto.setFrequencia(agendamento.getFrequencia());
         dto.setAcompanhante(agendamento.getAcompanhante());
         dto.setTipoAtendimentoEnum(agendamento.getTipoAtendimentoEnum());
-        dto.setTratamentoContinuo(agendamento.getTratamentoContinuo());
 
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
@@ -33,8 +36,9 @@ public class AgendamentoMapper {
 
 
     // Response
-    public Agendamento toEntity(AgendamentoDTO dto, Paciente paciente) {
+    public Agendamento response(AgendamentoDTO dto, Paciente paciente) {
         if (dto == null) return null;
+
 
         Agendamento agendamento = new Agendamento();
         agendamento.setId(dto.getId());
@@ -47,6 +51,7 @@ public class AgendamentoMapper {
         agendamento.setTratamentoContinuo(dto.getTratamentoContinuo());
         agendamento.setFrequencia(dto.getFrequencia());
         agendamento.setAcompanhante(dto.getAcompanhante());
+        agendamento.setTipoAtendimentoEnum(dto.getTipoAtendimentoEnum());
 
         // Associa paciente se passado
         agendamento.setPaciente(paciente);

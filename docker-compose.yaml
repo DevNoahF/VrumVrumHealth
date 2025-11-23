@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:latest
+    container_name: vrumvrumhealth_database
+    environment:
+      MYSQL_ROOT_PASSWORD: sim
+      MYSQL_DATABASE: vrumvrumhealth
+      MYSQL_USER: sim
+      MYSQL_PASSWORD: sim
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  db_data: {}

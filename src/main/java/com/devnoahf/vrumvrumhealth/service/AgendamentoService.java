@@ -33,13 +33,17 @@ public class AgendamentoService {
                         "Paciente não encontrado com ID " + dto.getPacienteId()
                 ));
 
-        Agendamento agendamento = agendamentoMapper.toEntity(dto, paciente);
+        Agendamento agendamento = agendamentoMapper.response(dto, paciente);
 
         // Define como PENDENTE
         agendamento.setStatusComprovanteEnum(StatusComprovanteEnum.PENDENTE);
 
+        if (agendamento.getFrequencia() == null) {
+            agendamento.setFrequencia(com.devnoahf.vrumvrumhealth.enums.FrequenciaEnum.NENHUMA);
+        }
+
         Agendamento salvo = agendamentoRepository.save(agendamento);
-        return agendamentoMapper.toDTO(salvo);
+        return agendamentoMapper.request(salvo);
     }
 
 
@@ -50,7 +54,7 @@ public class AgendamentoService {
             throw new ResourceNotFoundException("Nenhum agendamento encontrado.");
         }
         return agendamentos.stream()
-                .map(agendamentoMapper::toDTO)
+                .map(agendamentoMapper::request)
                 .toList();
     }
 
@@ -58,7 +62,7 @@ public class AgendamentoService {
     public AgendamentoDTO buscarPorId(Long id) {
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + id));
-        return agendamentoMapper.toDTO(agendamento);
+        return agendamentoMapper.request(agendamento);
     }
 
     //  Atualizar agendamento
@@ -86,7 +90,7 @@ public class AgendamentoService {
         }
 
         Agendamento atualizado = agendamentoRepository.save(agendamento);
-        return agendamentoMapper.toDTO(atualizado);
+        return agendamentoMapper.request(atualizado);
     }
 
     //  Deletar agendamento
@@ -118,7 +122,7 @@ public class AgendamentoService {
     public List<AgendamentoDTO> listarAgendamentosPorPaciente(String emailPaciente) {
         List<Agendamento> agendamentos = agendamentoRepository.findByPacienteEmail(emailPaciente);
         return agendamentos.stream()
-                .map(agendamentoMapper::toDTO)
+                .map(agendamentoMapper::request)
                 .toList();
     }
 

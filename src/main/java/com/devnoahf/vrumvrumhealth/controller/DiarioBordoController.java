@@ -35,6 +35,14 @@ public class DiarioBordoController {
         return ResponseEntity.ok(atualizado);
     }
 
+    // 🔹 Atualizar apenas a quilometragem final — endpoint específico
+    @PutMapping("/{id}/quilometragemFinal")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MOTORISTA')")
+    public ResponseEntity<DiarioBordoDTO> adicionarQuilometragemFinal(@PathVariable Long id, @RequestBody DiarioBordoDTO dto, Authentication auth) {
+        DiarioBordoDTO atualizado = service.adicionarQuilometragemFinal(id, dto, auth);
+        return ResponseEntity.ok(atualizado);
+    }
+
     // 🔹 Deletar diário — apenas ADMIN
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

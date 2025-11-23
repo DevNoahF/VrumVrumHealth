@@ -23,19 +23,19 @@ public class AdmController {
     private final AdmService admService;
 
     // Criar admin normal (somente ADMIN)
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AdmDTO> criar(@Valid @RequestBody AdmDTO admDTO) {
-        AdmDTO novoAdm = admService.cadastrarAdm(admDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoAdm);
-    }
+//    @PostMapping
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<AdmDTO> criar(@Valid @RequestBody AdmDTO admDTO) {
+//        AdmDTO novoAdm = admService.cadastrarAdm(admDTO);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(novoAdm);
+//    }
 
     // Criar admin inicial (qualquer um pode acessar)
-    @PostMapping("/criar-admin-inicial")
-    public ResponseEntity<AdmDTO> criarAdminInicial(@Valid @RequestBody AdmDTO admDTO) {
-        AdmDTO novoAdm = admService.cadastrarAdm(admDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoAdm);
-    }
+//    @PostMapping("/criar-admin-inicial")
+//    public ResponseEntity<AdmDTO> criarAdminInicial(@Valid @RequestBody AdmDTO admDTO) {
+//        AdmDTO novoAdm = admService.cadastrarAdm(admDTO);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(novoAdm);
+//    }
 
 
     // 🔹 Atualizar um administrador existente (somente o próprio admin ou outro admin)

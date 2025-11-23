@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class AgendamentoController {
     // 🔹 Criar agendamento — Paciente e Admin podem
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'PACIENTE')")
-    public ResponseEntity<?> criar(@RequestBody AgendamentoDTO dto) {
+    public ResponseEntity<?> criar(@Valid @RequestBody AgendamentoDTO dto) {
         AgendamentoDTO novoAgendamento = agendamentoService.criarAgendamento(dto);
         if (novoAgendamento != null) {
             return ResponseEntity.ok(novoAgendamento);
@@ -97,7 +98,7 @@ public class AgendamentoController {
     @PreAuthorize("hasAnyRole('ADMIN', 'PACIENTE')")
     public ResponseEntity<?> atualizar(
             @PathVariable Long id,
-            @RequestBody AgendamentoDTO dto,
+            @Valid @RequestBody AgendamentoDTO dto,
             Authentication auth) {
         try {
             AgendamentoDTO atualizado = agendamentoService.atualizarAgendamento(id, dto);
