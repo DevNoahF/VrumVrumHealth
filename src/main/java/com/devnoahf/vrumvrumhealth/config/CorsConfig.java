@@ -20,7 +20,7 @@ public class CorsConfig {
                 "http://localhost:8180"  // frontend local
                 // colocar aqui o dominio tbm quando for fazer deploy
         ));
-        
+
 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
