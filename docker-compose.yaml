@@ -2,14 +2,13 @@ version: '3.8'
 services:
   database:
     image: mysql:latest
-    container_name: vrumvrumhealth_database
+    container_name: ${container_name}
     environment:
-      MYSQL_ROOT_PASSWORD: sim
-      MYSQL_DATABASE: vrumvrumhealth
-      MYSQL_USER: sim
-      MYSQL_PASSWORD: sim
+      MYSQL_DATABASE: ${db_name}
+      MYSQL_USER: ${db_user}
+      MYSQL_PASSWORD: ${db_password}
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:${db_data}
     ports:
       - "3306:3306"
     restart: unless-stopped
