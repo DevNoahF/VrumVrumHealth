@@ -1,38 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/commons.css">
-    <link rel="stylesheet" href="./css/header.css">
+    <title>Vrum Vrum Health - Landing Page</title>
     <link rel="stylesheet" href="./css/index.css">
-    <title>VrumVrum Health</title>
 </head>
+
 <body>
-    <main>
-        <header id="main_header_container">
-            <div id="logo_container">
-                <img src="./assets/logo.jpg" alt="logo do projeto" id="project_logo">
-                <h1>VrumVrum Health</h1>
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="navbar">
+        <div class="logo-wrapper">
+            <img src="./assets/logo.jpg" alt="Logo Vrum Vrum Health" class="logo-img">
+        </div>
+
+        <nav class="menu">
+            <a href="#" data-target="home">Home</a>
+            <a href="#" data-target="servicos">Serviços</a>
+            <a href="#" data-target="contato">Contato</a>
+            <a href="./login.html">Login</a>
+        </nav>
+
+    </header>
+
+
+    <!-- ===================== SEÇÃO 1 - HERO ===================== -->
+    <section id="home" class="hero">
+        <div class="hero-text">
+            <h1>Sobre Nós</h1>
+            <p>
+                Nós somos a Vrum Vrum Health, uma plataforma criada para facilitar o agendamento
+                de transporte hospitalar para usuários que precisam de deslocamento seguro e eficiente.
+                Nosso foco é conectar pacientes com motoristas parceiros de forma rápida, prática e confiável,
+                garantindo conforto e pontualidade no deslocamento até hospitais, clínicas e unidades de saúde.
+            </p>
+        </div>
+
+        <div class="hero-img">
+            <img src="./assets/hospital-medicos-networking.jpg" alt="Imagem de médicos">
+            <!-- Círculos decorativos -->
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+        </div>
+    </section>
+
+
+
+    <!-- ===================== SEÇÃO 2 - O QUE É ===================== -->
+    <section id="servicos" class="sobre">
+        <h2>O que é o Vrum Vrum Health</h2>
+
+        <div class="sobre-content">
+            <div class="sobre-img">
+                <img src="./assets/esposaecarafeliz.jpg" alt="Pessoas felizes">
+                <div class="circle c3"></div>
             </div>
-            <nav id="main_nav">
-                <ul>
-                    <li><a href="./index.html">Início</a></li>
-                    <li><a href="#">Sobre o projeto</a></li>
-                </ul>
-            </nav>
-        </header>
-        <!-- TODO: work on this latter on -->
-        <section id="general_actions">
-            <ol  class="user_actions" id="usr">
-                <li class="actions"><a href="./user/create_user_account.html">Cadastrar usuário</a></li>
-                <li class="actions"><a href="./user/login.html">Logar como usuário</a></li>
-            </ol>
-            <ol class="adm_actions" id="adm">
-                <li class="actions"><a href="./adm/create_adm_account.html">Cadastrar administrador</a></li>
-                <li class="actions"><a href="./adm/login.html">Logar como administrador</a></li>
-            </ol>
-        </section>
-    </main>
+
+            <div class="sobre-text">
+                <p>
+                    A Vrum Vrum Health é uma solução moderna criada para ajudar pessoas que necessitam
+                    de transporte para consultas, exames e atendimentos médicos. Nosso sistema permite
+                    que os usuários agendem viagens de forma simples, recebam confirmações imediatas
+                    e acompanhem o motorista em tempo real. Garantimos praticidade, segurança e acessibilidade
+                    no cuidado com sua saúde. Nosso objetivo é tornar o processo de deslocamento para hospitais
+                    mais confortável, humano e eficiente.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- ===================== SEÇÃO 3 - CONTATO ===================== -->
+    <section id="contato" class="contato">
+        <h2>Contate-nos</h2>
+
+        <div class="contato-content">
+
+            <div class="contato-info">
+                <p>Nome: Noah Franco</p>
+                <p>Nome: Leonardo Perin</p>
+                <p>Nome: Joaquim Augusto</p>
+                <p>Nome: Gustavo Rosa</p>
+                <p>Nome: João Ferrari</p>
+            </div>
+
+            <div class="contato-logo">
+                <img src="./assets/logo.jpg" alt="Logo Vrum Vrum Health">
+                <div class="circle c4"></div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <p>Localização | Sobre nós | Contato | Suporte</p>
+        <p>© 2025 Vrum Vrum Health - Todos os direitos reservados</p>
+        <p>Política de Segurança | Política de Dados | Termos de uso</p>
+    </footer>
+
 </body>
 </html>
+
+<script src="./js/index.js"></script>
