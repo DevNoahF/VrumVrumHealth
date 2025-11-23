@@ -13,6 +13,9 @@ public class AgendamentoMapper {
         if (agendamento == null) return null;
 
         AgendamentoDTO dto = new AgendamentoDTO();
+
+        dto.setId(agendamento.getId());
+        dto.setStatusComprovanteEnum(agendamento.getStatusComprovanteEnum());
         dto.setDataConsulta(agendamento.getDataConsulta());
         dto.setHoraConsulta(agendamento.getHoraConsulta());
         dto.setComprovante(agendamento.getComprovante());
