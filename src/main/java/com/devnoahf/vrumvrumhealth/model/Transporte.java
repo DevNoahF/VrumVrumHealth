@@ -35,8 +35,13 @@ public class Transporte {
 	@JoinColumn(name = "agendamento_id",nullable = false)
 	private Agendamento agendamento;
 
-	@OneToMany(mappedBy = "transporte",cascade = CascadeType.ALL)
-	private List<DiarioBordo> diariosBordo;
+	@ManyToOne
+	@JoinColumn(name = "motorista_id", nullable = false)
+	private Motorista motorista;
+
+	@ManyToOne
+	@JoinColumn(name = "paciente_id", nullable = false)
+	private Paciente paciente;
 	@Column(nullable = false, updatable = false, name = "created_at")
 	@CreationTimestamp
 	private Instant createdAt;

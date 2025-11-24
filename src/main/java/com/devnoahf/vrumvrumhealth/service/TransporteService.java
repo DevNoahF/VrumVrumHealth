@@ -5,9 +5,13 @@ import com.devnoahf.vrumvrumhealth.exception.BadRequestException;
 import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.mapper.TransporteMapper;
 import com.devnoahf.vrumvrumhealth.model.Agendamento;
+import com.devnoahf.vrumvrumhealth.model.Motorista;
+import com.devnoahf.vrumvrumhealth.model.Paciente;
 import com.devnoahf.vrumvrumhealth.model.Transporte;
 import com.devnoahf.vrumvrumhealth.model.Veiculo;
 import com.devnoahf.vrumvrumhealth.repository.AgendamentoRepository;
+import com.devnoahf.vrumvrumhealth.repository.MotoristaRepository;
+import com.devnoahf.vrumvrumhealth.repository.PacienteRepository;
 import com.devnoahf.vrumvrumhealth.repository.TransporteRepository;
 import com.devnoahf.vrumvrumhealth.repository.VeiculoRepository;
 import jakarta.transaction.Transactional;
@@ -15,31 +19,38 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class TransporteService {
 
+    private static final long MINUTOS_ANTECEDENCIA_PADRAO = 30;
+
     private final TransporteRepository transporteRepository;
     private final VeiculoRepository veiculoRepository;
     private final AgendamentoRepository agendamentoRepository;
+    private final MotoristaRepository motoristaRepository;
+    private final PacienteRepository pacienteRepository;
     private final TransporteMapper transporteMapper;
 
     // 🔹 Criar transporte
     @Transactional
     public TransporteDTO criarTransporte(TransporteDTO dto) {
-        validarTransporte(dto);
+        validarTransporte(dto, false, null);
 
-        Veiculo veiculo = veiculoRepository.findById(dto.getVeiculoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Veículo não encontrado com ID " + dto.getVeiculoId()));
+        Veiculo veiculo = obterVeiculo(dto.getVeiculoId());
+        Agendamento agendamento = obterAgendamento(dto.getAgendamentoId());
+        Motorista motorista = obterMotorista(dto.getMotoristaId());
+        Paciente paciente = obterPaciente(dto.getPacienteId(), agendamento);
 
-        Agendamento agendamento = agendamentoRepository.findById(dto.getAgendamentoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + dto.getAgendamentoId()));
+        LocalTime horarioSaida = calcularHorarioSaida(dto.getHorarioSaida(), agendamento, null);
 
-        Transporte transporte = transporteMapper.toEntity(dto, veiculo, agendamento);
+        Transporte transporte = transporteMapper.toEntity(dto, veiculo, agendamento, motorista, paciente);
+        transporte.setHorarioSaida(horarioSaida);
+
         Transporte salvo = transporteRepository.save(transporte);
-
         return transporteMapper.toDTO(salvo);
     }
 
@@ -67,21 +78,22 @@ public class TransporteService {
         Transporte transporte = transporteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transporte não encontrado com ID " + id));
 
-        validarTransporte(dto);
+        validarTransporte(dto, true, id);
 
-        transporte.setHorarioSaida(dto.getHorarioSaida());
+        Veiculo veiculo = dto.getVeiculoId() != null ? obterVeiculo(dto.getVeiculoId()) : transporte.getVeiculo();
+        Agendamento agendamento = dto.getAgendamentoId() != null ?
+                obterAgendamento(dto.getAgendamentoId()) : transporte.getAgendamento();
+        Motorista motorista = dto.getMotoristaId() != null ?
+                obterMotorista(dto.getMotoristaId()) : transporte.getMotorista();
+        Paciente paciente = resolverPacienteParaAtualizacao(dto, agendamento, transporte);
 
-        if (dto.getVeiculoId() != null) {
-            Veiculo veiculo = veiculoRepository.findById(dto.getVeiculoId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Veículo não encontrado com ID " + dto.getVeiculoId()));
-            transporte.setVeiculo(veiculo);
-        }
+        LocalTime horarioSaida = calcularHorarioSaida(dto.getHorarioSaida(), agendamento, transporte.getHorarioSaida());
 
-        if (dto.getAgendamentoId() != null) {
-            Agendamento agendamento = agendamentoRepository.findById(dto.getAgendamentoId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + dto.getAgendamentoId()));
-            transporte.setAgendamento(agendamento);
-        }
+        transporte.setHorarioSaida(horarioSaida);
+        transporte.setVeiculo(veiculo);
+        transporte.setAgendamento(agendamento);
+        transporte.setMotorista(motorista);
+        transporte.setPaciente(paciente);
 
         Transporte atualizado = transporteRepository.save(transporte);
         return transporteMapper.toDTO(atualizado);
@@ -97,17 +109,25 @@ public class TransporteService {
     }
 
     // 🔹 Validação de campos obrigatórios
-    private void validarTransporte(TransporteDTO dto) {
-        if (dto.getHorarioSaida() == null) {
-            throw new BadRequestException("O horário de saída é obrigatório.");
+    private void validarTransporte(TransporteDTO dto, boolean isAtualizacao, Long transporteId) {
+        if (!isAtualizacao) {
+            if (dto.getVeiculoId() == null) {
+                throw new BadRequestException("O veículo é obrigatório.");
+            }
+            if (dto.getAgendamentoId() == null) {
+                throw new BadRequestException("O agendamento é obrigatório.");
+            }
+            if (dto.getMotoristaId() == null) {
+                throw new BadRequestException("O motorista é obrigatório.");
+            }
         }
 
-        if (dto.getVeiculoId() == null) {
-            throw new BadRequestException("O veículo é obrigatório.");
-        }
-
-        if (dto.getAgendamentoId() == null) {
-            throw new BadRequestException("O agendamento é obrigatório.");
+        if (dto.getAgendamentoId() != null) {
+            transporteRepository.findByAgendamentoId(dto.getAgendamentoId()).ifPresent(transporteExistente -> {
+                if (transporteId == null || !transporteExistente.getId().equals(transporteId)) {
+                    throw new BadRequestException("Este agendamento já possui um transporte vinculado.");
+                }
+            });
         }
     }
 
@@ -126,14 +146,11 @@ public class TransporteService {
             return transporteMapper.toDTO(transporte);
         }
 
-        // Se for paciente, só pode ver o transporte dele
         if (isPaciente) {
             String email = auth.getName();
-            String emailPacienteDoTransporte = transporte.getAgendamento()
-                    .getPaciente()
-                    .getEmail();
+            String emailPacienteDoTransporte = transporte.getPaciente() != null ? transporte.getPaciente().getEmail() : null;
 
-            if (!email.equals(emailPacienteDoTransporte)) {
+            if (emailPacienteDoTransporte == null || !email.equals(emailPacienteDoTransporte)) {
                 throw new ResourceNotFoundException("Você não tem permissão para acessar este transporte.");
             }
             return transporteMapper.toDTO(transporte);
@@ -143,9 +160,62 @@ public class TransporteService {
     }
 
     public TransporteDTO buscarTransportePorPaciente(String emailPaciente) {
-        Transporte transporte = transporteRepository.findByAgendamentoPacienteEmail(emailPaciente)
+        Paciente paciente = pacienteRepository.findByEmail(emailPaciente)
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado para o email informado."));
+
+        Transporte transporte = transporteRepository.findFirstByPacienteIdOrderByCreatedAtDesc(paciente.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum transporte encontrado para o paciente logado."));
         return transporteMapper.toDTO(transporte);
     }
 
+    private Veiculo obterVeiculo(Long veiculoId) {
+        return veiculoRepository.findById(veiculoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Veículo não encontrado com ID " + veiculoId));
+    }
+
+    private Agendamento obterAgendamento(Long agendamentoId) {
+        return agendamentoRepository.findById(agendamentoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + agendamentoId));
+    }
+
+    private Motorista obterMotorista(Long motoristaId) {
+        return motoristaRepository.findById(motoristaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Motorista não encontrado com ID " + motoristaId));
+    }
+
+    private Paciente obterPaciente(Long pacienteId, Agendamento agendamento) {
+        if (pacienteId != null) {
+            return pacienteRepository.findById(pacienteId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com ID " + pacienteId));
+        }
+
+        if (agendamento.getPaciente() != null) {
+            return agendamento.getPaciente();
+        }
+
+        throw new BadRequestException("O agendamento informado não possui paciente vinculado.");
+    }
+
+    private Paciente resolverPacienteParaAtualizacao(TransporteDTO dto, Agendamento agendamento, Transporte transporte) {
+        if (dto.getPacienteId() != null) {
+            return pacienteRepository.findById(dto.getPacienteId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com ID " + dto.getPacienteId()));
+        }
+        if (agendamento.getPaciente() != null) {
+            return agendamento.getPaciente();
+        }
+        if (transporte.getPaciente() != null) {
+            return transporte.getPaciente();
+        }
+        throw new BadRequestException("O transporte precisa estar vinculado a um paciente.");
+    }
+
+    private LocalTime calcularHorarioSaida(LocalTime horarioSolicitado, Agendamento agendamento, LocalTime fallback) {
+        if (horarioSolicitado != null) return horarioSolicitado;
+        if (agendamento.getHoraConsulta() != null) return agendamento.getHoraConsulta().minusMinutes(MINUTOS_ANTECEDENCIA_PADRAO);
+        if (fallback != null) return fallback;
+        throw new BadRequestException("Não foi possível determinar o horário de saída. Informe o horário ou a hora da consulta.");
+    }
+
+    private boolean hasText(String value) { return value != null && !value.isBlank(); }
 }

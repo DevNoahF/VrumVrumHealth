@@ -12,6 +12,7 @@ CREATE TABLE paciente (
                           rua VARCHAR(100),
                           bairro VARCHAR(100),
                           numero STRING(10),
+                          complemento VARCHAR(100),
                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                           role ENUM('PACIENTE','ADMIN','MOTORISTA') DEFAULT 'PACIENTE'
@@ -30,6 +31,7 @@ CREATE TABLE admin (
 CREATE TABLE agendamento (
                              id BIGINT AUTO_INCREMENT PRIMARY KEY,
                              paciente_id BIGINT NOT NULL,
+                             motorista_id BIGINT NOT NULL,
                              data_consulta DATE NOT NULL,
                              hora_consulta TIME NOT NULL,
                              comprovante TEXT, -- pode guardar link do storage (S3, Firebase, filesystem)
@@ -41,7 +43,8 @@ CREATE TABLE agendamento (
                              acompanhante BOOLEAN DEFAULT FALSE,
                              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                              updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                             FOREIGN KEY (paciente_id) REFERENCES paciente(id)
+                             FOREIGN KEY (paciente_id) REFERENCES paciente(id),
+                             FOREIGN KEY (motorista_id) REFERENCES motorista(id)
 );
 
 CREATE TABLE veiculo (
@@ -51,13 +54,3 @@ CREATE TABLE veiculo (
                          capacidade INT
 );
 
-CREATE TABLE transporte (
-                            id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                            agendamento_id BIGINT NOT NULL,
-                            veiculo_id BIGINT,
-                            horario_saida TIME NOT NULL,
-                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-                            FOREIGN KEY (agendamento_id) REFERENCES agendamento(id),
-                            FOREIGN KEY (veiculo_id) REFERENCES veiculo(id),
-);
