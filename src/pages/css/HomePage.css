@@ -7,7 +7,7 @@ body {
     color: #1d1d1d;
     overflow-x: hidden;
 }
-h2{
+h2, h3,h4{
     text-align: center;
 }
 
@@ -15,6 +15,23 @@ h2{
     display: flex;
     min-height: 100vh;
     animation: fadeIn 0.5s ease-in-out;
+}
+.detalhes{
+  display: block;
+  margin: 0 auto;
+  background-color: #1d4d71;
+  color: #fff;
+  padding: 0.8rem 2.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.detalhes a {
+    color: #fff !important;
 }
 
 /* ======== MENU LATERAL ======== */
@@ -106,6 +123,13 @@ h2{
     color: #444;
 }
 
+.info{
+    position:flex;
+    margin-left: 20px;
+    font-size: 18px
+
+}
+
 /* ======== BLOCOS EXPANSÍVEIS ======== */
 
 .bloco {
@@ -167,6 +191,16 @@ h2{
 }
 .agendamento{
     position: absolute;
+    margin-top: 20px;
+    width: 500px;
+    height: 250px;
+    border-radius: 50px;
+    background-color: #D3D9E0;
+}
+
+.transporte{
+    position: absolute; 
+    margin-left: 1000px;
     margin-top: 20px;
     width: 500px;
     height: 250px;
