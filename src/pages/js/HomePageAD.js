@@ -65,3 +65,9 @@ document.getElementById("aprovadas").addEventListener("click",function(e){
     e.preventDefault()
     window.location.href = "./pacientesAprovados.html";
 })
+
+document.getElementById("atribuir").addEventListener("click",function(e){
+    e.preventDefault()
+    window.location.href = "./atribuirTransporte.html";
+})
+

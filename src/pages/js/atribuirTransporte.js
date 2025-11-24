@@ -2,6 +2,7 @@ import { getToken } from "./submit.js";
 
 const authToken = await getToken();
 
+// Buscar agendamentos aprovados
 async function fetchAgendamentosAprovados() {
   const response = await fetch("http://localhost:8080/agendamento", {
     method: "GET",
@@ -15,6 +16,7 @@ async function fetchAgendamentosAprovados() {
   return dados.filter(a => a.statusComprovanteEnum === "APROVADO");
 }
 
+// Buscar paciente
 async function fetchPaciente(id) {
   const resp = await fetch(`http://localhost:8080/paciente/${id}`, {
     method: "GET",
@@ -28,11 +30,24 @@ async function fetchPaciente(id) {
   return {
     nome: dados.nome,
     rua: dados.rua,
-    numero: dados.numero,
     bairro: dados.bairro,
     cidade: dados.cidade || "",
     complemento: dados.complemento || ""
   };
+}
+
+// Buscar lista de motoristas
+async function fetchMotoristas() {
+  const resp = await fetch("http://localhost:8080/motorista", {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${authToken}`
+    }
+  });
+
+  return await resp.json(); // [{id, nome, ...}]
 }
 
 function changeValue(valor) {
@@ -41,8 +56,9 @@ function changeValue(valor) {
   return "";
 }
 
+// PATCH motorista
 async function patchMotorista(agendamentoId, motoristaId) {
-  const response = await fetch(`http://localhost:8080/agendamento/${agendamentoId}`, {
+  const response = await fetch(`http://localhost:8080/agendamento/${agendamentoId}/motorista/${motoristaId}`, {
     method: "PATCH",
     mode: "cors",
     headers: {
@@ -60,18 +76,21 @@ async function patchMotorista(agendamentoId, motoristaId) {
   }
 
   alert("Motorista atribuído com sucesso!");
-  preencherTabela(); // recarregar tabela
+  preencherTabela();
 }
 
+// Montar tabela
 async function preencherTabela() {
   const tbody = document.getElementById("tbodySolicitacoes");
   if (!tbody) {
     console.error("Elemento #tbodySolicitacoes não encontrado!");
     return;
   }
+
   tbody.innerHTML = "";
 
   const agendamentos = await fetchAgendamentosAprovados();
+  const motoristas = await fetchMotoristas();
 
   for (const ag of agendamentos) {
     const pac = await fetchPaciente(ag.pacienteId);
@@ -88,23 +107,35 @@ async function preencherTabela() {
       <td>${changeValue(ag.acompanhante)}</td>
       <td>${changeValue(ag.retornoCasa)}</td>
 
-      <!-- Campo para motorista + botão -->
       <td>
-        <input type="number" min="1" id="motorista-${ag.id}"
-               placeholder="ID motorista" style="width: 120px;">
-        <button id="btn-${ag.id}">Atribuir</button>
+        <select id="sel-${ag.id}" style="width:150px;">
+          <option value="">Selecione...</option>
+        </select>
+
+        <button id="btn-${ag.id}">
+          Atribuir
+        </button>
       </td>
     `;
 
     tbody.appendChild(tr);
 
-    // Adiciona evento ao botão
+    // Preencher dropdown de motoristas
+    const select = document.getElementById(`sel-${ag.id}`);
+    motoristas.forEach(m => {
+      const opt = document.createElement("option");
+      opt.value = m.id;         // ID usado no PATCH
+      opt.textContent = m.nome; // nome exibido
+      select.appendChild(opt);
+    });
+
+    // Evento do botão
     const btn = document.getElementById(`btn-${ag.id}`);
     btn.addEventListener("click", () => {
-      const motoristaId = document.getElementById(`motorista-${ag.id}`).value;
+      const motoristaId = select.value;
 
       if (!motoristaId) {
-        alert("Informe o ID do motorista!");
+        alert("Escolha um motorista!");
         return;
       }
 
