@@ -54,5 +54,6 @@ public class PacienteDTO {
     @NotBlank(message = "O numero da residência é obrigatorio!")
     private String numero;
 
-    private RoleEnum roleEnum = RoleEnum.PACIENTE;
+    private String complemento;
+
 }

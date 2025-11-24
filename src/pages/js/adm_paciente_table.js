@@ -97,7 +97,7 @@ async function preencherTabela() {
       <td>${ag.dataConsulta} ${ag.horaConsulta}</td>
       <td>${changeValue(ag.acompanhante)}</td>
       <td>${changeValue(ag.retornoCasa)}</td>
-      <td>${ag.comprovante}</td>
+      <td><a href=${ag.comprovante}>${ag.comprovante}</a></td>
     `;
     tbody.appendChild(tr);
   }

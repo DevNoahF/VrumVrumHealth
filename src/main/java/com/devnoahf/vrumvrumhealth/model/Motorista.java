@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "motorista")
 @NoArgsConstructor
-@AllArgsConstructor
+    @AllArgsConstructor
 @Setter
 @Getter
 
@@ -51,9 +51,6 @@ public class Motorista {
     @Column(length = 20, nullable = false)
     private String telefone;
 
-
-    @OneToMany(mappedBy = "motorista", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DiarioBordo> diariosDeBordo;
 
 
     @Enumerated(EnumType.STRING)
