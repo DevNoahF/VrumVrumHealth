@@ -1,6 +1,7 @@
 package com.devnoahf.vrumvrumhealth.mapper;
 
 import com.devnoahf.vrumvrumhealth.dto.PacienteDTO;
+import com.devnoahf.vrumvrumhealth.enums.RoleEnum;
 import com.devnoahf.vrumvrumhealth.model.Paciente;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,6 +35,8 @@ public class PacienteMapper {
         paciente.setBairro(dto.getBairro());
         paciente.setNumero(dto.getNumero());
         paciente.setDdd(dto.getDdd());
+        paciente.setRoleEnum(RoleEnum.PACIENTE);
+        paciente.setComplemento(dto.getComplemento());
 
         // Criptografa a senha
         paciente.setSenha(passwordEncoder.encode(dto.getSenha()));

@@ -31,18 +31,7 @@ public class PacienteController {
     private final PacienteService pacienteService;
     private final PacienteMapper pacienteMapper;
 
-    // 🔹 Cadastro de paciente (liberado publicamente)
-    @PostMapping
-    @Operation(summary = "Criar paciente", description = "Cadastra um novo paciente")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Paciente criado"),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(schema = @Schema(implementation = String.class)))
-    })
-    public ResponseEntity<PacienteDTO> criar(@Valid @RequestBody PacienteDTO pacienteDTO) {
-        Paciente paciente = pacienteService.cadastrarPaciente(pacienteDTO);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(pacienteService.buscarPorIdPaciente(paciente.getId()));
-    }
+
 
     // 🔹 Atualizar paciente (somente o próprio paciente ou admin)
     @PutMapping("/{id}")
@@ -132,4 +121,6 @@ public class PacienteController {
         pacienteService.mudarSenhaPaciente(email, novaSenha);
         return ResponseEntity.ok("Senha alterada com sucesso!");
     }
+
+
 }

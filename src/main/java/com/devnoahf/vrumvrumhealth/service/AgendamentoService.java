@@ -7,8 +7,10 @@ import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.mapper.AgendamentoMapper;
 import com.devnoahf.vrumvrumhealth.model.Agendamento;
 import com.devnoahf.vrumvrumhealth.model.Paciente;
+import com.devnoahf.vrumvrumhealth.model.Motorista;
 import com.devnoahf.vrumvrumhealth.repository.AgendamentoRepository;
 import com.devnoahf.vrumvrumhealth.repository.PacienteRepository;
+import com.devnoahf.vrumvrumhealth.repository.MotoristaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class AgendamentoService {
     private final AgendamentoRepository agendamentoRepository;
     private final PacienteRepository pacienteRepository;
     private final AgendamentoMapper  agendamentoMapper;
+    private final MotoristaRepository motoristaRepository;
 
     //  Criar novo agendamento
     @Transactional
@@ -121,15 +124,18 @@ public class AgendamentoService {
         return agendamentoMapper.request(atualizado);
     }
 
+    @Transactional
+    public AgendamentoDTO atribuirMotorista(Long agendamentoId, Long motoristaId) {
+        Agendamento agendamento = agendamentoRepository.findById(agendamentoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Agendamento não encontrado com ID " + agendamentoId));
 
+        Motorista motorista = motoristaRepository.findById(motoristaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Motorista não encontrado com ID " + motoristaId));
 
-
-
-
-
-
-
-
+        agendamento.setMotorista(motorista);
+        Agendamento salvo = agendamentoRepository.save(agendamento);
+        return agendamentoMapper.request(salvo);
+    }
 
     //  Deletar agendamento
     @Transactional

@@ -30,7 +30,10 @@ public class AgendamentoMapper {
         if (agendamento.getPaciente() != null) {
             dto.setPacienteId(agendamento.getPaciente().getId());
         }
-
+        // Mapeia motorista se houver
+        if (agendamento.getMotorista() != null) {
+            dto.setMotoristaId(agendamento.getMotorista().getId());
+        }
         return dto;
     }
 
@@ -56,6 +59,7 @@ public class AgendamentoMapper {
         // Associa paciente se passado
         agendamento.setPaciente(paciente);
 
+        // motoristaId será associado em endpoint específico de ADMIN; ignorar aqui.
         return agendamento;
     }
 

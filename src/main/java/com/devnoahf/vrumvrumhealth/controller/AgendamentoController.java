@@ -155,4 +155,18 @@ public class AgendamentoController {
         }
     }
 
+    @PatchMapping("/{id}/motorista/{motoristaId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Atribuir motorista ao agendamento", description = "Associa um motorista existente ao agendamento (ADMIN)")
+    public ResponseEntity<?> atribuirMotorista(@PathVariable Long id, @PathVariable Long motoristaId) {
+        try {
+            AgendamentoDTO atualizado = agendamentoService.atribuirMotorista(id, motoristaId);
+            return ResponseEntity.ok(atualizado);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao atribuir motorista: " + e.getMessage());
+        }
+    }
+
 }

@@ -63,12 +63,15 @@ public class Paciente { // TODO: possivel implementação de imagens de perfil
     @Column(nullable = false)
     private String numero;
 
+    @Lob
+    @Column(length = 10)
+    private String complemento;
+
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
-
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roles;

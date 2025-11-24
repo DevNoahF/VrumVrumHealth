@@ -1,14 +1,13 @@
-version: '3.8'
+version: '3.0'
 services:
   database:
     image: mysql:latest
-    container_name: ${container_name}
+    container_name:
     environment:
-      MYSQL_DATABASE: ${db_name}
-      MYSQL_USER: ${db_user}
-      MYSQL_PASSWORD: ${db_password}
-    volumes:
-      - db_data:${db_data}
+      MYSQL_DATABASE:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
     ports:
       - "3306:3306"
     restart: unless-stopped
@@ -17,6 +16,5 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-
 volumes:
   db_data: {}
