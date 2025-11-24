@@ -7,6 +7,9 @@ body {
     color: #1d1d1d;
     overflow-x: hidden;
 }
+h2{
+    text-align: center;
+}
 
 .container {
     display: flex;
@@ -161,6 +164,14 @@ body {
 .rotate {
     transform: rotate(180deg);
     transition: 0.3s ease;
+}
+.agendamento{
+    position: absolute;
+    margin-top: 20px;
+    width: 500px;
+    height: 250px;
+    border-radius: 50px;
+    background-color: #D3D9E0;
 }
 
 /* ======== ANIMAÇÃO ======== */
