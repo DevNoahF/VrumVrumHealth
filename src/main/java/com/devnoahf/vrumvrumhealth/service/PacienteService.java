@@ -6,7 +6,7 @@ import com.devnoahf.vrumvrumhealth.exception.ResourceNotFoundException;
 import com.devnoahf.vrumvrumhealth.mapper.PacienteMapper;
 import com.devnoahf.vrumvrumhealth.model.Paciente;
 import com.devnoahf.vrumvrumhealth.repository.PacienteRepository;
-import jakarta.validation.Valid;
+import com.devnoahf.vrumvrumhealth.repository.AgendamentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,19 +20,8 @@ public class PacienteService {
     private final PacienteRepository pacienteRepository;
     private final PasswordEncoder passwordEncoder;
     private final PacienteMapper pacienteMapper;
+    private final AgendamentoRepository agendamentoRepository;
 
-    // 🔹 Cadastrar paciente com senha criptografada
-    public Paciente cadastrarPaciente(@Valid PacienteDTO pacienteDTO) {
-        if (pacienteRepository.existsByEmail(pacienteDTO.getEmail())) {
-            throw new BadRequestException("Já existe um paciente com esse e-mail.");
-        }
-
-        String senhaCriptografada = passwordEncoder.encode(pacienteDTO.getSenha());
-        pacienteDTO.setSenha(senhaCriptografada);
-
-        Paciente paciente = pacienteMapper.toEntity(pacienteDTO);
-        return pacienteRepository.save(paciente);
-    }
 
     // 🔹 Listar todos os pacientes
     public List<PacienteDTO> listarPaciente() {
@@ -64,6 +53,12 @@ public class PacienteService {
         pacienteExistente.setTelefone(pacienteDTO.getTelefone());
         pacienteExistente.setCpf(pacienteDTO.getCpf());
         pacienteExistente.setDataNascimento(pacienteDTO.getDataNascimento());
+        pacienteExistente.setCep(pacienteDTO.getCep());
+        pacienteExistente.setRua(pacienteDTO.getRua());
+        pacienteExistente.setBairro(pacienteDTO.getBairro());
+        pacienteExistente.setNumero(pacienteDTO.getNumero());
+        pacienteExistente.setDdd(pacienteDTO.getDdd());
+        pacienteExistente.setComplemento(pacienteDTO.getComplemento());
 
         if (pacienteDTO.getSenha() != null && !pacienteDTO.getSenha().isBlank()) {
             pacienteExistente.setSenha(passwordEncoder.encode(pacienteDTO.getSenha()));
@@ -98,4 +93,6 @@ public class PacienteService {
         return pacienteRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException(" Email nao encontrado."));
     }
+
+
 }

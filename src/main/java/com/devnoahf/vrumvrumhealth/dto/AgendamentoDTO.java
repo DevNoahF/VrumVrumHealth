@@ -49,4 +49,7 @@ public class AgendamentoDTO {
     private Boolean acompanhante;
 
     private Long pacienteId;
+
+    // ID do motorista (somente visível/alterado por ADMIN). Pode ser null inicialmente.
+    private Long motoristaId;
 }

@@ -73,7 +73,10 @@ public class Agendamento {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
-
+    // Relacionamento opcional com motorista (definido apenas por ADMIN via PATCH)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "motorista_id")
+    private Motorista motorista;
 
     @PrePersist
     protected void onCreate() {
