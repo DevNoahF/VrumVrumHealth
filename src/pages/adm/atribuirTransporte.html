@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--Acho interessante se a gente voltar mais tarde e fazer esse código na mão ao invés de deixar feito pelo GPT-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atribuir Motorista</title>
+  <link rel="stylesheet" href="../css/atribuirTransporte.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"><!--Fonte padrão do projeto-->
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <button class="toggle-btn" id="toggleBtn">☰</button>
+      <div class="logo-icon">
+        <img src="../assets/logo.jpg" alt="Usuário" />
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="#">
+            <img src="icon-home.svg" alt="Home" />
+            <span class="link-text">Início</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="icon-clock.svg" alt="Histórico" />
+            <span class="link-text">Histórico</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="icon-check.svg" alt="Solicitações" />
+            <span class="link-text">Solicitações</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="icon-settings.svg" alt="Configurações" />
+            <span class="link-text">Configurações</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo principal -->
+  <div class="main-content">
+    <div class="container">
+      <h1>Atribuir Motorista</h1>
+      
+      <!-- Tabela -->
+      <div class="table-wrapper">
+        <table class="solicitacoes-table">
+          <thead>
+            <tr><!--Títulos da nossa tabela-->
+              <th>#</th>
+              <th>Nome</th>
+              <th>Endereço</th>
+              <th>Bairro</th>
+              <th>Unidade Médica</th>
+              <th>Hora Marcada</th>
+              <th>Acompanhante</th>
+              <th>Retorno</th>
+              <th>Atribuir Motorista</th>
+            </tr>
+       
+          </thead>
+          <tbody id="tbodySolicitacoes">
+          </tbody>
+        </table>
+      </div>
+
+      </section>
+    </div>
+  </div>
+  <script type="module" src="../js/atribuirTransporte.js"></script>
+</body>
+</html>

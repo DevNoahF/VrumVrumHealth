@@ -1,0 +1,222 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo */
+body {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #E9EBEC;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 80px; /* estado colapsado */
+  background-color: #006FA7;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  transition: width 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar.expanded {
+  width: 220px; /* largura expandida */
+}
+
+/* Topo da sidebar */
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.logo-icon img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+
+/* Navegação */
+.sidebar-nav {
+  flex: 1;
+  width: 100%;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.sidebar-nav ul li a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  padding: 12px 16px;
+  transition: background-color 0.2s;
+}
+
+.sidebar-nav ul li a img {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+
+.sidebar-nav ul li a .link-text {
+  margin-left: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Quando expandido, mostrar texto */
+.sidebar.expanded .sidebar-nav ul li a .link-text {
+  opacity: 1;
+}
+
+/* Hover effect */
+.sidebar-nav ul li a:hover {
+  background-color: #2c4b7a;
+}
+
+/* Conteúdo principal */
+.main-content {
+  margin-left: 80px; /* início com sidebar colapsada */
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.expanded ~ .main-content {
+  margin-left: 220px; /* desloca conteúdo quando sidebar expandida */
+}
+
+/* Tabela */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  background-color: #D3D9E0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.solicitacoes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.solicitacoes-table thead {
+  background-color: #0066cc;
+  color: white;
+}
+
+.solicitacoes-table thead th {
+  padding: 10px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.solicitacoes-table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.solicitacoes-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.solicitacoes-table tbody td {
+  padding: 10px 12px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.solicitacoes-table tbody tr:hover {
+  background-color: #e8f4ff;
+}
+
+/* Botão para exportar*/
+.export-section {
+  margin-top: 16px;
+  text-align: right;
+}
+
+.export-btn {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.export-btn:hover {
+  background-color: #0055aa;
+}
+
+.solicitacoes-table td, 
+.solicitacoes-table th {
+  text-align: center;        /* horizontal */
+  vertical-align: middle;    /* vertical */
+  padding: 8px;              /* só para dar “respiro” no conteúdo */
+}
+
+
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 0;
+  }
+  
+  .sidebar.expanded {
+    width: 220px;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+
+  .sidebar.expanded ~ .main-content {
+    margin-left: 220px;
+  }
+}

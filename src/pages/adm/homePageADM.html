@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home do Administrador - Vrumvrum Health</title>
+    <link rel="stylesheet" href="../css/HomePageAD.css">
+
+    <!-- Ícones Feather -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <img src="../assets/logo.jpg" class="logo" alt="Logo Vrumvrum">
+
+        <ul class="menu">
+            <li><i data-feather="home"></i> <span>Início</span></li>
+            <li><i data-feather="users"></i> <span>Pacientes</span></li>
+            <li><i data-feather="clipboard"></i> <span>Solicitações</span></li>
+            <li><i data-feather="pie-chart"></i> <span>Relatórios</span></li>
+            <li><i data-feather="settings"></i> <span>Configurações</span></li>
+        </ul>
+
+        <button class="logout-btn">
+            <i data-feather="log-out"></i>
+            <span>Sair</span>
+        </button>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+
+        <header class="cabecalho">
+            <h1>Área Administrativa</h1>
+            <p class="sub">Gerencie pacientes, solicitações e dados do sistema</p>
+        </header>
+
+        <!-- BLOCO 1 -->
+        <section class="bloco">
+            <h2>Pacientes</h2>
+            <ul class="lista-links">
+                <li><a href="#">Listar todos os pacientes</a></li>
+                <li><a href="../user/cadastroUser.html">Cadastrar novo paciente</a></li>
+                <li><a href="#">Editar informações</a></li>
+            </ul>
+        </section>
+
+        <!-- BLOCO 2 -->
+        <section class="bloco">
+            <h2>Solicitações</h2>
+            <ul class="lista-links">
+                <li ><a href="#" id="pendentes">Solicitações pendentes</a></li>
+                <li><a href="#" id="aprovadas">Solicitações aprovadas</a></li>
+                <li><a href="#" id="atribuir">Atribuir Motorista</a></li>
+            </ul>
+        </section>
+
+        <!-- BLOCO 3 -->
+        <section class="bloco">
+            <h2>Relatórios</h2>
+            <ul class="lista-links">
+                <li><a href="#">Relatório mensal</a></li>
+                <li><a href="#">Relatório anual</a></li>
+                <li><a href="#">Gerar relatório personalizado</a></li>
+            </ul>
+        </section>
+
+        <!-- BLOCO 4 -->
+        <section class="bloco">
+            <h2>Configurações</h2>
+            <ul class="lista-links">
+                <li><a href="#">Gerenciar contas</a></li>
+                <li><a href="#">Permissões do sistema</a></li>
+                <li><a href="#">Segurança</a></li>
+            </ul>
+        </section>
+
+    </main>
+</div>
+
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="../js/HomePageAD.js">
+    feather.replace();
+</script>
+
+</body>
+</html>

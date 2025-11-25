@@ -1,0 +1,239 @@
+body{
+    background-color: #E9EBEC;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+
+}
+
+.barra{
+    position: fixed;
+    background-color: #006FA7;
+    height: 100%;
+    width: 210px;
+    top:0;
+}
+
+.barra.dir{
+    right: 0;
+}
+
+.barra.esq{
+    left: 0;
+}
+
+.motivo{
+    padding-left: 336px;
+    padding-top: 90px;
+}
+
+/*Preciso depois alinhar todas as caixas de input*/
+
+form{ /* Muito problema para alinhar e deixar lado a lado*/
+    position: absolute;
+    display: flex;
+    font-size: 2rem;
+
+}
+
+.menu-flutuante{
+    display: flex;
+    width: 451px;
+    height: 63px;
+    font-size: 1rem; 
+    margin-top:34px;
+    border-radius: 10px;
+}
+
+.frequencia{
+    opacity: 100%;
+    transition: 0.5s;
+    padding-top: 90px;
+    padding-left: 137px;
+}
+
+#inputs{/* isso aqui foi só para botão de data e hora funcionar, talvez irei usar novamente nos botões de acompanhante*/
+    display: flex;
+}
+
+/*A partir daqui ele começou a aparecer no canto, tive que manualmente direcionar para os lugares certos
+Amanha achar uma forma prática de resolver esse problema, está feio
+*/
+
+.data-hora{
+    display: block;
+    padding-left: 336px ;
+    position: absolute;/*Não entendo pq ele não herda o position de form*/
+    left: 0px; 
+    top: 351px;
+    z-index: 1;/*A margem de unidade estava em cima, precisa ser corrigido*/
+
+}
+
+.hora-data{
+    margin-top: 34px;
+    display: inline;
+    width: 193px;
+    height: 56px;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    margin-left: 44px;
+    cursor: pointer;
+}
+
+.unidade{
+    position: absolute;
+    display: block;
+    padding-left: 1004px;/*De verdade, que código feio, mas é o jeito*/
+    top: 351px;
+    z-index: 0;
+}
+
+.anexo{
+    position: absolute;
+    top: 555px;
+    left: 45%;
+    text-align: center;
+}
+
+.acompanhante{
+    display: block;
+    position: absolute;
+    margin-top: 525px;
+    padding-left: 336px;
+    padding-top: 90px;
+}
+
+
+.botao{
+    width: 68px;
+    height: 68px;
+    border-radius: 100px;
+    margin-left: 40px;
+}
+
+
+#foto{/*Para tirar o texto vai precisar de um código em javascript, deixar para depois*/
+    position: absolute;
+    background-color: #D3D9E0;
+    border-radius: 48px;
+    align-items: center;
+    margin-left: 100px;
+    width: 258px;
+    height: 232px;
+    cursor: pointer;
+}
+
+#enviar{
+    background-color: #3F5A6E;
+    width: 213px;
+    height: 64px;
+    border-radius: 100px;
+    position: absolute;
+    right: 0;
+    margin-top: 930px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.transporte-volta{
+    position:absolute;
+    margin-top: 525px;
+    padding-left: 439px;
+    padding-top: 90px;
+    right: -42px;
+}
+
+#invi{/*Classe para que frequencia não apareça, só apareça quando user colocar tratamento contínuo*/
+    opacity: 0%;
+    transition:0.5s;
+}
+
+
+/*O css está com problemas que as positions não estão sendo herdadas de forms
+Precisa ser criado media query, não sei se precisa trocar a unidade de medida
+Precisa Rever todas as classes e ids e ver se realmente precisam estar lá
+Para tirar o texto do input file precisa de javascript para funcionar
+
+
+Desejo que meu maior inimigo tenha que usar HTML e CSS pro resto da vida e sempre dê problemas para ele :)-Peri
+
+*/
+
+@media screen and (max-width: 1366px) {
+    body {
+        font-size: 12px;
+    }
+    form{
+        font-size: 1.5rem;
+    }
+    
+    .barra{
+        width: 105px;
+    }
+
+    .motivo{
+        padding-left: 168px;
+        padding-top: 45px;
+    }
+    .menu-flutuante{
+        width: 400px;
+        height: 63px;
+    }
+
+    .frequencia{
+        padding-top: 45px;
+        padding-left: 137px;
+    }
+
+    .data-hora{
+        padding-left: 168px ;
+        top: 280px;
+    }
+    .unidade{
+        padding-left: 700px;
+        top: 280px;
+    }
+    .anexo{
+        top: 444px;
+        left: 40%;
+    }
+    #anexo-text{
+        padding-left: 50px;
+    }
+
+    .acompanhante{
+        text-align: center;
+        margin-top: 480px;
+        padding-left: 168px;
+        padding-top: 45px;
+    }
+
+    .hora-data{
+        width: 193px;
+        height: 56px;
+        margin-left: 10px;
+    }
+
+    .transporte-volta{
+    margin-top: 480px;
+    padding-left: 168px;
+    padding-top: 45px;
+    right: -75px;
+    }
+
+    #enviar{
+        margin-top: 700px;
+        width: 170px;
+        height: 51px;
+    }
+    
+
+
+
+}
+
+
+
+

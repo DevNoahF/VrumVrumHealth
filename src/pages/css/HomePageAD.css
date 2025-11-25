@@ -1,0 +1,150 @@
+/* ===========================
+   CONFIGURAÇÕES GERAIS
+=========================== */
+body {
+    margin: 0;
+    background-color: #e9e6e6;
+    font-family: "Poppins", sans-serif;
+    color: #1d1d1d;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* ===========================
+   MENU LATERAL
+=========================== */
+
+.sidebar {
+    width: 240px;
+    background: linear-gradient(180deg, #005689, #003e62);
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 120px;
+    display: block;
+    margin: 0 auto 40px auto;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: 0.2s ease-in-out;
+}
+
+.menu li:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateX(6px);
+}
+
+.menu li i {
+    stroke-width: 2.2px;
+}
+
+.logout-btn {
+    margin-top: 20px;
+    border: none;
+    background: rgba(255, 60, 60, 0.25);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 18px;
+    transition: 0.25s;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 60, 60, 0.4);
+}
+
+/* ===========================
+   ÁREA PRINCIPAL
+=========================== */
+
+.conteudo {
+    flex: 1;
+    padding: 50px;
+    overflow-y: auto;
+}
+
+.cabecalho h1 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.cabecalho .sub {
+    font-size: 18px;
+    color: #555;
+    margin-top: 6px;
+}
+
+/* ===========================
+   BLOCOS DO ADMIN
+=========================== */
+
+.bloco {
+    margin-top: 40px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #0080ff;
+    width: 90%;
+}
+
+.bloco h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.lista-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.lista-links li {
+    margin: 10px 0;
+}
+
+.lista-links a {
+    text-decoration: none;
+    color: #222;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.lista-links a:hover {
+    color: #0066ff;
+    transform: translateX(5px);
+}
+
+/* ===========================
+   ANIMAÇÕES
+=========================== */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0px); }
+}

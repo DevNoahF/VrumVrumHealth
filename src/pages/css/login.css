@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #084B6D;
+}
+
+.container {
+  width: 80%;
+  height: 90vh;
+  display: flex;
+  margin: 2rem auto;
+  background-color: #ecf0f1;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.form-image {
+  width: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-image img {
+  width: 70%;
+}
+
+.form {
+  width: 50%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-header h1 {
+  font-size: 2rem;
+  color: #003b57;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form-header p {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-box label {
+  font-weight: 500;
+  color: #003b57;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.continue-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.continue-button button {
+  background-color: #084B6D;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+.continue-button button:hover {
+  background-color: #006b96;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.register-link a {
+  color: #006b96;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
