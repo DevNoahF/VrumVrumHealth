@@ -31,7 +31,7 @@ blocos.forEach(bloco => {
 const logoutBtn = document.querySelector(".logout-btn");
 logoutBtn.addEventListener("click", () => {
   alert("Você saiu da sua conta.");
-  window.location.href = "../login/login.html";
+  window.location.href = "../login.html";
 });
 
 document.getElementById("solicitar").addEventListener("click", function(e) {
@@ -44,44 +44,70 @@ document.getElementById("consultar").addEventListener("click", function(e) {
 });
 
 // === ENUM DE STATUS AGENDAMENTO ===
-const statusAgendamentoEnum = {
-  PENDENTE: "Pendente",
-  CONFIRMADO: "Confirmado",
-  CANCELADO: "Cancelado",
-  FINALIZADO: "Finalizado"
-};
-
-// === FUNÇÃO PARA BUSCAR STATUS COM FETCH INCLUINDO AUTH HEADER ===
-async function fetchStatusAgendamento() {
-  try {
-    const response = await fetch('http://localhost:8080/agendamento', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${authToken}`,
-        'Content-Type': 'application/json'
-      }
-    });
 
 
-    if (!response.ok) {
-      throw new Error(`Erro na requisição: ${response.status}`);
-    }
-    console.log(await response.json())
-    const data = await response.json();
-    const statusAtual = data.status; // ajuste conforme a sua API
-    const statusTexto = statusAgendamentoEnum[statusAtual] || "Desconhecido";
+const pacienteId=sessionStorage.getItem("pacienteId")
 
-    const statusElemento = document.getElementById("status-texto");
-    statusElemento.textContent = statusTexto;
+var estado = document.getElementById("estado")
 
-  } catch (error) {
-    console.error("Erro ao buscar status de agendamento:", error);
-    const statusElemento = document.getElementById("status-texto");
-    statusElemento.textContent = "Erro ao carregar status";
+async function getAgendamento(id){//Precisa de id agendamento
+    const get_agendamento = await fetch("http://localhost:8080/agendamento/"+ id, {
+      method: "GET",
+      mode:'cors',
+      headers: {"Content-Type": "application/json",
+         'Authorization': `Bearer ${authToken}`
+       },
+    })
+
+    const dados= await get_agendamento.json()
+    const pacienteDado=getPaciente(dados.pacienteId)
+
+    const dado_agendamento = {
+      statusComprovanteEnum: dados.statusComprovanteEnum,
+    };
+
+    estado.textContent+=dado_agendamento.statusComprovanteEnum
+
+
+
+   
+
+
+      const divAnexo = document.getElementById("visualizar-anexo");
+  if (dado_agendamento.comprovante) {
+    divAnexo.onclick = () => {
+      // abre em nova aba, por exemplo
+      window.open(dado_agendamento.comprovante, "_blank");
+    };
   }
+
+    return dado_agendamento
 }
 
-// Chama a função quando a página carrega
+//Pega dados de Paciente
+async function getPaciente(id) {
+  const get_paciente = await fetch("http://localhost:8080/paciente/"+id,{
+    method: "GET",
+    mode:'cors',
+    headers: {"Content-Type": "application/json",
+      'Authorization': `Bearer ${authToken}`
+    },
+  })
+  const dados= await get_paciente.json()
+  const dadosPaciente={
+    nome:dados.nome,
+    rua:dados.rua,
+    bairro:dados.bairro,
+    numero:dados.numero
+  }
+  return dadosPaciente
+}
 
-fetchStatusAgendamento();
+
+
+
+
+
+
+getAgendamento(pacienteId)
 

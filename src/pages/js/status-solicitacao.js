@@ -31,7 +31,7 @@ async function getAgendamento(id){//Precisa de id agendamento
       horaConsulta: dados.horaConsulta,
       comprovante: dados.comprovante,
       localAtendimentoEnum: dados.localAtendimentoEnum,
-      statusEnum: dados.statusEnum,
+      statusComprovanteEnum: dados.statusComprovanteEnum,
       retornoCasa: dados.retornoCasa,
       tipoAtendimentoEnum: dados.tipoAtendimentoEnum,
       frequencia:dados.frequencia,
@@ -44,7 +44,7 @@ async function getAgendamento(id){//Precisa de id agendamento
     nome.textContent+=(await pacienteDado).nome
     endereco.textContent+=(await pacienteDado).rua+(" ")+(await pacienteDado).numero+(" ")+(await pacienteDado).bairro
     unidade.textContent+=dado_agendamento.localAtendimentoEnum
-    estado.textContent+=dado_agendamento.statusEnum
+    estado.textContent+=dado_agendamento.statusComprovanteEnum
     motivo.textContent+=dado_agendamento.tipoAtendimentoEnum
     frequencia.textContent+=dado_agendamento.frequencia
     dia.textContent+=dado_agendamento.dataConsulta+"-"+dado_agendamento.horaConsulta
@@ -108,6 +108,6 @@ function changeValue(valor) {
 
 
 
-getAgendamento()
-cancelarAgendamento()
+getAgendamento(sessionStorage.getItem("pacienteId"))
+cancelarAgendamento(sessionStorage.getItem("pacienteId"))
 
