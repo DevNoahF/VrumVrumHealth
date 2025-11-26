@@ -148,11 +148,11 @@ Pré-requisitos
 - JDK 17
 - Maven (ou use o wrapper incluído `mvnw` / `mvnw.cmd`)
 - Docker & Docker Compose (para MySQL)
-- Node.js com as seguintes bibliotecas
-  -Multer
-  -Express
-  -Nodemon
-  -Google-Cloud/Storage
+- Node.js com as seguintes bibliotecas:
+  - Multer
+  - Express
+  - Nodemon
+  - Google-Cloud/Storage
 
 Backend (API)
 1. Configurar ambiente
@@ -189,9 +189,9 @@ Node.js:
 
 ou
 
--Na raiz do projeto, execute(com instalação da Biblioteca `nodemon`)
+- Na raiz do projeto, execute(com instalação da Biblioteca `nodemon`):
   npm run dev
--Em seguida, abra: http://localhost:8180/index.html
+- Em seguida, abra: http://localhost:8180/index.html
 
 Configurações de CORS e URL da API
 - O frontend espera que a API esteja acessível no host/porta do backend (padrão: http://localhost:8080).
@@ -201,4 +201,5 @@ Solução de problemas comuns
 - Banco de dados não pronto: verifique os logs do docker para o container MySQL e assegure-se de que as migrações de esquema em `src/main/resources/db/migrations` foram executadas.
 - Conflitos de porta: altere a porta do backend em `application.properties` (server.port) ou a porta do servidor frontend.
 - Dependências faltando: execute `./mvnw clean package` para forçar o download das dependências.
+
 
