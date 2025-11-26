@@ -55,6 +55,8 @@ A aplicação expõe uma **API REST** protegida com **Spring Security + JWT** e 
 - **JDK 17** instalado.
 - **Maven** instalado ou uso do wrapper (`mvnw` / `mvnw.cmd`).
 - **Docker** e **Docker Compose** instalados (para subir o banco MySQL).
+- **Node.js** instalado
+- **GoogleStorageAPI** devidamente configurado no site https://cloud.google.com/?hl=pt-BR(Para armazenar e receber os anexos de pedido médico)
 
 ### Configuração de propriedades
 As configurações da aplicação ficam em `src/main/resources/application.properties`.
@@ -64,6 +66,16 @@ Você deve garantir que os dados de conexão com o MySQL estejam coerentes com o
 - Dialeto e propriedades JPA/Hibernate.
 
 ## Execução da aplicação
+
+
+### 1. Configurar a GoogleCloudAPI ###
+Certifique-se de ter configurado devidamente a API no site https://cloud.google.com/?hl=pt-BR
+
+Na raiz do projeto (`VrumVrumHealth`) insira a chave da sua API GoogleCloud com o nome `cred.json`
+
+Insira o ID da sua API no arquivo `server.js` presente na raiz do projeto, procure a variável com nome `projectID` e insira o ID do seu projeto
+
+No arquivo `submit.js` presente no diretório `src/pages/js` insira o link do seu Bucket do seu projeto do Google Cloud e o link do Storage do seu projeto
 
 ### 1. Subir o banco de dados com Docker Compose
 Na raiz do projeto (`VrumVrumHealth`), existe um arquivo `docker-compose.yaml` que sobe um container **MySQL**.
@@ -182,13 +194,6 @@ Frontend (páginas estáticas)
 Os arquivos do frontend estão na pasta `pages/`. Eles são HTML/CSS/JS puro e podem ser abertos diretamente ou servidos por um servidor estático.
 
 Node.js:
-- Na raiz do projeto, execute (sem instalação necessária):
-  npx http-server pages -p 5500
-- Ou com `serve`: npx serve pages -l 5500
-- Em seguida, abra: http://localhost:5500/index.html
-
-ou
-
 - Na raiz do projeto, execute(com instalação da Biblioteca `nodemon`):
   npm run dev
 - Em seguida, abra: http://localhost:8180/index.html
@@ -201,5 +206,7 @@ Solução de problemas comuns
 - Banco de dados não pronto: verifique os logs do docker para o container MySQL e assegure-se de que as migrações de esquema em `src/main/resources/db/migrations` foram executadas.
 - Conflitos de porta: altere a porta do backend em `application.properties` (server.port) ou a porta do servidor frontend.
 - Dependências faltando: execute `./mvnw clean package` para forçar o download das dependências.
+- Erro 401 ao fazer requisições: certifique-se que as páginas estão sendo executas pelo nodemon, pois, as mesmas, automaticamente geram o token de autenticação e certifique-se que os dados inseridos estão corretos(Exemplo:CPF deve ter 11 digitos, agendamento não pode ser no passado, número de telefone deve ter 9 dígitos, email e CPF não podem ser repitidos ao criar uma conta).
+
 
 
