@@ -206,7 +206,8 @@ Solução de problemas comuns
 - Banco de dados não pronto: verifique os logs do docker para o container MySQL e assegure-se de que as migrações de esquema em `src/main/resources/db/migrations` foram executadas.
 - Conflitos de porta: altere a porta do backend em `application.properties` (server.port) ou a porta do servidor frontend.
 - Dependências faltando: execute `./mvnw clean package` para forçar o download das dependências.
-- Erro 401 ao fazer requisições: certifique-se que as páginas estão sendo executas pelo nodemon, pois, as mesmas, automaticamente geram o token de autenticação e certifique-se que os dados inseridos estão corretos(Exemplo:CPF deve ter 11 digitos, agendamento não pode ser no passado, número de telefone deve ter 9 dígitos, email e CPF não podem ser repitidos ao criar uma conta).
+- Erro 401 ao fazer requisições: certifique-se que as páginas estão sendo executas pelo nodemon, pois, as mesmas, automaticamente geram o token de autenticação e certifique-se que os dados inseridos estão corretos(Exemplo:CPF deve ter 11 digitos, agendamento não pode ser no passado, número de telefone deve ter 9 dígitos, email e CPF não podem ser repetidos ao criar uma conta, etc.).
+
 
 
 
