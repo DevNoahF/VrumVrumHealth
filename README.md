@@ -56,7 +56,7 @@ A aplicação expõe uma **API REST** protegida com **Spring Security + JWT** e 
 - **Maven** instalado ou uso do wrapper (`mvnw` / `mvnw.cmd`).
 - **Docker** e **Docker Compose** instalados (para subir o banco MySQL).
 - **Node.js** instalado
-- **GoogleStorageAPI** devidamente configurado no site https://cloud.google.com/?hl=pt-BR(Para armazenar e receber os anexos de pedido médico)
+- **GoogleStorageAPI** devidamente configurado no site https://cloud.google.com/?hl=pt-BR (Para armazenar e receber os anexos de pedido médico)
 
 ### Configuração de propriedades
 As configurações da aplicação ficam em `src/main/resources/application.properties`.
@@ -207,6 +207,7 @@ Solução de problemas comuns
 - Conflitos de porta: altere a porta do backend em `application.properties` (server.port) ou a porta do servidor frontend.
 - Dependências faltando: execute `./mvnw clean package` para forçar o download das dependências.
 - Erro 401 ao fazer requisições: certifique-se que as páginas estão sendo executas pelo nodemon, pois, as mesmas, automaticamente geram o token de autenticação e certifique-se que os dados inseridos estão corretos(Exemplo:CPF deve ter 11 digitos, agendamento não pode ser no passado, número de telefone deve ter 9 dígitos, email e CPF não podem ser repetidos ao criar uma conta, etc.).
+
 
 
 
