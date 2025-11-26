@@ -77,7 +77,7 @@ Insira o ID da sua API no arquivo `server.js` presente na raiz do projeto, procu
 
 No arquivo `submit.js` presente no diretório `src/pages/js` insira o link do seu Bucket do seu projeto do Google Cloud e o link do Storage do seu projeto
 
-### 1. Subir o banco de dados com Docker Compose
+### 2. Subir o banco de dados com Docker Compose
 Na raiz do projeto (`VrumVrumHealth`), existe um arquivo `docker-compose.yaml` que sobe um container **MySQL**.
 
 Defina as variáveis de ambiente usadas no arquivo (`container_name`, `db_name`, `db_user`, `db_password`) ou crie um arquivo `.env` na raiz com algo como:
@@ -94,7 +94,7 @@ Em seguida, suba o serviço:
 
 O MySQL ficará disponível na porta `3306` do host.
 
-### 2. Rodar a aplicação Spring Boot
+### 3. Rodar a aplicação Spring Boot
 Ainda na raiz do projeto:
 - Em Linux/MacOS: `./mvnw spring-boot:run`
 - Em Windows: `mvnw.cmd spring-boot:run`
@@ -207,6 +207,7 @@ Solução de problemas comuns
 - Conflitos de porta: altere a porta do backend em `application.properties` (server.port) ou a porta do servidor frontend.
 - Dependências faltando: execute `./mvnw clean package` para forçar o download das dependências.
 - Erro 401 ao fazer requisições: certifique-se que as páginas estão sendo executas pelo nodemon, pois, as mesmas, automaticamente geram o token de autenticação e certifique-se que os dados inseridos estão corretos(Exemplo:CPF deve ter 11 digitos, agendamento não pode ser no passado, número de telefone deve ter 9 dígitos, email e CPF não podem ser repitidos ao criar uma conta).
+
 
 
 
