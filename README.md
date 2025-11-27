@@ -233,6 +233,11 @@ Solução de problemas comuns
 
 ## About the Project
 
+The **VrumVrumhHealth** is a system intended to patients transport to health units. Allowing for:
+- Patients, drivers and administrators registration and authentication
+- Appointment booking and transport
+- Status appoitment accompaniment
+- Vehicle administration and records<!--Não sei dizer se isso seria 100% correto, aparentemente sim, mas vale a pena pesquisar depois-->
 
 
 
