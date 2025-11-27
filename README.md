@@ -1,11 +1,12 @@
 ﻿# VrumVrumHealth
  
 API para gestão de transporte em saúde (agendamento de viagens, pacientes, motoristas e veículos), construída em **Java 17** com **Spring Boot 3** e **MySQL**.
+
 API for health transport managements (trip to Exams, doctors appointmens and treatments, patients, drivers and vehicles), build in **Java 17** with **Spring Boot 3** and **MySQL**<!--Precisa de uma análise maior para poder traduzir corretamente-->
 
 ## Aviso/Warning ##
-Os textos mostrados abaixo estão traduzidos tanto para Inglês quanto para Português[Clique aqui para ser redirecionado para versão em Inglês](Levar para parte em inglês)
-The texts shown below are both translated to English and Portuguese [Click Here to be redirect to the English version](Levar para parte em inglês) <!--Translation ou Version?-->
+- Os textos mostrados abaixo estão traduzidos tanto para Inglês quanto para Português[Clique aqui para ser redirecionado para versão em Inglês](Levar para parte em inglês)
+- The texts shown below are both translated to English and Portuguese [Click Here to be redirect to the English version](Levar para parte em inglês) <!--Translation ou Version?-->
 
 
 
@@ -214,6 +215,7 @@ Solução de problemas comuns
 - Conflitos de porta: altere a porta do backend em `application.properties` (server.port) ou a porta do servidor frontend.
 - Dependências faltando: execute `./mvnw clean package` para forçar o download das dependências.
 - Erro 401 ao fazer requisições: certifique-se que as páginas estão sendo executas pelo nodemon, pois, as mesmas, automaticamente geram o token de autenticação e certifique-se que os dados inseridos estão corretos(Exemplo:CPF deve ter 11 digitos, agendamento não pode ser no passado, número de telefone deve ter 9 dígitos, email e CPF não podem ser repetidos ao criar uma conta, etc.).
+
 
 
 
