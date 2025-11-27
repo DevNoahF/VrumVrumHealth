@@ -216,6 +216,24 @@ Solução de problemas comuns
 - Dependências faltando: execute `./mvnw clean package` para forçar o download das dependências.
 - Erro 401 ao fazer requisições: certifique-se que as páginas estão sendo executas pelo nodemon, pois, as mesmas, automaticamente geram o token de autenticação e certifique-se que os dados inseridos estão corretos(Exemplo:CPF deve ter 11 digitos, agendamento não pode ser no passado, número de telefone deve ter 9 dígitos, email e CPF não podem ser repetidos ao criar uma conta, etc.).
 
+<!--É bom adicionar algum texto aqui antes de começar direto no sumário?-->
+
+## Summary
+- [About the project](#About-the-project)
+- [Architecture](#architecture)
+- [Technlogies used](#Technologies-used)<!--Acredito que isso esteja certo, farei uma analise mais aprofundada para descobrir-->
+- [Enviroment settings](#Enviroment-settings)
+- [Getting Started](#Getting-started)
+- [Database with Docker Compose](#Database-with-docker-compose)
+- [API Documentation(swagger)](#Swagger-API-documentation)
+- [Folder Structure](#Folder-strucure)
+- [Tests](#Tests)
+- [Project Members](#Project Members)
+- [Running Instructions](#Running Instructions)
+
+
+
+
 
 
 
