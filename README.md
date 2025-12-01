@@ -8,8 +8,7 @@ API for health transport managements (trip to Exams, doctors appointmens and tre
 - Os textos mostrados abaixo estão traduzidos tanto para Inglês quanto para Português[Clique aqui para ser redirecionado para versão em Inglês](Levar para parte em inglês)
 - The texts shown below are both translated to English and Portuguese [Click Here to be redirect to the English version](Levar para parte em inglês) <!--Translation ou Version?-->
 
-
-
+# Portugues/Portuguese
 ## Sumário
 - [Sobre o projeto](#sobre-o-projeto)
 - [Arquitetura](#arquitetura)
@@ -217,6 +216,7 @@ Solução de problemas comuns
 - Erro 401 ao fazer requisições: certifique-se que as páginas estão sendo executas pelo nodemon, pois, as mesmas, automaticamente geram o token de autenticação e certifique-se que os dados inseridos estão corretos(Exemplo:CPF deve ter 11 digitos, agendamento não pode ser no passado, número de telefone deve ter 9 dígitos, email e CPF não podem ser repetidos ao criar uma conta, etc.).
 
 <!--É bom adicionar algum texto aqui antes de começar direto no sumário?-->
+# Inglês/English
 
 ## Summary
 - [About the project](#About-the-project)
@@ -238,6 +238,7 @@ The **VrumVrumhHealth** is a system intended to patients transport to health uni
 - Appointment booking and transport
 - Status appoitment accompaniment
 - Vehicle administration and records<!--Não sei dizer se isso seria 100% correto, aparentemente sim, mas vale a pena pesquisar depois-->
+
 
 
 
