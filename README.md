@@ -250,6 +250,18 @@ The application exposes a **REST API** protected by **Spring Security + JWT** an
 ## Technologies Used
 
 ### Languages and build
+- Java 17
+- Maven ( Dependencies and build management)
+
+### Main Dependencies (based com `pom.xml`)
+- `spring-boot-starter-web` - REST API creation.
+- `spring-boot-starter-data-jpa` - data persistence with JPA/hibernate.
+- `spring-boot-starter-security` - authenticationd and authorization.
+- `spring-boot-starter-test` - Support for automatized tests.
+- `spring-security-test` - Security test utility.
+- `spring-boot-devtools`- automatic reload in development.
+- `lombok` - generation of getters/setters, constructors, etc.
+
 
 
 
