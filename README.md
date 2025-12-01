@@ -239,6 +239,19 @@ The **VrumVrumhHealth** is a system intended to patients transport to health uni
 - Status appoitment accompaniment
 - Vehicle administration and records<!--Não sei dizer se isso seria 100% correto, aparentemente sim, mas vale a pena pesquisar depois-->
 
+The application exposes a **REST API** protected by **Spring Security + JWT** and it can be used by a dedicated frontend or by the HTML/JS pages present on the '/pages' folder of the project
+
+## Architecture
+- **Backend** Java 17 + SpringBoot 3 (REST API).
+- **Security** Spring Security with authentication based on JWT(Librarys 'Java-jwt' and 'jjwt').
+- **DataBase** MySQL(with docker using 'docker-compose.yaml').
+- **API documentation** Springodc OpenAPI (Swagger UI).
+
+## Technologies Used
+
+### Languages and build
+
+
 
 
 
