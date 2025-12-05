@@ -280,10 +280,35 @@ You need to make sure that all data conection with MySQL are coherent with `dock
 
   ## Running the Aplication
 
-  ### 1.Configure the GoogleCloudAPI ###
+  ### 1.Setting GoogleCloudAPI ###
   Be sure to properly configure the API
 
   On the root of the projecto (`VrumVrumHealth`) insert the GoogleCloudAPI key with the name `cred.json`
+
+  Insert your project ID on ´serve.js` file present on the root of the project, search for `projectID` variable in the file and insert the project ID
+
+  On the file `submit.js` present on `src/pages/js` insert your Bucket link of your GoogleCloud and the link of the storage on the project
+
+### 2.Upload the DataBase with DockerCompose
+On the root of the project (`VrumVrumHealth`), it exists a file called `docker-compose.yaml` that uploads a container **MYSQL**.
+
+Define the variables of the enviroment used on the file (`container_name`,`db_name`,`db_user`, `db_password`) ou create a `.env` file on the root, something like:
+
+```env
+container_name=
+db_name = your DataBase
+db_user = your username
+db_password= your password
+```
+
+followed by, upload the service:
+- `docker compose up - d`
+ 
+MySQL will be available on the port `3306` of the host.
+
+### 3. Run the Spring Boot aplication.
+
+
 
 
 
