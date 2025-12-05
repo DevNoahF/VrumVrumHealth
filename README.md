@@ -253,7 +253,7 @@ The application exposes a **REST API** protected by **Spring Security + JWT** an
 - Java 17
 - Maven ( Dependencies and build management)
 
-### Main Dependencies (based com `pom.xml`)
+### Main Dependencies (based on `pom.xml`)
 - `spring-boot-starter-web` - REST API creation.
 - `spring-boot-starter-data-jpa` - data persistence with JPA/hibernate.
 - `spring-boot-starter-security` - authenticationd and authorization.
@@ -261,6 +261,30 @@ The application exposes a **REST API** protected by **Spring Security + JWT** an
 - `spring-security-test` - Security test utility.
 - `spring-boot-devtools`- automatic reload in development.
 - `lombok` - generation of getters/setters, constructors, etc.
+
+## Enviroment Configuration
+
+### Requirements
+- **JDK 17** installed.
+- **Maven** installed or wrapper(`mvnw`/ `mvnw.cmd`).
+- **Docker** and **Docker Compose** installed(for MySQL DataBase).
+- **Node.js** installed
+- **GoogleStorageAPI** configured [Configuration can be done here](https://cloud.google.com/?hl=pt-BR)
+
+### Properties Configuration
+All Configuration can be done in `src/main/resources/application.properties`.
+
+You need to make sure that all data conection with MySQL are coherent with `docker-compose.yaml`, example:
+- URL, user, dataBase password
+- Dialect and properties JPA/Hibernate <!--Não sei oq dialeto qr dizer nesse caso-->
+
+  ## Running the Aplication
+
+  ### 1.Configure the GoogleCloudAPI ###
+  Be sure to properly configure the API
+
+  On the root of the projecto (`VrumVrumHealth`) insert the GoogleCloudAPI key with the name `cred.json`
+
 
 
 
